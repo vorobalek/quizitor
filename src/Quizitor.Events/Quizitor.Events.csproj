@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Update="appsettings.Development.json">
+            <DependentUpon>appsettings.json</DependentUpon>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\lib\Quizitor.Common\Quizitor.Common.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Data\Quizitor.Data.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Kafka\Quizitor.Kafka.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Logging\Quizitor.Logging.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Redis\Quizitor.Redis.csproj"/>
+    </ItemGroup>
+
+</Project>

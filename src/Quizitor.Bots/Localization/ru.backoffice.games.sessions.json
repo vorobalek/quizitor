@@ -1,0 +1,17 @@
+{
+  "Localization": {
+    "ru": {
+      "_BACKOFFICE_SESSION_LIST_BTN": "\uD83C\uDFAE Сессии",
+      "_BACKOFFICE_SESSIONS_TXT": "\uD83C\uDFAE <b>{0} :: Сессии</b>",
+      "_BACKOFFICE_CREATE_SESSION_BTN": "➕ Добавить сессию",
+      "_BACKOFFICE_EDIT_SESSION_BTN": "✏\uFE0F Редактировать",
+      "_BACKOFFICE_DELETE_SESSION_BTN": "\uD83D\uDDD1\uFE0F Удалить",
+      "_BACKOFFICE_SESSION_CREATED_TXT": "✅ <b>Создана сессия!</b>\n\nНовая сессия с именем <b>\"{0}\"</b> добавлена в игру <b>\"{1}\"</b>!",
+      "_BACKOFFICE_SESSION_NOT_CREATED_ERROR_TXT": "❌ <b>Не удалось добавить новую сессию</b>\n\nПроизошла внутренняя ошибка, из-за которой не удалось создать новую сессию. Попробуйте снова.",
+      "_BACKOFFICE_SESSION_VIEW_BTN": "✏\uFE0F {0}",
+      "_BACKOFFICE_SESSION_VIEW_TXT": "\uD83C\uDFAE <b>{0} :: {1}</b>\n\nАктивные пользователи: <b>{2}</b>\nОтветы пользователей: <b>{3}</b>",
+      "_BACKOFFICE_SESSION_GET_QR_ERROR_TXT": "❌ Не удалось создать QR код для сессии. Произошла внутренняя ошибка. Попробуйте снова.",
+      "_BACKOFFICE_SESSION_GET_QR_BTN": "\uD83D\uDD33 QR код для подключения"
+    }
+  }
+}

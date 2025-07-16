@@ -1,0 +1,10 @@
+{
+  "Localization": {
+    "ru": {
+      "_BOT_COMMAND_LOAD_BALANCER_START": "Получить своего игрового бота",
+      "_BOT_COMMAND_GAME_ADMIN_START": "Начать работу с ботом",
+      "_BOT_COMMAND_GAME_SERVER_START": "Начать работу с ботом",
+      "_BOT_COMMAND_BACKOFFICE_START": "Начать работу с ботом"
+    }
+  }
+}

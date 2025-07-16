@@ -1,0 +1,37 @@
+name: Build and Push Docker Image to Docker Hub
+
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build all images
+        env:
+          IMAGE_TAG: latest
+        run: |
+          for service in migrator api bots sender events; do
+            IMAGE_NAME=vorobalek/quizitor-$service
+            docker build -t "$IMAGE_NAME:$IMAGE_TAG" . --pull --target "$service"
+          done
+
+      - name: Push all images
+        env:
+          IMAGE_TAG: latest
+        run: |
+          for service in migrator api bots sender events; do
+            IMAGE_NAME=vorobalek/quizitor-$service
+            docker push "$IMAGE_NAME:$IMAGE_TAG"
+          done

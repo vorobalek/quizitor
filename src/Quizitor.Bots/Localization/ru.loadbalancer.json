@@ -1,0 +1,12 @@
+{
+  "Localization": {
+    "ru": {
+      "_LOAD_BALANCER_NO_GAME_SERVER_AVAILABLE_TXT": "\uD83D\uDE1E <b>В настоящее время все операторы заняты...</b>\n\nСейчас нет подходящих игровых ботов. Попробуйте позже, или обратитесь за помощью к организаторам.",
+      "_LOAD_BALANCER_NO_GAME_ADMIN_AVAILABLE_TXT": "\uD83D\uDE1E <b>В настоящее время все операторы заняты...</b>\n\nСейчас нет подходящих ботов-администраторов. Попробуйте позже, или обратитесь за помощью к организаторам.",
+      "_LOAD_BALANCER_GAME_SERVER_REDIRECT_TXT": "\uD83D\uDC4B\uD83C\uDFFB <b>Привет! Ваш игровой бот – <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nНажмите на кнопку \"Переключиться на бота\" ниже \uD83D\uDC47\uD83C\uDFFB и <b>обязательно отправьте боту /start</b>.\n\nУвидимся там!",
+      "_LOAD_BALANCER_GAME_SERVER_REDIRECT_BTN": "\uD83C\uDFC4 Переключиться на бота!",
+      "_LOAD_BALANCER_GAME_ADMIN_REDIRECT_TXT": "\uD83D\uDC4B\uD83C\uDFFB <b>Привет! Ваш бот-администратор – <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nНажмите на кнопку \"Переключиться на бота\" ниже \uD83D\uDC47\uD83C\uDFFB и <b>обязательно отправьте боту /start</b>.\n\nУвидимся там!",
+      "_LOAD_BALANCER_GAME_ADMIN_REDIRECT_BTN": "\uD83C\uDFC4 Переключиться на бота!"
+    }
+  }
+}

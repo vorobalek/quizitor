@@ -1,0 +1,27 @@
+﻿{
+  "profiles": {
+    "Quizitor.Bots": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PORT": "8081",
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
+        "TELEGRAM_BOT_TOKEN": "",
+        "AUTHORIZED_USER_IDS": "",
+        "TELEGRAM_WEBHOOK_SECRET": "",
+        "WORKING_DIRECTORY": "",
+        "CRYPTO_PASSWORD": "",
+        "QR_CODE_EXPIRATION_SECONDS": "10800",
+        "LOCALE": "ru",
+        "SENTRY_DSN": "",
+        "KAFKA_BOOTSTRAP_SERVERS": "localhost:9092",
+        "KAFKA_CONSUMER_GROUP_ID": "Quizitor.Bots",
+        "KAFKA_DEFAULT_NUM_PARTITIONS": "3",
+        "KAFKA_DEFAULT_REPLICATION_FACTOR": "1",
+        "REDIS_CONNECTION_STRING": "localhost:6379",
+        "REDIS_KEY_PREFIX": "Quizitor"
+      }
+    }
+  }
+}

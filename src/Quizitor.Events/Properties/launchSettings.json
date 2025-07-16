@@ -1,0 +1,17 @@
+﻿{
+  "profiles": {
+    "Quizitor.Events": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PORT": "8083",
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
+        "SENTRY_DSN": "",
+        "KAFKA_BOOTSTRAP_SERVERS": "localhost:9092",
+        "REDIS_CONNECTION_STRING": "localhost:6379",
+        "REDIS_KEY_PREFIX": "Quizitor"
+      }
+    }
+  }
+}

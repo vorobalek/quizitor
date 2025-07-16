@@ -1,0 +1,23 @@
+{
+  "Localization": {
+    "ru": {
+      "_BACKOFFICE_GAMES_BTN": "\uD83C\uDFB2 Игры",
+      "_BACKOFFICE_GAMES_TXT": "<b>\uD83C\uDFB2 Игры</b>",
+      "_BACKOFFICE_CREATE_GAME_BTN": "➕ Добавить игру",
+      "_BACKOFFICE_GAME_CREATED_TXT": "✅ <b>Игра добавлена!</b>\n\nНовая игра с названием <b>\"{0}\"</b> добавлена!",
+      "_BACKOFFICE_EDIT_GAME_BTN": "✏\uFE0F Редактировать",
+      "_BACKOFFICE_DELETE_GAME_BTN": "\uD83D\uDDD1\uFE0F Удалить",
+      "_BACKOFFICE_DELETE_GAME_CONFIRMATION_TXT": "⚠\uFE0F <b>Вы хотите удалить игру \"{0}\"?</b>\n\nВместе с игрой будут удалены:\n• Раунды: <b>{1}</b>\n• Вопросы: <b>{2}</b>\n• Варианты ответов: <b>{3}</b>\n• Дополнительные баллы: <b>{4}</b>\n• Сессии: <b>{5}</b>\n• Ответы пользователей: <b>{6}</b>\n• История запусков вопросов: <b>{7}</b>\n• Активные задачи на напоминание оставшегося времени вопроса: <b>{8}</b>\n• Активные задачи на остановку вопроса: <b>{9}</b>\n\nТакже:\n• Будут отключены от активных сессий пользователи: <b>{10}</b>\n\n‼\uFE0F <b>Удаленные данные нельзя будет восстановить.</b>",
+      "_BACKOFFICE_DELETE_GAME_CONFIRMATION_BTN": "Да, удалить игру",
+      "_BACKOFFICE_FAKE_CONFIRMATION_1_BTN": "Нет",
+      "_BACKOFFICE_FAKE_CONFIRMATION_2_BTN": "Я передумал",
+      "_BACKOFFICE_FAKE_CONFIRMATION_3_BTN": "Не сейчас",
+      "_BACKOFFICE_FAKE_CONFIRMATION_4_BTN": "Подумаю ещё",
+      "_BACKOFFICE_FAKE_CONFIRMATION_5_BTN": "Ни за что",
+      "_BACKOFFICE_GAME_NOT_CREATED_ERROR_TXT": "❌ <b>Не удалось добавить новую игру</b>\n\nПроизошла внутренняя ошибка, из-за которой не удалось создать новую игру. Попробуйте снова.",
+      "_BACKOFFICE_GAME_DELETED_CLB": "✅ Игра с названием \"{0}\" удалена!",
+      "_BACKOFFICE_GAME_VIEW_BTN": "✏\uFE0F {0}",
+      "_BACKOFFICE_GAME_VIEW_TXT": "<b>\uD83C\uDFB2 {0}</b>"
+    }
+  }
+}

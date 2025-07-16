@@ -1,0 +1,5 @@
+using Quizitor.Redis.Contracts;
+
+namespace Quizitor.Redis.Storage.Rating;
+
+public interface IRatingShortFinalRedisStorage : IRatingRedisStorage<RatingShortDto>;

@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "Quizitor.Migrator": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
+        "LOCALE": "ru",
+        "SENTRY_DSN": ""
+      }
+    }
+  }
+}

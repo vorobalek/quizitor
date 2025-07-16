@@ -1,0 +1,253 @@
+﻿name:
+  quizitor
+
+networks:
+  postgres-lan:
+    driver: bridge
+  redis-lan:
+    driver: bridge
+  kafka-lan:
+    driver: bridge
+
+services:
+  
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    environment:
+      PGUSER: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    networks:
+      - postgres-lan
+
+  redis:
+    image: redis:7.4.1
+    restart: unless-stopped
+    networks:
+      - redis-lan
+
+  kafka:
+    image: apache/kafka:3.9.0
+    restart: unless-stopped
+    volumes:
+      - ./etc/kafka/custom.log4j.properties:/opt/kafka/config/custom.log4j.properties:ro
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "unset JMX_PORT; \
+        /opt/kafka/bin/kafka-topics.sh --create --topic health-check-topic --if-not-exists --bootstrap-server kafka:9092 && \
+        echo 'test-message' | /opt/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka:9092 --topic health-check-topic > /dev/null && \
+        /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic health-check-topic --from-beginning --max-messages 1 | grep 'test-message' && \
+        /opt/kafka/bin/kafka-topics.sh --delete --topic health-check-topic --bootstrap-server kafka:9092 --if-exists"
+      ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    environment:
+      KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/opt/kafka/config/custom.log4j.properties"
+      KAFKA_LOG_DIRS: '/var/lib/kafka/data'
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: 'CONTROLLER://:9093,PLAINTEXT://:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_NUM_PARTITIONS: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_LOG_RETENTION_MS: 3600000
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 5000
+    networks:
+      - kafka-lan
+
+  kafka-ui:
+    depends_on:
+      kafka:
+        condition: service_healthy
+    image: ghcr.io/kafbat/kafka-ui:v1.1.0
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: kafka
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+    networks:
+      - kafka-lan
+
+  migrator:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    image: vorobalek/quizitor-migrator:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrator
+      tags:
+        - vorobalek/quizitor-migrator:local
+    env_file:
+      - path: ./env/migrator/.env.local
+        required: true
+    networks:
+      - postgres-lan
+
+  api:
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      kafka:
+        condition: service_healthy
+    image: vorobalek/quizitor-api:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: api
+      tags:
+        - vorobalek/quizitor-api:local
+    ports:
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:80/health | grep 'Healthy'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    env_file:
+      - path: ./env/api/.env.local
+        required: true
+    networks:
+      - postgres-lan
+      - kafka-lan
+
+  bots:
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+    image: vorobalek/quizitor-bots:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: bots
+      tags:
+        - vorobalek/quizitor-bots:local
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:80/health | grep 'Healthy'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    env_file:
+      - path: ./env/bots/.env.local
+        required: true
+    networks:
+      - postgres-lan
+      - kafka-lan
+      - redis-lan
+
+  sender:
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      kafka:
+        condition: service_healthy
+    image: vorobalek/quizitor-sender:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: sender
+      tags:
+        - vorobalek/quizitor-sender:local
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:80/health | grep 'Healthy'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    env_file:
+      - path: ./env/sender/.env.local
+        required: true
+    networks:
+      - postgres-lan
+      - kafka-lan
+
+  events:
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+      kafka:
+        condition: service_healthy
+    image: vorobalek/quizitor-events:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: events
+      tags:
+        - vorobalek/quizitor-events:local
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:80/health | grep 'Healthy'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    env_file:
+      - path: ./env/events/.env.local
+        required: true
+    networks:
+      - postgres-lan
+      - kafka-lan
+      - redis-lan

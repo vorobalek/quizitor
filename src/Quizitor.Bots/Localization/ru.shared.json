@@ -1,0 +1,15 @@
+{
+  "Localization": {
+    "ru": {
+      "_SHARED_NOT_IMPLEMENTED_TXT": "❌ Ещё не работает!",
+      "_SHARED_YES_TXT": "Да",
+      "_SHARED_NO_TXT": "Нет",
+      "_SHARED_BACK_BTN": "↩\uFE0F Назад",
+      "_SHARED_PAGE_BACK_BTN": "◀\uFE0F Страница {0}",
+      "_SHARED_PAGE_NEXT_BTN": "Страница {0} ▶\uFE0F",
+      "_SHARED_UNAUTHORIZED_TXT": "❌ <b>Отказано в доступе!</b>\n\nВозможно, отсутствует одно или несколько разрешений\n\n<b>{0}</b>.\n\nОбратитесь к системному администратору.",
+      "_SHARED_UNAUTHORIZED_CLB": "❌ Отказано в доступе!\n\nВозможно, отсутствует одно или несколько разрешений:\n\n{0}.\n\nОбратитесь к системному администратору.",
+      "_SHARED_QR_CODE_IS_EXPIRED_TXT": "❌ <b>Этот QR код устарел!</b>"
+    }
+  }
+}

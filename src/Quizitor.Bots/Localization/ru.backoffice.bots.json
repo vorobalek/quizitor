@@ -1,0 +1,19 @@
+{
+  "Localization": {
+    "ru": {
+      "_BACKOFFICE_BOTS_BTN": "\uD83E\uDD16 Боты",
+      "_BACKOFFICE_BOTS_TXT": "<b>\uD83E\uDD16 Боты</b>",
+      "_BACKOFFICE_NEW_BOT_BTN": "➕ Добавить",
+      "_BACKOFFICE_BOT_VIEW_BTN": "✏\uFE0F {0} [{1}]",
+      "_BACKOFFICE_BOT_VIEW_TXT": "<b>\uD83E\uDD16 Бот :: {0}</b>\n\nСтатус: <b>{1}</b>\nТип: <b>{2}</b>\nСсылка: <b><a href=\"https://t.me/{3}\">@{3}</a></b>\nИгнорировать пропущенные: <b>{4}</b>\nПодключенных игроков: <b>{5}</b>\nПодключенных ведущих: <b>{6}</b>",
+      "_BACKOFFICE_BOT_ACTIVE_TXT": "✅ Запущен",
+      "_BACKOFFICE_BOT_ACTIVATE_TXT": "✅ Запустить",
+      "_BACKOFFICE_BOT_STARTED_TXT": "✅ Бот \"{0}\" запущен!",
+      "_BACKOFFICE_BOT_INACTIVE_TXT": "❌ Остановлен",
+      "_BACKOFFICE_BOT_INACTIVATE_TXT": "❌ Остановить",
+      "_BACKOFFICE_BOT_STOPPED_TXT": "❌ Бот \"{0}\" остановлен!",
+      "_BACKOFFICE_BOT_SWITCH_TYPE_BTN": "Тип: {0} ➡\uFE0F {1}",
+      "_BACKOFFICE_BOT_SWITCH_DROP_PENDING_BTN": "Игнорировать пропущенные: {0} ➡\uFE0F {1}"
+    }
+  }
+}

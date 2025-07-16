@@ -1,0 +1,20 @@
+﻿{
+  "profiles": {
+    "Quizitor.Api": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PORT": "8080",
+        "DOMAIN": "",
+        "PATH_BASE": "",
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
+        "TELEGRAM_BOT_TOKEN": "",
+        "TELEGRAM_WEBHOOK_SECRET": "",
+        "LOCALE": "ru",
+        "SENTRY_DSN": "",
+        "KAFKA_BOOTSTRAP_SERVERS": "localhost:9092"
+      }
+    }
+  }
+}

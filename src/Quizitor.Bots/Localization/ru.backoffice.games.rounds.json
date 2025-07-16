@@ -1,0 +1,15 @@
+{
+  "Localization": {
+    "ru": {
+      "_BACKOFFICE_ROUND_LIST_BTN": "\uD83D\uDDC2\uFE0F Раунды",
+      "_BACKOFFICE_ROUNDS_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: Раунды</b>",
+      "_BACKOFFICE_CREATE_ROUND_BTN": "➕ Добавить раунд",
+      "_BACKOFFICE_EDIT_ROUND_BTN": "✏\uFE0F Редактировать",
+      "_BACKOFFICE_DELETE_ROUND_BTN": "\uD83D\uDDD1\uFE0F Удалить",
+      "_BACKOFFICE_ROUND_CREATED_TXT": "✅ <b>Раунд добавлен!</b>\n\nНовый раунд с названием <b>\"{0}\"</b> добавлен в игру <b>\"{1}\"</b>!",
+      "_BACKOFFICE_ROUND_NOT_CREATED_ERROR_TXT": "❌ <b>Не удалось добавить новый раунд</b>\n\nПроизошла внутренняя ошибка, из-за которой не удалось создать новый раунд. Попробуйте снова.",
+      "_BACKOFFICE_ROUND_VIEW_BTN": "✏\uFE0F {0}. {1}",
+      "_BACKOFFICE_ROUND_VIEW_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: {1}</b>\n\n<b>Описание:</b> {2}\n\n<b>Темы вопросов:</b>\n{3}"
+    }
+  }
+}

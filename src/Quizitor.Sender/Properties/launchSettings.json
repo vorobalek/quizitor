@@ -1,0 +1,20 @@
+﻿{
+  "profiles": {
+    "Quizitor.Sender": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "PORT": "8082",
+        "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
+        "TELEGRAM_BOT_TOKEN": "",
+        "WORKING_DIRECTORY": "",
+        "SENTRY_DSN": "",
+        "KAFKA_BOOTSTRAP_SERVERS": "localhost:9092",
+        "KAFKA_CONSUMER_GROUP_ID": "Quizitor.Sender",
+        "KAFKA_DEFAULT_NUM_PARTITIONS": "3",
+        "KAFKA_DEFAULT_REPLICATION_FACTOR": "1"
+      }
+    }
+  }
+}

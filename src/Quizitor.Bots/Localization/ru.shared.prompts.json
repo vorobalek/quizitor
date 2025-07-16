@@ -1,0 +1,31 @@
+{
+  "Localization": {
+    "ru": {
+      "_SHARED_PROMPT_WRONG_CLB": "❌ От вас уже ожидается: {0}",
+      "_SHARED_PROMPT_CANCEL_BTN": "❌ Отменить",
+      "_SHARED_NO_PROMPT_TO_CANCEL_CLB": "\uD83E\uDD37\uD83C\uDFFC Нечего отменять!",
+      "_SHARED_UNABLE_PROMPT_TO_CANCEL_CLB": "❌ Нельзя отменить: {0}",
+      "_SHARED_PROMPT_BackOfficeNewGameTitle_CLB": "Название новой игры",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewGameTitle_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите название для новой игры</b>\n\nВаше следующее текстовое сообщение будет использовано как название для новой игры.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewGameTitle_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Создание новой игры отменено</b>",
+      "_SHARED_PROMPT_BackOfficeNewRoundTitle_CLB": "Название нового раунда",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewRoundTitle_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите название для нового раунда</b>\n\nВаше следующее текстовое сообщение будет использовано как название для нового раунда.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewRoundTitle_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Создание нового раунда отменено</b>",
+      "_SHARED_PROMPT_BackOfficeNewSessionName_CLB": "Имя новой сессии",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewSessionName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите имя для новой сессии</b>\n\nВаше следующее текстовое сообщение будет использовано как имя для новой сессии.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewSessionName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Добавление новой сессии отменено</b>",
+      "_SHARED_PROMPT_BackOfficeNewMailingName_CLB": "Название новой рассылки",
+      "_SHARED_PROMPT_BackOfficeNewMailingText_CLB": "Текст новой рассылки",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewMailingName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите название для новой рассылки</b>\n\nВаше следующее текстовое сообщение будет использовано как название для новой рассылки.",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewMailingText_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите текст для новой рассылки</b>\n\nВаше следующее текстовое сообщение будет использовано как текст для новой рассылки.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewMailingName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Создание новой рассылки отменено</b>",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewMailingText_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Создание новой рассылки отменено</b>",
+      "_SHARED_PROMPT_GameServerAnswer_CLB": "Ответ на вопрос",
+      "_SHARED_PROMPT_MESSAGE_GameServerAnswer_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Сначала ответьте на вопрос</b>\n\nВаше следующее текстовое сообщение будет принято в качестве ответа на текущий вопрос.",
+      "_SHARED_PROMPT_CANCELLED_GameServerAnswer_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Ответ на вопрос отменен!</b>\n\nИ это не нормально. Система не должна была позволить вам такое.",
+      "_SHARED_PROMPT_GameServerNewTeamName_CLB": "Название команды",
+      "_SHARED_PROMPT_MESSAGE_GameServerNewTeamName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Укажите название для новой команды</b>\n\nВаше следующее текстовое сообщение будет использовано как название для новой команды.\n\n<i>Запущенный вопрос автоматически отменит создание новой команды.</i>",
+      "_SHARED_PROMPT_CANCELLED_GameServerNewTeamName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Создание новой команды отменено</b>"
+    }
+  }
+}

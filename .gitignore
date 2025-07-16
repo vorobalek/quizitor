@@ -1,0 +1,14 @@
+bin/
+obj/
+riderModule.iml
+/.idea/
+/_ReSharper.Caches/
+Quizitor.sln.DotSettings.user
+env/api/.env.local
+env/bots/.env.local
+env/events/.env.local
+env/migrator/.env.local
+env/sender/.env.local
+env/sla/.env.local
+var/
+.DS_Store
