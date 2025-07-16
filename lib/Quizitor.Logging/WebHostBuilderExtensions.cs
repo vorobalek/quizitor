@@ -78,7 +78,9 @@ public static class WebHostBuilderExtensions
             throw new NotImplementedException();
         }
 
+        // ReSharper disable once UnassignedGetOnlyAutoProperty
         public bool IsEnabled { get; }
+
         public void ConfigureScope(Action<Scope> configureScope)
         {
             throw new NotImplementedException();
@@ -134,17 +136,17 @@ public static class WebHostBuilderExtensions
             throw new NotImplementedException();
         }
 
-        public ISpan? GetSpan()
+        public ISpan GetSpan()
         {
             throw new NotImplementedException();
         }
 
-        public SentryTraceHeader? GetTraceHeader()
+        public SentryTraceHeader GetTraceHeader()
         {
             throw new NotImplementedException();
         }
 
-        public BaggageHeader? GetBaggage()
+        public BaggageHeader GetBaggage()
         {
             throw new NotImplementedException();
         }

@@ -139,9 +139,9 @@ internal sealed class SubmissionRepository(
         return dbContext
             .Submissions
             .CountAsync(x =>
-                x.QuestionId == questionId &&
-                x.SessionId == sessionId &&
-                x.Score > 0,
+                    x.QuestionId == questionId &&
+                    x.SessionId == sessionId &&
+                    x.Score > 0,
                 cancellationToken);
     }
 }

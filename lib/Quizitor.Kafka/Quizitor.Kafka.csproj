@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Confluent.Kafka" />
+        <PackageReference Include="Confluent.Kafka"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Quizitor.Common\Quizitor.Common.csproj" />
+        <ProjectReference Include="..\Quizitor.Common\Quizitor.Common.csproj"/>
     </ItemGroup>
 
 </Project>

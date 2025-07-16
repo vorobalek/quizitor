@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Telegram.Bot.AspNetCore" />
+        <PackageReference Include="Telegram.Bot.AspNetCore"/>
     </ItemGroup>
 
 </Project>

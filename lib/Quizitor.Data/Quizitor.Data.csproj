@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="EFCore.NamingConventions" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+        <PackageReference Include="EFCore.NamingConventions"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Quizitor.Common\Quizitor.Common.csproj" />
+        <ProjectReference Include="..\Quizitor.Common\Quizitor.Common.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -21,7 +21,7 @@
             <DependentUpon>QuestionRule.cs</DependentUpon>
         </Compile>
         <Compile Update="Entities\QuestionRule.FirstAcceptedAnswer.cs">
-          <DependentUpon>QuestionRule.cs</DependentUpon>
+            <DependentUpon>QuestionRule.cs</DependentUpon>
         </Compile>
     </ItemGroup>
 
