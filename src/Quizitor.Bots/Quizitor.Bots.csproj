@@ -26,16 +26,16 @@
             <DependentUpon>ru.backoffice.json</DependentUpon>
         </Content>
         <Content Update="Localization\ru.shared.prompts.json">
-          <DependentUpon>ru.shared.json</DependentUpon>
+            <DependentUpon>ru.shared.json</DependentUpon>
         </Content>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\lib\Quizitor.Data\Quizitor.Data.csproj" />
-        <ProjectReference Include="..\..\lib\Quizitor.Kafka\Quizitor.Kafka.csproj" />
-        <ProjectReference Include="..\..\lib\Quizitor.Localization\Quizitor.Localization.csproj" />
-        <ProjectReference Include="..\..\lib\Quizitor.Logging\Quizitor.Logging.csproj" />
-        <ProjectReference Include="..\..\lib\Quizitor.Redis\Quizitor.Redis.csproj" />
+        <ProjectReference Include="..\..\lib\Quizitor.Data\Quizitor.Data.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Kafka\Quizitor.Kafka.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Localization\Quizitor.Localization.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Logging\Quizitor.Logging.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Redis\Quizitor.Redis.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -54,9 +54,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" />
-        <PackageReference Include="ZXing.Net" />
-        <PackageReference Include="ZXing.Net.Bindings.SkiaSharp" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies"/>
+        <PackageReference Include="ZXing.Net"/>
+        <PackageReference Include="ZXing.Net.Bindings.SkiaSharp"/>
     </ItemGroup>
 
     <ItemGroup>

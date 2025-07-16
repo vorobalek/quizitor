@@ -7,8 +7,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\lib\Quizitor.Data\Quizitor.Data.csproj" />
-        <ProjectReference Include="..\..\lib\Quizitor.Localization\Quizitor.Localization.csproj" />
+        <ProjectReference Include="..\..\lib\Quizitor.Data\Quizitor.Data.csproj"/>
+        <ProjectReference Include="..\..\lib\Quizitor.Localization\Quizitor.Localization.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -18,8 +18,8 @@ internal sealed class FirstAcceptedAnswerQuestionRuleApplier(
                 submission.QuestionId,
                 submission.SessionId,
                 cancellationToken);
-        
-        return correctSubmissionsCount <= questionRule.Limit 
+
+        return correctSubmissionsCount <= questionRule.Limit
             ? questionRule.Cost
             : null;
     }
