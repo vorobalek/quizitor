@@ -56,15 +56,17 @@ internal sealed class GameListBo(
                     PageSize,
                     cancellationToken);
 
+            var gamesCount = await dbContextProvider
+                .Games
+                .CountAsync(cancellationToken);
+
             var gamePageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Games
-                            .CountAsync(cancellationToken)) / PageSize));
+                    Convert.ToDouble(gamesCount) / PageSize));
 
             return IGameListBackOfficeContext.Create(
                 games,
+                gamesCount,
                 gamePageNumber,
                 gamePageCount,
                 backOfficeContext);
@@ -80,7 +82,9 @@ internal sealed class GameListBo(
     {
         if (context is null) return Task.CompletedTask;
 
-        var text = TR.L + "_BACKOFFICE_GAMES_TXT";
+        var text = string.Format(
+            TR.L + "_BACKOFFICE_GAMES_TXT",
+            context.Base.GamesCount);
         var keyboard = Keyboards.GameList(
             context.Base.Games,
             context.Base.GamePageNumber,

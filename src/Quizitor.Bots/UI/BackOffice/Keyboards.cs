@@ -19,15 +19,21 @@ namespace Quizitor.Bots.UI.BackOffice;
 
 internal static class Keyboards
 {
-    public static readonly InlineKeyboardMarkup? MainPage =
-        new([
-            [Buttons.BotList, Buttons.UserList],
-            [Buttons.MailingList],
-            [Buttons.GameList, Buttons.Service]
-        ]);
-
     public static readonly InlineKeyboardMarkup ServicePage =
         new([[Buttons.UnlinkSessions, Buttons.Load100], [Buttons.MainPage]]);
+
+    public static InlineKeyboardMarkup MainPage(
+        int botsCount,
+        int usersCount,
+        int mailingsCount,
+        int gamesCount)
+    {
+        return new InlineKeyboardMarkup([
+            [Buttons.BotList(botsCount), Buttons.UserList(usersCount)],
+            [Buttons.MailingList(mailingsCount)],
+            [Buttons.GameList(gamesCount), Buttons.Service]
+        ]);
+    }
 
     public static InlineKeyboardMarkup BotList(
         IEnumerable<Bot> bots,
@@ -159,12 +165,14 @@ internal static class Keyboards
 
     public static InlineKeyboardMarkup GameView(
         int gameId,
-        int gamePageNumber)
+        int gamePageNumber,
+        int roundsCount,
+        int sessionsCount)
     {
         return new InlineKeyboardMarkup([
             [Buttons.EditGame, Buttons.DeleteGame(gameId, gamePageNumber)],
-            [Buttons.RoundList(gameId, gamePageNumber)],
-            [Buttons.SessionList(gameId, gamePageNumber)],
+            [Buttons.RoundList(roundsCount, gameId, gamePageNumber)],
+            [Buttons.SessionList(sessionsCount, gameId, gamePageNumber)],
             [Buttons.BackToGameList(gamePageNumber)]
         ]);
     }

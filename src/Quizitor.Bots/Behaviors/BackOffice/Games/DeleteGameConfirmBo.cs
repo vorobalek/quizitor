@@ -85,16 +85,18 @@ internal sealed class DeleteGameConfirmBo(
                     GameListBo.PageSize,
                     cancellationToken);
 
+            var gamesCount = await dbContextProvider
+                .Games
+                .CountAsync(cancellationToken) - 1;
+
             var gamePageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        (await dbContextProvider
-                            .Games
-                            .CountAsync(cancellationToken) - 1) / GameListBo.PageSize)));
+                    Convert.ToDouble(gamesCount) / GameListBo.PageSize));
 
             return IDeleteGameConfirmBackOfficeContext.Create(
                 game,
                 games,
+                gamesCount,
                 gamePageNumber,
                 gamePageCount,
                 backOfficeContext);

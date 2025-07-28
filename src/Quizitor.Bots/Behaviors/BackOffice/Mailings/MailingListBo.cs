@@ -56,15 +56,17 @@ internal sealed class MailingListBo(
                     PageSize,
                     cancellationToken);
 
+            var mailingsCount = await dbContextProvider
+                .Mailings
+                .CountAsync(cancellationToken);
+
             var mailingPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Mailings
-                            .CountAsync(cancellationToken)) / PageSize));
+                    Convert.ToDouble(mailingsCount) / PageSize));
 
             return IMailingListBackOfficeContext.Create(
                 mailings,
+                mailingsCount,
                 mailingPageNumber,
                 mailingPageCount,
                 backOfficeContext);
@@ -80,7 +82,9 @@ internal sealed class MailingListBo(
     {
         if (context is null) return Task.CompletedTask;
 
-        var text = TR.L + "_BACKOFFICE_MAILINGS_TXT";
+        var text = string.Format(
+            TR.L + "_BACKOFFICE_MAILINGS_TXT",
+            context.Base.MailingsCount);
         var keyboard = Keyboards.MailingList(
             context.Base.Mailings,
             context.Base.MailingPageNumber,

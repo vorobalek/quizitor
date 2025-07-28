@@ -96,6 +96,7 @@ internal interface ICreateSessionBackOfficeContext : IBackOfficeContext
         string SessionName { get; }
         Game Game { get; }
         Session[] Sessions { get; }
+        int SessionsCount { get; }
         int GamePageNumber { get; }
         int SessionPageNumber { get; }
         int SessionPageCount { get; }
@@ -104,6 +105,7 @@ internal interface ICreateSessionBackOfficeContext : IBackOfficeContext
             string sessionName,
             Game game,
             Session[] sessions,
+            int sessionsCount,
             int gamePageNumber,
             int sessionPageNumber,
             int sessionPageCount)
@@ -112,6 +114,7 @@ internal interface ICreateSessionBackOfficeContext : IBackOfficeContext
                 sessionName,
                 game,
                 sessions,
+                sessionsCount,
                 gamePageNumber,
                 sessionPageNumber,
                 sessionPageCount);
@@ -121,6 +124,7 @@ internal interface ICreateSessionBackOfficeContext : IBackOfficeContext
             string SessionName,
             Game Game,
             Session[] Sessions,
+            int SessionsCount,
             int GamePageNumber,
             int SessionPageNumber,
             int SessionPageCount) : INewSession;

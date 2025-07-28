@@ -1,8 +1,8 @@
 {
   "Localization": {
     "ru": {
-      "_BACKOFFICE_SESSION_LIST_BTN": "\uD83C\uDFAE Сессии",
-      "_BACKOFFICE_SESSIONS_TXT": "\uD83C\uDFAE <b>{0} :: Сессии</b>",
+      "_BACKOFFICE_SESSION_LIST_BTN": "\uD83C\uDFAE Сессии ({0})",
+      "_BACKOFFICE_SESSIONS_TXT": "\uD83C\uDFAE <b>{0} :: Сессии ({1})</b>",
       "_BACKOFFICE_CREATE_SESSION_BTN": "➕ Добавить сессию",
       "_BACKOFFICE_EDIT_SESSION_BTN": "✏\uFE0F Редактировать",
       "_BACKOFFICE_DELETE_SESSION_BTN": "\uD83D\uDDD1\uFE0F Удалить",

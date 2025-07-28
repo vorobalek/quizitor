@@ -1,8 +1,8 @@
 {
   "Localization": {
     "ru": {
-      "_BACKOFFICE_ROUND_LIST_BTN": "\uD83D\uDDC2\uFE0F Раунды",
-      "_BACKOFFICE_ROUNDS_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: Раунды</b>",
+      "_BACKOFFICE_ROUND_LIST_BTN": "\uD83D\uDDC2\uFE0F Раунды ({0})",
+      "_BACKOFFICE_ROUNDS_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: Раунды ({1})</b>",
       "_BACKOFFICE_CREATE_ROUND_BTN": "➕ Добавить раунд",
       "_BACKOFFICE_EDIT_ROUND_BTN": "✏\uFE0F Редактировать",
       "_BACKOFFICE_DELETE_ROUND_BTN": "\uD83D\uDDD1\uFE0F Удалить",

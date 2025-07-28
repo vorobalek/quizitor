@@ -42,15 +42,17 @@ internal abstract class BotListBo<TContext>(
                 PageSize,
                 cancellationToken);
 
+        var botsCount = await dbContextProvider
+            .Bots
+            .CountAsync(cancellationToken);
+
         var botPageCount = Convert.ToInt32(
             Math.Ceiling(
-                Convert.ToDouble(
-                    await dbContextProvider
-                        .Bots
-                        .CountAsync(cancellationToken)) / PageSize));
+                Convert.ToDouble(botsCount) / PageSize));
 
         return IBotListBackOfficeContext.Create(
             bots,
+            botsCount,
             botPageNumber,
             botPageCount,
             backOfficeContext);
@@ -67,7 +69,9 @@ internal abstract class BotListBo<TContext>(
                 context.Base.UpdateContext,
                 context.Base.TelegramUser.Id,
                 context.MessageId,
-                TR.L + "_BACKOFFICE_BOTS_TXT",
+                string.Format(
+                    TR.L + "_BACKOFFICE_BOTS_TXT",
+                    context.Base.BotsCount),
                 ParseMode.Html,
                 replyMarkup: Keyboards.BotList(
                     context.Base.Bots,

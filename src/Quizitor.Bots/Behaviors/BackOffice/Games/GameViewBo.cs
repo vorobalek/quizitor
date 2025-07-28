@@ -44,7 +44,10 @@ internal sealed class GameViewBo(
                 ParseMode.Html,
                 replyMarkup: Keyboards.GameView(
                     context.Base.Game.Id,
-                    context.Base.GamePageNumber), cancellationToken: cancellationToken);
+                    context.Base.GamePageNumber,
+                    context.Base.RoundsCount,
+                    context.Base.SessionsCount),
+                cancellationToken: cancellationToken);
     }
 
     protected override async Task<IGameViewBackOfficeContext?> PrepareContextAsync(
@@ -63,9 +66,14 @@ internal sealed class GameViewBo(
             int.TryParse(gamePageNumberString, out var gamePageNumber) &&
             await dbContextProvider.Games.GetByIdOrDefaultAsync(gameId, cancellationToken) is { } game)
         {
+            var roundsCount = await dbContextProvider.Rounds.CountByGameIdAsync(gameId, cancellationToken);
+            var sessionsCount = await dbContextProvider.Sessions.CountByGameIdAsync(gameId, cancellationToken);
+
             return IGameViewBackOfficeContext.Create(
                 game,
                 gamePageNumber,
+                roundsCount,
+                sessionsCount,
                 backOfficeContext);
         }
 

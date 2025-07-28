@@ -8,17 +8,20 @@ namespace Quizitor.Bots.Behaviors.BackOffice.Users.Infrastructure;
 internal interface IUserListBackOfficeContext : IBackOfficeContext
 {
     User[] Users { get; }
+    int UsersCount { get; }
     int UserPageNumber { get; }
     int UserPageCount { get; }
 
     static IUserListBackOfficeContext Create(
         User[] users,
+        int usersCount,
         int userPageNumber,
         int userPageCount,
         IBackOfficeContext baseContext)
     {
         return new UserListBackOfficeContext(
             users,
+            usersCount,
             userPageNumber,
             userPageCount,
             baseContext.UpdateContext,
@@ -31,6 +34,7 @@ internal interface IUserListBackOfficeContext : IBackOfficeContext
 
     private record UserListBackOfficeContext(
         User[] Users,
+        int UsersCount,
         int UserPageNumber,
         int UserPageCount,
         UpdateContext UpdateContext,

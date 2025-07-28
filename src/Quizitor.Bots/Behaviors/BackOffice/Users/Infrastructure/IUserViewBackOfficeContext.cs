@@ -5,7 +5,7 @@ using Quizitor.Kafka.Contracts;
 
 namespace Quizitor.Bots.Behaviors.BackOffice.Users.Infrastructure;
 
-internal interface IUserBackOfficeContext : IBackOfficeContext
+internal interface IUserViewBackOfficeContext : IBackOfficeContext
 {
     User User { get; }
     int UserPageNumber { get; }
@@ -17,7 +17,7 @@ internal interface IUserBackOfficeContext : IBackOfficeContext
     BotInteraction[] LastInteractions { get; }
     Dictionary<string, List<string?>> PermissionOrigins { get; }
 
-    static IUserBackOfficeContext Create(
+    static IUserViewBackOfficeContext Create(
         User user,
         int userPageNumber,
         Bot? gameServer,
@@ -29,7 +29,7 @@ internal interface IUserBackOfficeContext : IBackOfficeContext
         Dictionary<string, List<string?>> permissionOrigins,
         IBackOfficeContext baseContext)
     {
-        return new UserBackOfficeContext(
+        return new UserViewBackOfficeContext(
             user,
             userPageNumber,
             gameServer,
@@ -47,7 +47,7 @@ internal interface IUserBackOfficeContext : IBackOfficeContext
             baseContext.Identity);
     }
 
-    private record UserBackOfficeContext(
+    private record UserViewBackOfficeContext(
         User User,
         int UserPageNumber,
         Bot? GameServer,
@@ -62,5 +62,5 @@ internal interface IUserBackOfficeContext : IBackOfficeContext
         Bot? EntryBot,
         ITelegramBotClientWrapper Client,
         string? QrData,
-        IIdentity Identity) : IUserBackOfficeContext;
+        IIdentity Identity) : IUserViewBackOfficeContext;
 }

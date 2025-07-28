@@ -1,8 +1,8 @@
 {
   "Localization": {
     "ru": {
-      "_BACKOFFICE_MAILINGS_BTN": "\uD83D\uDCE8 Рассылки",
-      "_BACKOFFICE_MAILINGS_TXT": "\uD83D\uDCE8 <b>Рассылки</b>",
+      "_BACKOFFICE_MAILINGS_BTN": "\uD83D\uDCE8 Рассылки ({0})",
+      "_BACKOFFICE_MAILINGS_TXT": "\uD83D\uDCE8 <b>Рассылки ({0})</b>",
       "_BACKOFFICE_CREATE_MAILING_BTN": "➕ Добавить рассылку",
       "_BACKOFFICE_MAILING_NAME_TOO_LONG_TXT": "Название рассылки не может превышать 256 символов.",
       "_BACKOFFICE_MAILING_TEXT_TOO_LONG_TXT": "Текст рассылки не может превышать 4096 символов.",

@@ -164,6 +164,7 @@ internal sealed class CreateMailingBo(IDbContextProvider dbContextProvider) :
             var mailingListContext = IMessageTextContext.Create(
                 IMailingListBackOfficeContext.Create(
                     [mailing, .. newMailingText.Mailings],
+                    newMailingText.MailingsCount,
                     newMailingText.MailingPageNumber,
                     newMailingText.MailingPageCount,
                     context.Base));
@@ -307,12 +308,13 @@ internal sealed class CreateMailingBo(IDbContextProvider dbContextProvider) :
                         MailingListBo.PageSize,
                         cancellationToken);
 
+                var mailingsCount = await dbContextProvider
+                    .Mailings
+                    .CountAsync(cancellationToken) + 1;
+
                 var mailingPageCount = Convert.ToInt32(
                     Math.Ceiling(
-                        Convert.ToDouble(
-                            await dbContextProvider
-                                .Mailings
-                                .CountAsync(cancellationToken) + 1) / MailingListBo.PageSize));
+                        Convert.ToDouble(mailingsCount) / MailingListBo.PageSize));
 
                 return ICreateMailingBackOfficeContext.Create(
                     null,
@@ -323,6 +325,7 @@ internal sealed class CreateMailingBo(IDbContextProvider dbContextProvider) :
                         mailingName,
                         mailingText,
                         mailings,
+                        mailingsCount,
                         mailingPageNumber,
                         mailingPageCount),
                     backOfficeContext);

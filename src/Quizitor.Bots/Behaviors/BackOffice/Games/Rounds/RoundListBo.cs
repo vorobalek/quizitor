@@ -65,18 +65,20 @@ internal sealed class RoundListBo(
                     PageSize,
                     cancellationToken);
 
+            var roundsCount = await dbContextProvider
+                .Rounds
+                .CountByGameIdAsync(
+                    gameId,
+                    cancellationToken);
+
             var roundPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Rounds
-                            .CountByGameIdAsync(
-                                gameId,
-                                cancellationToken)) / PageSize));
+                    Convert.ToDouble(roundsCount) / PageSize));
 
             return IRoundListBackOfficeContext.Create(
                 game,
                 rounds,
+                roundsCount,
                 gamePageNumber,
                 roundPageNumber,
                 roundPageCount,
@@ -96,7 +98,8 @@ internal sealed class RoundListBo(
         var text = string
             .Format(
                 TR.L + "_BACKOFFICE_ROUNDS_TXT",
-                context.Base.Game.Title.EscapeHtml());
+                context.Base.Game.Title.EscapeHtml(),
+                context.Base.RoundsCount);
         var keyboard = Keyboards.RoundList(
             context.Base.Rounds,
             context.Base.Game.Id,

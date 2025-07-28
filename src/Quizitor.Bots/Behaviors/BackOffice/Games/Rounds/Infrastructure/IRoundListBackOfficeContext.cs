@@ -10,6 +10,7 @@ internal interface IRoundListBackOfficeContext : IBackOfficeContext
 {
     Game Game { get; }
     Round[] Rounds { get; }
+    int RoundsCount { get; }
     int GamePageNumber { get; }
     int RoundPageNumber { get; }
     int RoundPageCount { get; }
@@ -17,6 +18,7 @@ internal interface IRoundListBackOfficeContext : IBackOfficeContext
     static IRoundListBackOfficeContext Create(
         Game game,
         Round[] rounds,
+        int roundsCount,
         int gamePageNumber,
         int roundPageNumber,
         int roundPageCount,
@@ -25,6 +27,7 @@ internal interface IRoundListBackOfficeContext : IBackOfficeContext
         return new RoundListBackOfficeContext(
             game,
             rounds,
+            roundsCount,
             gamePageNumber,
             roundPageNumber,
             roundPageCount,
@@ -39,6 +42,7 @@ internal interface IRoundListBackOfficeContext : IBackOfficeContext
     private record RoundListBackOfficeContext(
         Game Game,
         Round[] Rounds,
+        int RoundsCount,
         int GamePageNumber,
         int RoundPageNumber,
         int RoundPageCount,

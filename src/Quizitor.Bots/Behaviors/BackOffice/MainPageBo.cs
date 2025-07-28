@@ -1,21 +1,23 @@
 using LPlus;
+using Quizitor.Bots.Behaviors.BackOffice.Infrastructure;
 using Quizitor.Bots.Behaviors.Infrastructure.CallbackQueryDataEquals;
 using Quizitor.Bots.Behaviors.Infrastructure.MessageTextBotCommandEquals;
 using Quizitor.Bots.UI.BackOffice;
 using Quizitor.Common;
+using Quizitor.Data;
 using Quizitor.Data.Entities;
 using Telegram.Bot.Types.Enums;
 
 namespace Quizitor.Bots.Behaviors.BackOffice;
 
-using MessageBehavior = IMessageTextBotCommandEqualsBehaviorTrait<IBackOfficeContext>;
-using MessageContext = IMessageTextBotCommandEqualsContext<IBackOfficeContext>;
-using CallbackQueryBehavior = ICallbackQueryDataEqualsBehaviorTrait<IBackOfficeContext>;
-using CallbackQueryContext = ICallbackQueryDataEqualsContext<IBackOfficeContext>;
+using MessageBehavior = IMessageTextBotCommandEqualsBehaviorTrait<IMainPageBackOfficeContext>;
+using MessageContext = IMessageTextBotCommandEqualsContext<IMainPageBackOfficeContext>;
+using CallbackQueryBehavior = ICallbackQueryDataEqualsBehaviorTrait<IMainPageBackOfficeContext>;
+using CallbackQueryContext = ICallbackQueryDataEqualsContext<IMainPageBackOfficeContext>;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-internal sealed class MainPageBo :
-    BackOfficeBehavior,
+internal sealed class MainPageBo(IDbContextProvider dbContextProvider) :
+    BackOfficeBehavior<IMainPageBackOfficeContext>,
     MessageBehavior,
     CallbackQueryBehavior
 {
@@ -45,7 +47,12 @@ internal sealed class MainPageBo :
                     context.Base.TelegramUser.FirstName.EscapeHtml(),
                     context.Base.TelegramUser.LastName?.EscapeHtml()),
                 ParseMode.Html,
-                replyMarkup: Keyboards.MainPage, cancellationToken: cancellationToken);
+                replyMarkup: Keyboards.MainPage(
+                    context.Base.BotsCount,
+                    context.Base.UsersCount,
+                    context.Base.MailingsCount,
+                    context.Base.GamesCount),
+                cancellationToken: cancellationToken);
     }
 
     public string BotCommandValue => Button;
@@ -65,6 +72,28 @@ internal sealed class MainPageBo :
                     context.Base.TelegramUser.FirstName.EscapeHtml(),
                     context.Base.TelegramUser.LastName?.EscapeHtml()),
                 ParseMode.Html,
-                replyMarkup: Keyboards.MainPage, cancellationToken: cancellationToken);
+                replyMarkup: Keyboards.MainPage(
+                    context.Base.BotsCount,
+                    context.Base.UsersCount,
+                    context.Base.MailingsCount,
+                    context.Base.GamesCount),
+                cancellationToken: cancellationToken);
+    }
+
+    protected override async Task<IMainPageBackOfficeContext?> PrepareContextAsync(
+        IBackOfficeContext backOfficeContext,
+        CancellationToken cancellationToken)
+    {
+        var botsCount = await dbContextProvider.Bots.CountAsync(cancellationToken);
+        var usersCount = await dbContextProvider.Users.CountAsync(cancellationToken);
+        var mailingsCount = await dbContextProvider.Mailings.CountAsync(cancellationToken);
+        var gamesCount = await dbContextProvider.Games.CountAsync(cancellationToken);
+
+        return IMainPageBackOfficeContext.Create(
+            botsCount,
+            usersCount,
+            mailingsCount,
+            gamesCount,
+            backOfficeContext);
     }
 }

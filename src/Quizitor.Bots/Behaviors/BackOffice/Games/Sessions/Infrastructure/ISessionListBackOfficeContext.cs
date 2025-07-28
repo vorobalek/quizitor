@@ -10,6 +10,7 @@ internal interface ISessionListBackOfficeContext : IBackOfficeContext
 {
     Game Game { get; }
     Session[] Sessions { get; }
+    int SessionsCount { get; }
     int GamePageNumber { get; }
     int SessionPageNumber { get; }
     int SessionPageCount { get; }
@@ -17,6 +18,7 @@ internal interface ISessionListBackOfficeContext : IBackOfficeContext
     static ISessionListBackOfficeContext Create(
         Game game,
         Session[] sessions,
+        int sessionsCount,
         int gamePageNumber,
         int sessionPageNumber,
         int sessionPageCount,
@@ -25,6 +27,7 @@ internal interface ISessionListBackOfficeContext : IBackOfficeContext
         return new SessionListBackOfficeContext(
             game,
             sessions,
+            sessionsCount,
             gamePageNumber,
             sessionPageNumber,
             sessionPageCount,
@@ -39,6 +42,7 @@ internal interface ISessionListBackOfficeContext : IBackOfficeContext
     private record SessionListBackOfficeContext(
         Game Game,
         Session[] Sessions,
+        int SessionsCount,
         int GamePageNumber,
         int SessionPageNumber,
         int SessionPageCount,

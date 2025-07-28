@@ -142,6 +142,7 @@ internal sealed class CreateRoundBo(
                 IRoundListBackOfficeContext.Create(
                     newRound.Game,
                     [round, .. newRound.Rounds],
+                    newRound.RoundsCount,
                     newRound.GamePageNumber,
                     0,
                     newRound.RoundPageCount,
@@ -241,14 +242,15 @@ internal sealed class CreateRoundBo(
                     RoundListBo.PageSize,
                     cancellationToken);
 
+            var roundsCount = await dbContextProvider
+                .Rounds
+                .CountByGameIdAsync(
+                    game.Id,
+                    cancellationToken) + 1;
+
             var roundPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Rounds
-                            .CountByGameIdAsync(
-                                game.Id,
-                                cancellationToken) + 1) / RoundListBo.PageSize));
+                    Convert.ToDouble(roundsCount) / RoundListBo.PageSize));
 
             var roundNumber = await dbContextProvider
                 .Rounds
@@ -264,6 +266,7 @@ internal sealed class CreateRoundBo(
                     messageTextContext.MessageText.Truncate(256),
                     game,
                     rounds,
+                    roundsCount,
                     roundNumber,
                     gamePageNumber,
                     roundPageNumber,

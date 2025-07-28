@@ -16,6 +16,7 @@ internal interface IBotListCommandBackOfficeContext : IBotListBackOfficeContext
         return new BotListCommandBackOfficeContext(
             bot,
             baseContext.Bots,
+            baseContext.BotsCount,
             baseContext.BotPageNumber,
             baseContext.BotPageCount,
             baseContext.UpdateContext,
@@ -29,6 +30,7 @@ internal interface IBotListCommandBackOfficeContext : IBotListBackOfficeContext
     private record BotListCommandBackOfficeContext(
         Bot Bot,
         Bot[] Bots,
+        int BotsCount,
         int BotPageNumber,
         int BotPageCount,
         UpdateContext UpdateContext,
