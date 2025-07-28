@@ -13,6 +13,7 @@ internal interface IDeleteGameConfirmBackOfficeContext : IGameListBackOfficeCont
     static IDeleteGameConfirmBackOfficeContext Create(
         Game game,
         Game[] games,
+        int gamesCount,
         int gamePageNumber,
         int gamePageCount,
         IBackOfficeContext baseContext)
@@ -20,6 +21,7 @@ internal interface IDeleteGameConfirmBackOfficeContext : IGameListBackOfficeCont
         return new DeleteGameConfirmBackOfficeContext(
             game,
             games,
+            gamesCount,
             gamePageNumber,
             gamePageCount,
             baseContext.UpdateContext,
@@ -33,6 +35,7 @@ internal interface IDeleteGameConfirmBackOfficeContext : IGameListBackOfficeCont
     private record DeleteGameConfirmBackOfficeContext(
         Game Game,
         Game[] Games,
+        int GamesCount,
         int GamePageNumber,
         int GamePageCount,
         UpdateContext UpdateContext,

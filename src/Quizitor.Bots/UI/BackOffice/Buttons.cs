@@ -37,30 +37,10 @@ internal static class Buttons
             TR.L + "_BACKOFFICE_MAIN_BTN",
             MainPageBo.Button);
 
-    public static InlineKeyboardButton BotList =>
-        InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_BOTS_BTN",
-            $"{BotListBo.Button}.0");
-
-    public static InlineKeyboardButton UserList =>
-        InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_USERS_BTN",
-            $"{UserListBo.Button}.0");
-
     public static InlineKeyboardButton UserPermissions =>
         InlineKeyboardButton.WithCallbackData(
             TR.L + "_BACKOFFICE_USER_PERMISSIONS_BTN",
             NotImplementedUniv.Button);
-
-    public static InlineKeyboardButton GameList =>
-        InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_GAMES_BTN",
-            $"{GameListBo.Button}.0");
-
-    public static InlineKeyboardButton MailingList =>
-        InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_MAILINGS_BTN",
-            $"{MailingListBo.Button}.0");
 
     public static InlineKeyboardButton EditGame =>
         InlineKeyboardButton.WithCallbackData(
@@ -121,6 +101,42 @@ internal static class Buttons
         InlineKeyboardButton.WithCallbackData(
             TR.L + "_BACKOFFICE_DELETE_MAILING_BTN",
             NotImplementedUniv.Button);
+
+    public static InlineKeyboardButton BotList(int count)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            string.Format(
+                TR.L + "_BACKOFFICE_BOTS_BTN",
+                count),
+            $"{BotListBo.Button}.0");
+    }
+
+    public static InlineKeyboardButton UserList(int count)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            string.Format(
+                TR.L + "_BACKOFFICE_USERS_BTN",
+                count),
+            $"{UserListBo.Button}.0");
+    }
+
+    public static InlineKeyboardButton GameList(int count)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            string.Format(
+                TR.L + "_BACKOFFICE_GAMES_BTN",
+                count),
+            $"{GameListBo.Button}.0");
+    }
+
+    public static InlineKeyboardButton MailingList(int count)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            string.Format(
+                TR.L + "_BACKOFFICE_MAILINGS_BTN",
+                count),
+            $"{MailingListBo.Button}.0");
+    }
 
     public static InlineKeyboardButton Bot(
         int botId,
@@ -329,11 +345,14 @@ internal static class Buttons
     }
 
     public static InlineKeyboardButton RoundList(
+        int count,
         int gameId,
         int gamePageNumber)
     {
         return InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_ROUND_LIST_BTN",
+            string.Format(
+                TR.L + "_BACKOFFICE_ROUND_LIST_BTN",
+                count),
             $"{RoundListBo.Button}.{gameId}.{gamePageNumber}.0");
     }
 
@@ -409,11 +428,14 @@ internal static class Buttons
     }
 
     public static InlineKeyboardButton SessionList(
+        int count,
         int gameId,
         int gamePageNumber)
     {
         return InlineKeyboardButton.WithCallbackData(
-            TR.L + "_BACKOFFICE_SESSION_LIST_BTN",
+            string.Format(
+                TR.L + "_BACKOFFICE_SESSION_LIST_BTN",
+                count),
             $"{SessionListBo.Button}.{gameId}.{gamePageNumber}.0");
     }
 

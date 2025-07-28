@@ -138,6 +138,7 @@ internal sealed class CreateSessionBo(
                 ISessionListBackOfficeContext.Create(
                     newSession.Game,
                     [session, .. newSession.Sessions],
+                    newSession.SessionsCount,
                     newSession.GamePageNumber,
                     0,
                     newSession.SessionPageCount,
@@ -237,14 +238,15 @@ internal sealed class CreateSessionBo(
                     SessionListBo.PageSize,
                     cancellationToken);
 
+            var sessionsCount = await dbContextProvider
+                .Sessions
+                .CountByGameIdAsync(
+                    game.Id,
+                    cancellationToken) + 1;
+
             var sessionPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Sessions
-                            .CountByGameIdAsync(
-                                game.Id,
-                                cancellationToken) + 1) / SessionListBo.PageSize));
+                    Convert.ToDouble(sessionsCount) / SessionListBo.PageSize));
 
             return ICreateSessionBackOfficeContext.Create(
                 null,
@@ -254,6 +256,7 @@ internal sealed class CreateSessionBo(
                     messageTextContext.MessageText.Truncate(256),
                     game,
                     sessions,
+                    sessionsCount,
                     gamePageNumber,
                     sessionPageNumber,
                     sessionPageCount),

@@ -10,15 +10,21 @@ internal interface IGameViewBackOfficeContext : IBackOfficeContext
 {
     Game Game { get; }
     int GamePageNumber { get; }
+    int RoundsCount { get; }
+    int SessionsCount { get; }
 
     static IGameViewBackOfficeContext Create(
         Game game,
         int gamePageNumber,
+        int roundsCount,
+        int sessionsCount,
         IBackOfficeContext baseContext)
     {
         return new GameViewBackOfficeContext(
             game,
             gamePageNumber,
+            roundsCount,
+            sessionsCount,
             baseContext.UpdateContext,
             baseContext.TelegramUser,
             baseContext.EntryBot,
@@ -30,6 +36,8 @@ internal interface IGameViewBackOfficeContext : IBackOfficeContext
     private record GameViewBackOfficeContext(
         Game Game,
         int GamePageNumber,
+        int RoundsCount,
+        int SessionsCount,
         UpdateContext UpdateContext,
         TelegramUser TelegramUser,
         Bot? EntryBot,

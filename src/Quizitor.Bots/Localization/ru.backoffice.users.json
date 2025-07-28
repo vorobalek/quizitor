@@ -1,8 +1,8 @@
 {
   "Localization": {
     "ru": {
-      "_BACKOFFICE_USERS_BTN": "\uD83D\uDC65 Пользователи",
-      "_BACKOFFICE_USERS_TXT": "<b>\uD83D\uDC65 Пользователи</b>",
+      "_BACKOFFICE_USERS_BTN": "\uD83D\uDC65 Пользователи ({0})",
+      "_BACKOFFICE_USERS_TXT": "<b>\uD83D\uDC65 Пользователи ({0})</b>",
       "_BACKOFFICE_USER_VIEW_BTN": "✏\uFE0F [{0}] {1} {2}",
       "_BACKOFFICE_USER_VIEW_TXT": "<b>\uD83D\uDC65 [{0}] {1} {2}</b>\n\nId: <b>{0}</b>\nИмя: <b>{1}</b>\nФамилия: <b>{2}</b>\nНик: <b>{3}</b>\n<a href=\"tg://user?id={0}\">Ссылка</a>\n\nИгровой бот: {4}\nБот-администратор: {5}\n\nОтветов всего: <b>{6}</b>\nСессий с ответами: <b>{7}</b>\n\nВзаимодействия с ботами:\n{8}\n\nСупер-юзер: <b>{9}</b>\nПрава:\n{10}",
       "_BACKOFFICE_USER_VIEW_LINK_TXT": "<a href=\"https://t.me/{0}\">@{0}</a>",

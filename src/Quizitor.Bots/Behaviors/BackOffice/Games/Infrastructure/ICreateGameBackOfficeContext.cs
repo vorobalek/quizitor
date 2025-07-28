@@ -84,18 +84,21 @@ internal interface ICreateGameBackOfficeContext : IBackOfficeContext
     {
         string GameTitle { get; }
         Game[] Games { get; }
+        int GamesCount { get; }
         int GamePageNumber { get; }
         int GamePageCount { get; }
 
         static INewGame Create(
             string gameTitle,
             Game[] games,
+            int gamesCount,
             int gamePageNumber,
             int gamePageCount)
         {
             return new NewGame(
                 gameTitle,
                 games,
+                gamesCount,
                 gamePageNumber,
                 gamePageCount);
         }
@@ -103,6 +106,7 @@ internal interface ICreateGameBackOfficeContext : IBackOfficeContext
         private record NewGame(
             string GameTitle,
             Game[] Games,
+            int GamesCount,
             int GamePageNumber,
             int GamePageCount) : INewGame;
     }

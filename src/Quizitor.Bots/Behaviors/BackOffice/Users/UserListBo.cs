@@ -39,7 +39,9 @@ internal class UserListBo(
                 context.Base.UpdateContext,
                 context.Base.TelegramUser.Id,
                 context.MessageId,
-                TR.L + "_BACKOFFICE_USERS_TXT",
+                string.Format(
+                    TR.L + "_BACKOFFICE_USERS_TXT",
+                    context.Base.UsersCount),
                 ParseMode.Html,
                 replyMarkup: Keyboards.UserList(
                     context.Base.Users,
@@ -66,15 +68,17 @@ internal class UserListBo(
                     PageSize,
                     cancellationToken);
 
+            var usersCount = await dbContextProvider
+                .Users
+                .CountAsync(cancellationToken);
+
             var userPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Users
-                            .CountAsync(cancellationToken)) / PageSize));
+                    Convert.ToDouble(usersCount) / PageSize));
 
             return IUserListBackOfficeContext.Create(
                 users,
+                usersCount,
                 userPageNumber,
                 userPageCount,
                 backOfficeContext);

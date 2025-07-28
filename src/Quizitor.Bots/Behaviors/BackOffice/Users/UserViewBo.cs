@@ -10,13 +10,13 @@ using Telegram.Bot.Types.Enums;
 
 namespace Quizitor.Bots.Behaviors.BackOffice.Users;
 
-using Behavior = ICallbackQueryDataPrefixBehaviorTrait<IUserBackOfficeContext>;
-using Context = ICallbackQueryDataPrefixContext<IUserBackOfficeContext>;
+using Behavior = ICallbackQueryDataPrefixBehaviorTrait<IUserViewBackOfficeContext>;
+using Context = ICallbackQueryDataPrefixContext<IUserViewBackOfficeContext>;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed class UserViewBo(
     IDbContextProvider dbContextProvider) :
-    BackOfficeBehavior<IUserBackOfficeContext>,
+    BackOfficeBehavior<IUserViewBackOfficeContext>,
     Behavior
 {
     /// <summary>
@@ -113,7 +113,7 @@ internal sealed class UserViewBo(
                     context.Base.UserPageNumber), cancellationToken: cancellationToken);
     }
 
-    protected override async Task<IUserBackOfficeContext?> PrepareContextAsync(
+    protected override async Task<IUserViewBackOfficeContext?> PrepareContextAsync(
         IBackOfficeContext backOfficeContext,
         CancellationToken cancellationToken)
     {
@@ -198,7 +198,7 @@ internal sealed class UserViewBo(
                 }
             }
 
-            return IUserBackOfficeContext.Create(
+            return IUserViewBackOfficeContext.Create(
                 user,
                 userPageNumber,
                 gameServer,

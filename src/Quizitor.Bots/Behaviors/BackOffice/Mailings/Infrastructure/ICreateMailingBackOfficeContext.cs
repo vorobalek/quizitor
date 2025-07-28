@@ -108,12 +108,14 @@ internal interface ICreateMailingBackOfficeContext : IBackOfficeContext
     {
         string MailingText { get; }
         Mailing[] Mailings { get; }
+        int MailingsCount { get; }
         int MailingPageCount { get; }
 
         static INewMailingText Create(
             string mailingName,
             string mailingText,
             Mailing[] mailings,
+            int mailingsCount,
             int mailingPageNumber,
             int mailingPageCount)
         {
@@ -121,6 +123,7 @@ internal interface ICreateMailingBackOfficeContext : IBackOfficeContext
                 mailingName,
                 mailingText,
                 mailings,
+                mailingsCount,
                 mailingPageNumber,
                 mailingPageCount);
         }
@@ -129,6 +132,7 @@ internal interface ICreateMailingBackOfficeContext : IBackOfficeContext
             string MailingName,
             string MailingText,
             Mailing[] Mailings,
+            int MailingsCount,
             int MailingPageNumber,
             int MailingPageCount) : INewMailingText;
     }

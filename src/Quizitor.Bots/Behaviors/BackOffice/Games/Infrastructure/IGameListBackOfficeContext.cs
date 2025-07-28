@@ -9,17 +9,20 @@ namespace Quizitor.Bots.Behaviors.BackOffice.Games.Infrastructure;
 internal interface IGameListBackOfficeContext : IBackOfficeContext
 {
     Game[] Games { get; }
+    int GamesCount { get; }
     int GamePageNumber { get; }
     int GamePageCount { get; }
 
     static IGameListBackOfficeContext Create(
         Game[] games,
+        int gamesCount,
         int gamePageNumber,
         int gamePageCount,
         IBackOfficeContext baseContext)
     {
         return new GameListBackOfficeContext(
             games,
+            gamesCount,
             gamePageNumber,
             gamePageCount,
             baseContext.UpdateContext,
@@ -32,6 +35,7 @@ internal interface IGameListBackOfficeContext : IBackOfficeContext
 
     private record GameListBackOfficeContext(
         Game[] Games,
+        int GamesCount,
         int GamePageNumber,
         int GamePageCount,
         UpdateContext UpdateContext,

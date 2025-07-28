@@ -96,6 +96,7 @@ internal interface ICreateRoundBackOfficeContext : IBackOfficeContext
         string RoundTitle { get; }
         Game Game { get; }
         Round[] Rounds { get; }
+        int RoundsCount { get; }
         int RoundNumber { get; }
         int GamePageNumber { get; }
         int RoundPageNumber { get; }
@@ -105,6 +106,7 @@ internal interface ICreateRoundBackOfficeContext : IBackOfficeContext
             string roundTitle,
             Game game,
             Round[] rounds,
+            int roundsCount,
             int roundNumber,
             int gamePageNumber,
             int roundPageNumber,
@@ -114,6 +116,7 @@ internal interface ICreateRoundBackOfficeContext : IBackOfficeContext
                 roundTitle,
                 game,
                 rounds,
+                roundsCount,
                 roundNumber,
                 gamePageNumber,
                 roundPageNumber,
@@ -124,6 +127,7 @@ internal interface ICreateRoundBackOfficeContext : IBackOfficeContext
             string RoundTitle,
             Game Game,
             Round[] Rounds,
+            int RoundsCount,
             int RoundNumber,
             int GamePageNumber,
             int RoundPageNumber,

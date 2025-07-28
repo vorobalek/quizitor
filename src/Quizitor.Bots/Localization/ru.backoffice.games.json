@@ -1,8 +1,8 @@
 {
   "Localization": {
     "ru": {
-      "_BACKOFFICE_GAMES_BTN": "\uD83C\uDFB2 Игры",
-      "_BACKOFFICE_GAMES_TXT": "<b>\uD83C\uDFB2 Игры</b>",
+      "_BACKOFFICE_GAMES_BTN": "\uD83C\uDFB2 Игры ({0})",
+      "_BACKOFFICE_GAMES_TXT": "<b>\uD83C\uDFB2 Игры ({0})</b>",
       "_BACKOFFICE_CREATE_GAME_BTN": "➕ Добавить игру",
       "_BACKOFFICE_GAME_CREATED_TXT": "✅ <b>Игра добавлена!</b>\n\nНовая игра с названием <b>\"{0}\"</b> добавлена!",
       "_BACKOFFICE_EDIT_GAME_BTN": "✏\uFE0F Редактировать",

@@ -65,18 +65,20 @@ internal sealed class SessionListBo(
                     PageSize,
                     cancellationToken);
 
+            var sessionsCount = await dbContextProvider
+                .Sessions
+                .CountByGameIdAsync(
+                    gameId,
+                    cancellationToken);
+
             var sessionPageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Sessions
-                            .CountByGameIdAsync(
-                                gameId,
-                                cancellationToken)) / PageSize));
+                    Convert.ToDouble(sessionsCount) / PageSize));
 
             return ISessionListBackOfficeContext.Create(
                 game,
                 sessions,
+                sessionsCount,
                 gamePageNumber,
                 sessionPageNumber,
                 sessionPageCount,
@@ -96,7 +98,8 @@ internal sealed class SessionListBo(
         var text = string
             .Format(
                 TR.L + "_BACKOFFICE_SESSIONS_TXT",
-                context.Base.Game.Title.EscapeHtml());
+                context.Base.Game.Title.EscapeHtml(),
+                context.Base.SessionsCount);
         var keyboard = Keyboards.SessionList(
             context.Base.Sessions,
             context.Base.Game.Id,

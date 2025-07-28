@@ -8,17 +8,20 @@ namespace Quizitor.Bots.Behaviors.BackOffice.Mailings.Infrastructure;
 internal interface IMailingListBackOfficeContext : IBackOfficeContext
 {
     Mailing[] Mailings { get; }
+    int MailingsCount { get; }
     int MailingPageNumber { get; }
     int MailingPageCount { get; }
 
     static IMailingListBackOfficeContext Create(
         Mailing[] mailings,
+        int mailingsCount,
         int mailingPageNumber,
         int mailingPageCount,
         IBackOfficeContext baseContext)
     {
         return new MailingListBackOfficeContext(
             mailings,
+            mailingsCount,
             mailingPageNumber,
             mailingPageCount,
             baseContext.UpdateContext,
@@ -31,6 +34,7 @@ internal interface IMailingListBackOfficeContext : IBackOfficeContext
 
     private record MailingListBackOfficeContext(
         Mailing[] Mailings,
+        int MailingsCount,
         int MailingPageNumber,
         int MailingPageCount,
         UpdateContext UpdateContext,

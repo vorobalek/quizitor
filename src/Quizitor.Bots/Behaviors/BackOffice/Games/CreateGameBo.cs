@@ -134,6 +134,7 @@ internal sealed class CreateGameBo(
             var gameListContext = IMessageTextContext.Create(
                 IGameListBackOfficeContext.Create(
                     [game, .. newGame.Games],
+                    newGame.GamesCount,
                     newGame.GamePageNumber,
                     newGame.GamePageCount,
                     context.Base));
@@ -218,12 +219,13 @@ internal sealed class CreateGameBo(
                     GameListBo.PageSize,
                     cancellationToken);
 
+            var gamesCounts = await dbContextProvider
+                .Games
+                .CountAsync(cancellationToken) + 1;
+
             var gamePageCount = Convert.ToInt32(
                 Math.Ceiling(
-                    Convert.ToDouble(
-                        await dbContextProvider
-                            .Games
-                            .CountAsync(cancellationToken) + 1) / GameListBo.PageSize));
+                    Convert.ToDouble(gamesCounts) / GameListBo.PageSize));
 
             return ICreateGameBackOfficeContext.Create(
                 null,
@@ -232,6 +234,7 @@ internal sealed class CreateGameBo(
                 ICreateGameBackOfficeContext.INewGame.Create(
                     messageTextContext.MessageText.Truncate(256),
                     games,
+                    gamesCounts,
                     gamePageNumber,
                     gamePageCount),
                 backOfficeContext);
