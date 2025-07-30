@@ -7,8 +7,9 @@ namespace Quizitor.Bots.Behaviors.BackOffice.Bots;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed class BotTypeBo(
+    BotStopBo botStopBo,
     IDbContextProvider dbContextProvider) :
-    BotStopBo(dbContextProvider)
+    BotViewBo(dbContextProvider)
 {
     /// <summary>
     ///     <b>bottype</b>.{botId}.{botPageNumber}
@@ -37,6 +38,11 @@ internal sealed class BotTypeBo(
             .UpdateAsync(
                 context.Base.Bot,
                 cancellationToken);
+        
+        await botStopBo.StopAsync(
+            context.Base.Bot,
+            context,
+            cancellationToken);
 
         _dbContextProvider
             .AddPostCommitTask(async () =>
