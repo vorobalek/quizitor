@@ -33,4 +33,5 @@ public interface IQuestionRepository
     Task<int> CountOptionsByGameIdAsync(int gameId, CancellationToken cancellationToken);
     Task<QuestionRule[]> GetRulesByQuestionIdAsync(int questionId, CancellationToken cancellationToken);
     Task<int> CountRulesByGameIdAsync(int gameId, CancellationToken cancellationToken);
+    Task UpdateAsync(Question question, CancellationToken cancellationToken);
 }
