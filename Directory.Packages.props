@@ -1,24 +1,24 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageVersion Include="Confluent.Kafka" Version="2.11.0"/>
-        <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0"/>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7"/>
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
-        <PackageVersion Include="Moq" Version="4.20.72"/>
-        <PackageVersion Include="MSTest" Version="3.9.3"/>
-        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
-        <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1"/>
-        <PackageVersion Include="Sentry.AspNetCore" Version="5.12.0"/>
-        <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.0"/>
-        <PackageVersion Include="StackExchange.Redis" Version="2.8.41"/>
-        <PackageVersion Include="Telegram.Bot" Version="22.6.0"/>
-        <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0"/>
-        <PackageVersion Include="TR.LPlus" Version="0.0.2-202502051717"/>
-        <PackageVersion Include="ZXing.Net" Version="0.16.10"/>
-        <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.21"/>
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Confluent.Kafka" Version="2.11.0" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Moq" Version="4.20.72" />
+    <PackageVersion Include="MSTest" Version="3.9.3" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1" />
+    <PackageVersion Include="Sentry.AspNetCore" Version="5.12.0" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
+    <PackageVersion Include="StackExchange.Redis" Version="2.8.41" />
+    <PackageVersion Include="Telegram.Bot" Version="22.6.0" />
+    <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0" />
+    <PackageVersion Include="TR.LPlus" Version="0.0.2-202502051717" />
+    <PackageVersion Include="ZXing.Net" Version="0.16.10" />
+    <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.21" />
+  </ItemGroup>
 </Project>

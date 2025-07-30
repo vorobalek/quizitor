@@ -48,7 +48,7 @@ services:
       - kafka-lan
 
   kafka-ui:
-    image: ghcr.io/kafbat/kafka-ui:v1.2.0
+    image: ghcr.io/kafbat/kafka-ui:v1.3.0
     ports:
       - "9090:8080"
     depends_on:
