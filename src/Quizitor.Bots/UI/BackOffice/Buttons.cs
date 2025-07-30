@@ -102,6 +102,25 @@ internal static class Buttons
             TR.L + "_BACKOFFICE_DELETE_MAILING_BTN",
             NotImplementedUniv.Button);
 
+    public static InlineKeyboardButton QuestionSubmissionNotificationType(
+        int questionId,
+        SubmissionNotificationType submissionNotificationType,
+        int gamePageNumber,
+        int roundPageNumber,
+        int questionPageNumber)
+    {
+        var nextSubmissionNotificationType = Enum.GetName(
+            (SubmissionNotificationType)((Convert.ToInt32(submissionNotificationType) + 1) % Enum.GetValues<SubmissionNotificationType>().Length));
+
+        return InlineKeyboardButton.WithCallbackData(
+            string.Format(
+                TR.L + "_BACKOFFICE_QUESTION_SWITCH_SUBMISSION_NOTIFICATION_TYPE_BTN",
+                TR.L + $"_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_{submissionNotificationType}",
+                TR.L + $"_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_{nextSubmissionNotificationType}"
+            ),
+            $"{QuestionSubmissionNotificationTypeBo.Button}.{questionId}.{gamePageNumber}.{roundPageNumber}.{questionPageNumber}");
+    }
+
     public static InlineKeyboardButton BotList(int count)
     {
         return InlineKeyboardButton.WithCallbackData(

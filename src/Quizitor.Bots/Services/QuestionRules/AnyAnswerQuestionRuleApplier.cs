@@ -9,6 +9,6 @@ internal sealed class AnyAnswerQuestionRuleApplier : IQuestionRuleApplier<AnyAns
         Submission submission,
         CancellationToken cancellationToken)
     {
-        return Task.FromResult(questionRule.Cost);
+        return Task.FromResult<int?>(questionRule.Cost);
     }
 }

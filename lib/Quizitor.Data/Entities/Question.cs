@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Quizitor.Data.Enums;
 
 namespace Quizitor.Data.Entities;
 
@@ -38,6 +39,8 @@ public class Question
     public bool AutoClose { get; set; }
 
     public int Attempts { get; set; }
+
+    public SubmissionNotificationType SubmissionNotificationType { get; set; }
 
     [InverseProperty(nameof(QuestionOption.Question))]
     public ICollection<QuestionOption> Options { get; set; } = [];

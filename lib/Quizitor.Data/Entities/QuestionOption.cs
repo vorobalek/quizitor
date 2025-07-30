@@ -24,7 +24,5 @@ public class QuestionOption
     [MaxLength(256)]
     public string Text { get; set; } = null!;
 
-    public int? Cost { get; set; }
-
-    public bool IsCorrect { get; set; }
+    public int Cost { get; set; }
 }

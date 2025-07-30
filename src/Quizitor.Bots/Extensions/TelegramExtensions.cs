@@ -149,6 +149,7 @@ internal static class TelegramExtensions
             .AddBehavior<CreateRoundBo>()
             .AddBehavior<RoundViewBo>()
             .AddBehavior<QuestionViewBo>()
+            .AddBehavior<QuestionSubmissionNotificationTypeBo>()
             .AddBehavior<SessionListBo>()
             .AddBehavior<CreateSessionBo>()
             .AddBehavior<SessionViewBo>()

@@ -12,6 +12,7 @@ using Quizitor.Common;
 using Quizitor.Data;
 using Quizitor.Data.Entities;
 using Quizitor.Data.Enums;
+using Quizitor.Kafka.Contracts;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -123,9 +124,7 @@ internal sealed class DefaultGs(
             return;
         }
 
-        var rawCost = answerContext.Choice is not null
-            ? answerContext.Choice.Cost ?? (answerContext.Choice.IsCorrect ? 1 : 0)
-            : 0;
+        var baseCost = answerContext.Choice?.Cost ?? 0;
         var submission = new Submission
         {
             User = context.Base.Identity.User,
@@ -134,7 +133,7 @@ internal sealed class DefaultGs(
             Session = context.Base.Session,
             Text = context.MessageText.Truncate(4096),
             Time = Convert.ToInt32(Math.Floor((answerContext.InitiatedAt - answerContext.QuestionTiming.StartTime).TotalSeconds)),
-            Score = rawCost
+            Score = baseCost
         };
         await _dbContextProvider.Submissions.AddAsync(
             submission,
@@ -164,6 +163,7 @@ internal sealed class DefaultGs(
 
         _dbContextProvider
             .AddPostCommitTask(async () =>
+            {
                 await ResponseAsync(
                     context,
                     answerContext,
@@ -174,8 +174,59 @@ internal sealed class DefaultGs(
                         submission.Text.EscapeHtml(),
                         answerContext.AttemptsCountRemaining),
                     Keyboards.Options(answerContext.Options),
-                    cancellationToken));
+                    cancellationToken);
 
+                if (ShouldNotifyGameAdmins(
+                        answerContext.Question,
+                        answerContext.Options,
+                        answerContext.Rules,
+                        baseCost,
+                        ruleCostMap))
+                {
+                    await NotifyGameAdminsAsync(
+                        context.Base.UpdateContext,
+                        submission,
+                        answerContext.Round,
+                        answerContext.Question,
+                        baseCost,
+                        ruleCostMap,
+                        answerContext.AdminBots,
+                        answerContext.AdminUsers,
+                        cancellationToken);
+                }
+            });
+    }
+
+    private static bool ShouldNotifyGameAdmins(
+        Question question,
+        ICollection<QuestionOption> options,
+        ICollection<QuestionRule> rules,
+        int baseCost,
+        IReadOnlyDictionary<QuestionRule, int> ruleCostMap)
+    {
+        return question.SubmissionNotificationType switch
+        {
+            SubmissionNotificationType.All => true,
+            SubmissionNotificationType.AnyScored => baseCost + ruleCostMap.Values.Sum() > 0,
+            SubmissionNotificationType.FullScored => 
+                baseCost == (options.MaxBy(option => option.Cost)?.Cost ?? 0) &&
+                ruleCostMap.Values.Sum() == rules.Sum(rule => rule.Cost),
+            SubmissionNotificationType.WrongOnly => baseCost == 0,
+            _ => false
+        };
+    }
+
+    private async Task NotifyGameAdminsAsync(
+        UpdateContext updateContext,
+        Submission submission,
+        Round round,
+        Question question,
+        int baseCost,
+        IReadOnlyDictionary<QuestionRule, int> ruleCostMap,
+        ICollection<Bot> adminBots,
+        ICollection<User> adminUsers,
+        CancellationToken cancellationToken)
+    {
         var text = string.Format(
             TR.L + "_GAME_ADMIN_SUBMISSION_RECEIVED_WITH_RULES_TXT",
             submission.Score == 0
@@ -191,10 +242,10 @@ internal sealed class DefaultGs(
                     TR.L + "_GAME_ADMIN_SUBMISSION_RECEIVED_FROM_USER_TXT",
                     submission.User.Id,
                     submission.User.GetFullName().EscapeHtml()),
-            answerContext.Round.Title.EscapeHtml(),
-            answerContext.Question.Title.EscapeHtml(),
+            round.Title.EscapeHtml(),
+            question.Title.EscapeHtml(),
             submission.Text.EscapeHtml(),
-            rawCost,
+            baseCost,
             ruleCostMap.Count > 0
                 ? string.Join(
                     string.Empty,
@@ -207,25 +258,23 @@ internal sealed class DefaultGs(
                 : TR.L + "_SHARED_NO_TXT",
             submission.Time);
 
-        var adminBotClients = answerContext.AdminBots
+        var adminBotClients = adminBots
             .ToDictionary(
                 x => x.Id,
                 telegramBotClientFactory.CreateForBot);
 
-        foreach (var adminUser in answerContext.AdminUsers)
+        foreach (var adminUser in adminUsers)
         {
             if (!adminUser.GameAdminId.HasValue ||
                 !adminBotClients.TryGetValue(adminUser.GameAdminId.Value, out var client)) continue;
 
-            _dbContextProvider
-                .AddPostCommitTask(async () =>
-                    await client
-                        .SendMessage(
-                            context.Base.UpdateContext,
-                            adminUser.Id,
-                            text,
-                            ParseMode.Html,
-                            cancellationToken: cancellationToken));
+            await client
+                .SendMessage(
+                    updateContext,
+                    adminUser.Id,
+                    text,
+                    ParseMode.Html,
+                    cancellationToken: cancellationToken);
         }
     }
 

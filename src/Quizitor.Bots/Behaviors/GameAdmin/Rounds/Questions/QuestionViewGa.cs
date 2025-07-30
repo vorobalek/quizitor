@@ -124,6 +124,7 @@ internal sealed class QuestionViewGa(
                     context.Question.AutoClose
                         ? TR.L + "_SHARED_YES_TXT"
                         : TR.L + "_SHARED_NO_TXT",
+                    TR.L + $"_GAME_ADMIN_QUESTION_SUBMISSION_NOTIFICATION_TYPE_{context.Question.SubmissionNotificationType}",
                     context.Question.Comment is { } comment
                         ? comment.EscapeHtml()
                         : TR.L + "_SHARED_NO_TXT",
@@ -133,15 +134,12 @@ internal sealed class QuestionViewGa(
                             context.Options
                                 .Select(option => string.Format(
                                     TR.L + "_GAME_ADMIN_QUESTION_OPTION_LIST_ITEM_TXT",
-                                    option.IsCorrect
+                                    option.Cost > 0
                                         ? TR.L + "_GAME_ADMIN_QUESTION_OPTION_CORRECT_SIGN"
                                         : TR.L + "_GAME_ADMIN_QUESTION_OPTION_WRONG_SIGN",
                                     option.Number,
                                     option.Text.EscapeHtml(),
-                                    option.Cost ??
-                                    (option.IsCorrect
-                                        ? 1
-                                        : 0))))
+                                    option.Cost)))
                         : TR.L + "_SHARED_NO_TXT",
                     context.Rules.Length > 0
                         ? string.Join(

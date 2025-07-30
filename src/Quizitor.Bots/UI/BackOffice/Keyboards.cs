@@ -261,6 +261,14 @@ internal static class Keyboards
         return new InlineKeyboardMarkup(
         [
             [Buttons.EditQuestion, Buttons.DeleteQuestion],
+            [
+                Buttons.QuestionSubmissionNotificationType(
+                    question.Id,
+                    question.SubmissionNotificationType,
+                    gamePageNumber,
+                    roundPageNumber,
+                    questionPageNumber)
+            ],
             [Buttons.BackToRound(question.RoundId, gamePageNumber, roundPageNumber, questionPageNumber)]
         ]);
     }

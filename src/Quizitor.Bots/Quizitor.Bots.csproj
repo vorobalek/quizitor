@@ -28,6 +28,9 @@
         <Content Update="Localization\ru.shared.prompts.json">
             <DependentUpon>ru.shared.json</DependentUpon>
         </Content>
+        <Content Update="Localization\ru.backoffice.games.rounds.questions.json">
+            <DependentUpon>ru.backoffice.games.rounds.json</DependentUpon>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>

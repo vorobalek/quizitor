@@ -124,4 +124,13 @@ internal sealed class QuestionRepository(
                 x => x.Question.Round.GameId == gameId,
                 cancellationToken);
     }
+
+    public Task UpdateAsync(Question question, CancellationToken cancellationToken)
+    {
+        dbContext
+            .Questions
+            .Update(question);
+
+        return dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

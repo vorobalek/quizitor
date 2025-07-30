@@ -16,7 +16,7 @@ public abstract class QuestionRule
     [DeleteBehavior(DeleteBehavior.Cascade)]
     public Question Question { get; set; } = null!;
 
-    public int? Cost { get; set; }
+    public int Cost { get; set; }
 
     public abstract object?[] GetBackOfficeLocalizationArgs();
     public abstract object?[] GetGameAdminLocalizationArgs();

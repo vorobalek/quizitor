@@ -38,6 +38,8 @@ internal sealed class BotTypeBo(
                 context.Base.Bot,
                 cancellationToken);
 
-        await base.PerformCallbackQueryDataPrefixAsync(context, cancellationToken);
+        _dbContextProvider
+            .AddPostCommitTask(async () =>
+                await ResponseAsync(context, cancellationToken));
     }
 }
