@@ -53,7 +53,7 @@ public sealed class EnvironmentExtensionsTests
         Environment.SetEnvironmentVariable(variableName, variableValue);
 
 
-        Assert.ThrowsException<ArgumentNullException>(
+        Assert.ThrowsExactly<ArgumentNullException>(
             () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
             $"Environment variable '{variableName}' is not defined.");
     }
@@ -66,7 +66,7 @@ public sealed class EnvironmentExtensionsTests
         Environment.SetEnvironmentVariable(variableName, variableValue);
 
 
-        Assert.ThrowsException<ArgumentNullException>(
+        Assert.ThrowsExactly<ArgumentNullException>(
             () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
             $"Environment variable '{variableName}' is not defined.");
     }
@@ -77,7 +77,7 @@ public sealed class EnvironmentExtensionsTests
         var variableName = Unique.String();
 
 
-        Assert.ThrowsException<ArgumentNullException>(
+        Assert.ThrowsExactly<ArgumentNullException>(
             () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
             $"Environment variable '{variableName}' is not defined.");
     }
