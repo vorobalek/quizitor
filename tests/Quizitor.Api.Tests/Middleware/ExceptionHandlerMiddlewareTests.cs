@@ -113,7 +113,7 @@ public class ExceptionHandlerMiddlewareTests
             .Verifiable(Times.Never);
 
 
-        var result = await Assert.ThrowsExceptionAsync<Exception>(async () => await
+        var result = await Assert.ThrowsExactlyAsync<Exception>(async () => await
             new ExceptionHandlerMiddleware(
                     httpContextRequestBodyReader.Object,
                     httpContextRequestCollector.Object,
@@ -180,7 +180,7 @@ public class ExceptionHandlerMiddlewareTests
             .Verifiable(Times.Never);
 
 
-        var result = await Assert.ThrowsExceptionAsync<Exception>(async () => await
+        var result = await Assert.ThrowsExactlyAsync<Exception>(async () => await
             new ExceptionHandlerMiddleware(
                     httpContextRequestBodyReader.Object,
                     httpContextRequestCollector.Object,
@@ -332,7 +332,7 @@ public class ExceptionHandlerMiddlewareTests
             .Verifiable(Times.Never);
 
 
-        var result = await Assert.ThrowsExceptionAsync<Exception>(async () => await
+        var result = await Assert.ThrowsExactlyAsync<Exception>(async () => await
             new ExceptionHandlerMiddleware(
                     httpContextRequestBodyReader.Object,
                     httpContextRequestCollector.Object,
@@ -413,7 +413,7 @@ public class ExceptionHandlerMiddlewareTests
             .Verifiable(Times.Once);
 
 
-        var result = await Assert.ThrowsExceptionAsync<Exception>(async () => await
+        var result = await Assert.ThrowsExactlyAsync<Exception>(async () => await
             new ExceptionHandlerMiddleware(
                     httpContextRequestBodyReader.Object,
                     httpContextRequestCollector.Object,

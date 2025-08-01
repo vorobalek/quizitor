@@ -47,11 +47,11 @@ public class HttpContextRequestBodyReaderTests
         Assert.AreEqual(innerStream.CanRead, nonSeekableStream.CanRead);
         Assert.IsFalse(nonSeekableStream.CanSeek);
         Assert.AreEqual(innerStream.CanWrite, nonSeekableStream.CanWrite);
-        Assert.ThrowsException<NotSupportedException>(() => nonSeekableStream.Length);
-        Assert.ThrowsException<NotSupportedException>(() => nonSeekableStream.Position);
-        Assert.ThrowsException<NotSupportedException>(() => nonSeekableStream.Position = 0);
-        Assert.ThrowsException<NotSupportedException>(() => nonSeekableStream.Seek(0, SeekOrigin.Begin));
-        Assert.ThrowsException<NotSupportedException>(() => nonSeekableStream.SetLength(0));
+        Assert.ThrowsExactly<NotSupportedException>(() => nonSeekableStream.Length);
+        Assert.ThrowsExactly<NotSupportedException>(() => nonSeekableStream.Position);
+        Assert.ThrowsExactly<NotSupportedException>(() => nonSeekableStream.Position = 0);
+        Assert.ThrowsExactly<NotSupportedException>(() => nonSeekableStream.Seek(0, SeekOrigin.Begin));
+        Assert.ThrowsExactly<NotSupportedException>(() => nonSeekableStream.SetLength(0));
     }
 
     private class NonSeekableStream(Stream inner) : Stream
