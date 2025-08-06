@@ -54,6 +54,9 @@
         <Compile Update="Behaviors\Infrastructure\Behavior.MessageTextBotCommandEquals.cs">
             <DependentUpon>Behavior.cs</DependentUpon>
         </Compile>
+        <Compile Update="Behaviors\Infrastructure\Behavior.QrCodeDataPrefix.cs">
+          <DependentUpon>Behavior.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
