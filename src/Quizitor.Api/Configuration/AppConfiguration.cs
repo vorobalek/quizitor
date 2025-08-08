@@ -13,6 +13,6 @@ public static class AppConfiguration
     public static readonly string? PathBase = "PATH_BASE"
         .GetEnvironmentVariable();
 
-    public static readonly string? DbConnectionString = "DB_CONNECTION_STRING"
-        .GetEnvironmentVariable();
+    public static readonly string DbConnectionString = "DB_CONNECTION_STRING"
+        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
 }
