@@ -113,7 +113,7 @@ sequenceDiagram
 - `Submission`: participant answer with computed `Score` and `Time`
 - `Team`, `TeamMember`, `TeamLeader`
 - `User`, `Role`, `RolePermission`, `UserPermission`, `UserRole`, `UserPrompt`
-- `Bot` (type: BackOffice/GameAdmin/GameServer)
+- `Bot` (type: BackOffice/GameAdmin/GameServer/LoadBalancer/Universal)
 - `Mailing`, `MailingProfile`, and Filters (by Bot/BotType/Game/Session/Team/User)
 
 ## Messaging (Kafka)
@@ -151,8 +151,10 @@ Consumers ensure topics exist at startup and isolate per-bot streams with dedica
 All configuration is via environment variables. Below are commonly used settings per service.
 
 ### Common
-- `DB_CONNECTION_STRING`: PostgreSQL connection string (optional for sender if only HTTP)
+- `DB_CONNECTION_STRING`: PostgreSQL connection string (required by all services)
 - `KAFKA_BOOTSTRAP_SERVERS`: Kafka bootstrap servers (e.g., `localhost:9092`)
+- `KAFKA_DEFAULT_NUM_PARTITIONS`: default `1` (applied by all consumers when autocreating topics)
+- `KAFKA_DEFAULT_REPLICATION_FACTOR`: default `1` (applied by all consumers when autocreating topics)
 - `SENTRY_DSN`: Optional Sentry DSN
 - `LOCALE`: Default `en` (supports `ru` resources)
 
@@ -173,13 +175,11 @@ All configuration is via environment variables. Below are commonly used settings
 - `CRYPTO_PASSWORD`: symmetric key to decrypt QR payloads
 - `QR_CODE_EXPIRATION_SECONDS`: default `0` (no expiration)
 - `KAFKA_CONSUMER_GROUP_ID`: default `Quizitor.Bots`
-- `KAFKA_DEFAULT_NUM_PARTITIONS`: default `1` (override e.g., `3` locally)
-- `KAFKA_DEFAULT_REPLICATION_FACTOR`: default `1`
 - `REDIS_CONNECTION_STRING`, `REDIS_KEY_PREFIX`
 
 ### Sender (`src/Quizitor.Sender`)
 - `PORT`: required
-- `DB_CONNECTION_STRING` (optional)
+- `DB_CONNECTION_STRING`
 - `TELEGRAM_BOT_TOKEN`: backoffice token for default channel
 - `WORKING_DIRECTORY`: default `/var/quizitor`
 - `KAFKA_CONSUMER_GROUP_ID`: e.g., `Quizitor.Sender`
