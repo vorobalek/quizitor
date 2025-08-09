@@ -37,7 +37,7 @@ internal abstract class GameServerBehavior<TContext>(IDbContextProvider dbContex
         return session;
     }
 
-    protected override async Task<TContext?> PrepareLoadBalancerInternalAsync(
+    protected sealed override async Task<TContext?> PrepareLoadBalancerInternalAsync(
         Bot? targetBot,
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
@@ -120,7 +120,7 @@ internal abstract class GameServerBehavior(
     GameServerBehavior<IGameServerContext>(
         dbContextProvider)
 {
-    protected override Task<IGameServerContext?> PrepareGameServerInternalAsync(
+    protected sealed override Task<IGameServerContext?> PrepareGameServerInternalAsync(
         IGameServerContext gameServerContext,
         CancellationToken cancellationToken)
     {

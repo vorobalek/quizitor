@@ -10,7 +10,7 @@ internal abstract partial class Behavior<TContext>
                ICallbackQueryDataPrefixContext.IsValidUpdate(baseContext.UpdateContext.Update, trait.CallbackQueryDataPrefixValue);
     }
 
-    public virtual async Task<ICallbackQueryDataPrefixContext<TContext>?> PrepareCallbackQueryDataPrefixContextAsync(
+    public async Task<ICallbackQueryDataPrefixContext<TContext>?> PrepareCallbackQueryDataPrefixContextAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

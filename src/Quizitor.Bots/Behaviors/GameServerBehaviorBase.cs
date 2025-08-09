@@ -14,21 +14,21 @@ internal abstract class GameServerBehaviorBase<TContext>(IDbContextProvider dbCo
         dbContextProvider)
     where TContext : ILoadBalancerContext
 {
-    public override BotType Type => BotType.GameServer;
+    public sealed override BotType Type => BotType.GameServer;
 
-    protected override bool ShouldPerformInternal(IBehaviorContext baseContext)
+    protected sealed override bool ShouldPerformInternal(IBehaviorContext baseContext)
     {
         return false;
     }
 
-    protected override string GetRedirectMessage(string targetBotUsername)
+    protected sealed override string GetRedirectMessage(string targetBotUsername)
     {
         return string.Format(
             TR.L + "_GAME_SERVER_REDIRECT_TXT",
             targetBotUsername.EscapeHtml());
     }
 
-    protected override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)
+    protected sealed override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)
     {
         return Keyboards.GameServerRedirect(targetBotUsername);
     }

@@ -10,7 +10,7 @@ internal abstract partial class Behavior<TContext>
                IMessageTextBotCommandEqualsContext.IsValidUpdate(baseContext.UpdateContext.Update, trait.BotCommandValue);
     }
 
-    public virtual async Task<IMessageTextBotCommandEqualsContext<TContext>?> PrepareMessageTextBotCommandEqualsContextAsync(
+    public async Task<IMessageTextBotCommandEqualsContext<TContext>?> PrepareMessageTextBotCommandEqualsContextAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

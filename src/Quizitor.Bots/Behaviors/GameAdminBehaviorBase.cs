@@ -13,21 +13,21 @@ internal abstract class GameAdminBehaviorBase<TContext>(IDbContextProvider dbCon
     BalanceGameAdminLb<TContext>(dbContextProvider)
     where TContext : ILoadBalancerContext
 {
-    public override BotType Type => BotType.GameAdmin;
+    public sealed override BotType Type => BotType.GameAdmin;
 
-    protected override bool ShouldPerformInternal(IBehaviorContext baseContext)
+    protected sealed override bool ShouldPerformInternal(IBehaviorContext baseContext)
     {
         return false;
     }
 
-    protected override string GetRedirectMessage(string targetBotUsername)
+    protected sealed override string GetRedirectMessage(string targetBotUsername)
     {
         return string.Format(
             TR.L + "_GAME_ADMIN_REDIRECT_TXT",
             targetBotUsername.EscapeHtml());
     }
 
-    protected override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)
+    protected sealed override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)
     {
         return Keyboards.GameAdminRedirect(targetBotUsername);
     }

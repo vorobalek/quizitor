@@ -20,21 +20,21 @@ internal abstract class BalanceGameServerLb<TContext>(IDbContextProvider dbConte
 {
     private readonly IDbContextProvider _dbContextProvider = dbContextProvider;
 
-    protected override BotType UserTargetBotType => BotType.GameServer;
+    protected sealed override BotType UserTargetBotType => BotType.GameServer;
 
-    protected override int? GetUserTargetBotId(User user)
+    protected sealed override int? GetUserTargetBotId(User user)
     {
         return user.GameServerId;
     }
 
-    protected override Task<Bot?> GetTargetBotAsync(CancellationToken cancellationToken)
+    protected sealed override Task<Bot?> GetTargetBotAsync(CancellationToken cancellationToken)
     {
         return _dbContextProvider
             .Bots
             .GetCandidateGameServerOrDefaultAsync(cancellationToken);
     }
 
-    protected override async Task<bool> RedirectIfNeededAsync(
+    protected sealed override async Task<bool> RedirectIfNeededAsync(
         Bot? targetBot,
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)

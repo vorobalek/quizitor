@@ -29,21 +29,21 @@ internal abstract class BalanceGameAdminLb<TContext>(IDbContextProvider dbContex
 
     protected abstract string[] GameAdminPermissions { get; }
 
-    protected override BotType UserTargetBotType => BotType.GameAdmin;
+    protected sealed override BotType UserTargetBotType => BotType.GameAdmin;
 
-    protected override int? GetUserTargetBotId(User user)
+    protected sealed override int? GetUserTargetBotId(User user)
     {
         return user.GameAdminId;
     }
 
-    protected override Task<Bot?> GetTargetBotAsync(CancellationToken cancellationToken)
+    protected sealed override Task<Bot?> GetTargetBotAsync(CancellationToken cancellationToken)
     {
         return _dbContextProvider
             .Bots
             .GetCandidateGameAdminOrDefaultAsync(cancellationToken);
     }
 
-    protected override async Task<bool> RedirectIfNeededAsync(
+    protected sealed override async Task<bool> RedirectIfNeededAsync(
         Bot? targetBot,
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
@@ -107,7 +107,7 @@ internal abstract class BalanceGameAdminLb<TContext>(IDbContextProvider dbContex
 
     protected abstract InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername);
 
-    protected override async Task HandleUnauthorizedInternalAsync(
+    protected sealed override async Task HandleUnauthorizedInternalAsync(
         UnauthorizedException exception,
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
