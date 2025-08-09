@@ -119,6 +119,8 @@ internal static class TelegramExtensions
             .AddBehavior<UserRoleListRevokeBo>()
             .AddBehavior<MailingListBo>()
             .AddBehavior<CreateMailingBo>()
+            .AddBehavior<DeleteMailingBo>()
+            .AddBehavior<DeleteMailingConfirmBo>()
             .AddBehavior<MailingViewBo>()
             .AddBehavior<MailingPreviewBo>()
             .AddBehavior<MailingProfileBo>()

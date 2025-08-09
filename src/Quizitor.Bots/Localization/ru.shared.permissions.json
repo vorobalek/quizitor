@@ -27,6 +27,7 @@
       "_SHARED_PERMISSION_BackOfficeSessionView": "BackOffice: Может просматривать детали сессий",
       "_SHARED_PERMISSION_BackOfficeMailingList": "BackOffice: Может просматривать список рассылок",
       "_SHARED_PERMISSION_BackOfficeMailingCreate": "BackOffice: Может создавать рассылки",
+      "_SHARED_PERMISSION_BackOfficeMailingDelete": "BackOffice: Может удалять рассылки",
       "_SHARED_PERMISSION_BackOfficeMailingView": "BackOffice: Может просматривать детали рассылок",
       "_SHARED_PERMISSION_BackOfficeMailingSend": "BackOffice: Может отправлять рассылки",
       "_SHARED_PERMISSION_BackOfficeServiceView": "BackOffice: Может просматривать служебные настройки",

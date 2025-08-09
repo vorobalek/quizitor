@@ -347,6 +347,33 @@ internal static class Keyboards
                 .Concat([[Buttons.BackToGame(gameId, gamePageNumber)]]));
     }
 
+    public static InlineKeyboardMarkup DeleteMailing(
+        int mailingId,
+        int mailingPageNumber)
+    {
+        int[] fakeIds = [1, 2, 3, 4, 5];
+        Random.Shared.Shuffle(fakeIds);
+        var confirmationButtons = new[]
+            {
+                new[]
+                {
+                    Buttons.DeleteMailingConfirmation(mailingId, mailingPageNumber)
+                }
+            }
+            .Concat(
+                fakeIds
+                    .Take(3)
+                    .Select(fakeId => new[]
+                    {
+                        Buttons.DeleteMailingFakeConfirmation(fakeId, mailingId, mailingPageNumber)
+                    }))
+            .ToArray();
+        Random.Shared.Shuffle(confirmationButtons);
+        return new InlineKeyboardMarkup(
+            confirmationButtons
+                .Concat([[Buttons.BackToMailing(mailingId, mailingPageNumber)]]));
+    }
+
     public static InlineKeyboardMarkup UserRoles(
         Role[] roles,
         Role[] userRoles,
@@ -419,7 +446,7 @@ internal static class Keyboards
         int mailingPageNumber)
     {
         return new InlineKeyboardMarkup([
-            [Buttons.EditMailing, Buttons.DeleteMailing],
+            [Buttons.EditMailing, Buttons.DeleteMailing(mailingId, mailingPageNumber)],
             [Buttons.MailingPreviewFormatting(mailingId, mailingPageNumber)],
             [Buttons.MailingProfile(mailingId, mailingPageNumber)],
             [Buttons.BackToMailingList(mailingPageNumber)]

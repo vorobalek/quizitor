@@ -38,7 +38,7 @@ internal sealed class BotTypeBo(
             .UpdateAsync(
                 context.Base.Bot,
                 cancellationToken);
-        
+
         await botStopBo.StopAsync(
             context.Base.Bot,
             context,

@@ -16,7 +16,7 @@ public interface IMailingRepository
     Task<Mailing> GetByIdAsync(int mailingId, CancellationToken cancellationToken);
     Task<Mailing?> GetByIdOrDefaultAsync(int mailingId, CancellationToken cancellationToken);
     Task<Mailing[]> GetPaginatedAfterCreationAsync(int pageSize, CancellationToken cancellationToken);
-    Task<MailingProfile?> GetProfileByIdOrDefaultAsync(int mailingProfileId, CancellationToken cancellationToken);
+    Task<Mailing[]> GetPaginatedAfterDeletionAsync(int mailingId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<User[]> GetRecipientsAsync(
         int[] includedGameIds,
@@ -58,4 +58,5 @@ public interface IMailingRepository
     Task RemoveBotTypeMailingFilterAsync(int mailingId, long ownerId, BotType botType, CancellationToken cancellationToken);
     Task IncludeBotTypeMailingFilterAsync(int mailingId, long ownerId, BotType botType, CancellationToken cancellationToken);
     Task SetMailingProfileContactTypeAsync(int mailingId, long ownerId, MailingProfileContactType contactType, CancellationToken cancellationToken);
+    Task RemoveAsync(Mailing mailing, CancellationToken cancellationToken);
 }
