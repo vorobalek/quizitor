@@ -97,10 +97,14 @@ internal static class Buttons
             TR.L + "_BACKOFFICE_EDIT_MAILING_BTN",
             NotImplementedUniv.Button);
 
-    public static InlineKeyboardButton DeleteMailing =>
-        InlineKeyboardButton.WithCallbackData(
+    public static InlineKeyboardButton DeleteMailing(
+        int mailingId,
+        int mailingPageNumber)
+    {
+        return InlineKeyboardButton.WithCallbackData(
             TR.L + "_BACKOFFICE_DELETE_MAILING_BTN",
-            NotImplementedUniv.Button);
+            $"{DeleteMailingBo.Button}.{mailingId}.{mailingPageNumber}");
+    }
 
     public static InlineKeyboardButton QuestionSubmissionNotificationType(
         int questionId,
@@ -349,6 +353,25 @@ internal static class Buttons
         return InlineKeyboardButton.WithCallbackData(
             TR.L + "_BACKOFFICE_DELETE_GAME_CONFIRMATION_BTN",
             $"{DeleteGameConfirmBo.Button}.{gameId}.{gamePageNumber}");
+    }
+
+    public static InlineKeyboardButton DeleteMailingConfirmation(
+        int mailingId,
+        int mailingPageNumber)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            TR.L + "_BACKOFFICE_DELETE_MAILING_CONFIRMATION_BTN",
+            $"{DeleteMailingConfirmBo.Button}.{mailingId}.{mailingPageNumber}");
+    }
+
+    public static InlineKeyboardButton DeleteMailingFakeConfirmation(
+        int fakeId,
+        int mailingId,
+        int mailingPageNumber)
+    {
+        return InlineKeyboardButton.WithCallbackData(
+            TR.L + $"_BACKOFFICE_FAKE_CONFIRMATION_{fakeId}_BTN",
+            $"{MailingViewBo.Button}.{mailingId}.{mailingPageNumber}");
     }
 
     public static InlineKeyboardButton Game(

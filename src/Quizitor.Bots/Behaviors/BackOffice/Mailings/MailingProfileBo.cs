@@ -20,7 +20,7 @@ internal abstract class MailingProfileBo<TContext>(
 {
     protected abstract string ButtonInline { get; }
 
-    public override string[] Permissions => [UserPermission.BackOfficeMailingCreate];
+    public override string[] Permissions => [UserPermission.BackOfficeMailingView];
 
     public string CallbackQueryDataPrefixValue => $"{ButtonInline}.";
 

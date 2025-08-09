@@ -55,7 +55,7 @@
             <DependentUpon>Behavior.cs</DependentUpon>
         </Compile>
         <Compile Update="Behaviors\Infrastructure\Behavior.QrCodeDataPrefix.cs">
-          <DependentUpon>Behavior.cs</DependentUpon>
+            <DependentUpon>Behavior.cs</DependentUpon>
         </Compile>
     </ItemGroup>
 

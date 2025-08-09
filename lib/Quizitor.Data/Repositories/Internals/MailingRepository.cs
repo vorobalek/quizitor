@@ -68,13 +68,15 @@ internal sealed class MailingRepository(
             .ToArrayAsync(cancellationToken);
     }
 
-    public Task<MailingProfile?> GetProfileByIdOrDefaultAsync(
-        int mailingProfileId,
-        CancellationToken cancellationToken)
+    public Task<Mailing[]> GetPaginatedAfterDeletionAsync(int mailingId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         return dbContext
-            .MailingProfiles
-            .SingleOrDefaultAsync(x => x.Id == mailingProfileId, cancellationToken);
+            .Mailings
+            .Where(x => x.Id != mailingId)
+            .OrderByDescending(x => x.Id)
+            .Skip(pageNumber * pageSize)
+            .Take(pageSize)
+            .ToArrayAsync(cancellationToken);
     }
 
     public Task<User[]> GetRecipientsAsync(
@@ -262,6 +264,14 @@ internal sealed class MailingRepository(
         mailingProfile.ContactType = contactType;
         dbContext.MailingProfiles.Update(mailingProfile);
         await dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public Task RemoveAsync(
+        Mailing mailing,
+        CancellationToken cancellationToken)
+    {
+        dbContext.Mailings.Remove(mailing);
+        return dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public Task ExcludeBotTypeMailingFilterAsync(int mailingId, long ownerId, BotType botType, CancellationToken cancellationToken)

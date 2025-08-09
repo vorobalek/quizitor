@@ -19,7 +19,7 @@ internal sealed class DeleteGameBo(
     Behavior
 {
     /// <summary>
-    ///     <b>deletegame</b>.{gameId}
+    ///     <b>deletegame</b>.{gameId}.{gamePageNumber}
     /// </summary>
     public const string Button = "deletegame";
 

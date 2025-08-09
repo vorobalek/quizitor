@@ -38,6 +38,7 @@ internal sealed class RoleSeed(
                     UserPermission.BackOfficeSessionView,
                     UserPermission.BackOfficeMailingList,
                     UserPermission.BackOfficeMailingCreate,
+                    UserPermission.BackOfficeMailingDelete,
                     UserPermission.BackOfficeMailingView,
                     UserPermission.BackOfficeMailingSend,
                     UserPermission.BackOfficeServiceView,

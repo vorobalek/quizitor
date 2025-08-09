@@ -17,7 +17,7 @@ internal sealed class DeleteGameConfirmBo(
     Behavior
 {
     /// <summary>
-    ///     <b>deletegameconfirm</b>.{gameId}
+    ///     <b>deletegameconfirm</b>.{gameId}.{gamePageNumber}
     /// </summary>
     public const string Button = "deletegameconfirm";
 

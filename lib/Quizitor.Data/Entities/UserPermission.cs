@@ -51,6 +51,7 @@ public class UserPermission
     public const string BackOfficeSessionView = "BackOfficeSessionView";
     public const string BackOfficeMailingList = "BackOfficeMailingList";
     public const string BackOfficeMailingCreate = "BackOfficeMailingCreate";
+    public const string BackOfficeMailingDelete = "BackOfficeMailingDelete";
     public const string BackOfficeMailingView = "BackOfficeMailingView";
     public const string BackOfficeMailingSend = "BackOfficeMailingSend";
     public const string BackOfficeServiceView = "BackOfficeServiceView";

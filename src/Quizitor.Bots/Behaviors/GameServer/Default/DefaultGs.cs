@@ -208,7 +208,7 @@ internal sealed class DefaultGs(
         {
             SubmissionNotificationType.All => true,
             SubmissionNotificationType.AnyScored => baseCost + ruleCostMap.Values.Sum() > 0,
-            SubmissionNotificationType.FullScored => 
+            SubmissionNotificationType.FullScored =>
                 baseCost == (options.MaxBy(option => option.Cost)?.Cost ?? 0) &&
                 ruleCostMap.Values.Sum() == rules.Sum(rule => rule.Cost),
             SubmissionNotificationType.WrongOnly => baseCost == 0,
