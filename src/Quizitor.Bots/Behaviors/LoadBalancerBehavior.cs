@@ -14,7 +14,7 @@ internal abstract class LoadBalancerBehavior<TContext>(IDbContextProvider dbCont
     protected abstract int? GetUserTargetBotId(User user);
     protected abstract Task<Bot?> GetTargetBotAsync(CancellationToken cancellationToken);
 
-    protected override async Task<TContext?> PrepareInternalAsync(
+    protected sealed override async Task<TContext?> PrepareInternalAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

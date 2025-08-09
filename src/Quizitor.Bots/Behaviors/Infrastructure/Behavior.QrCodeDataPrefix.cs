@@ -10,7 +10,7 @@ internal abstract partial class Behavior<TContext>
                IQrCodeDataPrefixContext.IsValidUpdate(baseContext.UpdateContext.Update, baseContext.QrData, trait.QrCodeDataPrefixValue);
     }
 
-    public virtual async Task<IQrCodeDataPrefixContext<TContext>?> PrepareQrCodeDataPrefixContextAsync(
+    public async Task<IQrCodeDataPrefixContext<TContext>?> PrepareQrCodeDataPrefixContextAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

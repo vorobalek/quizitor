@@ -7,18 +7,18 @@ internal abstract class UniversalBehavior<TContext> :
     Behavior<TContext>
     where TContext : IBehaviorContext
 {
-    public override BotType Type => BotType.Universal;
+    public sealed override BotType Type => BotType.Universal;
+
+    protected sealed override bool ShouldPerformInternal(IBehaviorContext baseContext)
+    {
+        return true;
+    }
 }
 
 internal abstract class UniversalBehavior :
     UniversalBehavior<IBehaviorContext>
 {
-    protected override bool ShouldPerformInternal(IBehaviorContext baseContext)
-    {
-        return false;
-    }
-
-    protected override Task<IBehaviorContext?> PrepareInternalAsync(
+    protected sealed override Task<IBehaviorContext?> PrepareInternalAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

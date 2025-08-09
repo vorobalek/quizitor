@@ -36,7 +36,7 @@ internal abstract class GameAdminBehavior<TContext>(IDbContextProvider dbContext
         return session;
     }
 
-    protected override async Task<TContext?> PrepareLoadBalancerInternalAsync(
+    protected sealed override async Task<TContext?> PrepareLoadBalancerInternalAsync(
         Bot? targetBot,
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
@@ -68,7 +68,7 @@ internal abstract class GameAdminBehavior<TContext>(IDbContextProvider dbContext
 internal abstract class GameAdminBehavior(IDbContextProvider dbContextProvider) :
     GameAdminBehavior<IGameAdminContext>(dbContextProvider)
 {
-    protected override Task<IGameAdminContext?> PrepareGameAdminInternalAsync(
+    protected sealed override Task<IGameAdminContext?> PrepareGameAdminInternalAsync(
         IGameAdminContext gameAdminContext,
         CancellationToken cancellationToken)
     {

@@ -10,7 +10,7 @@ internal abstract partial class Behavior<TContext>
                IMessageTextContext.IsValidUpdate(baseContext.UpdateContext.Update);
     }
 
-    public virtual async Task<IMessageTextContext<TContext>?> PrepareMessageTextContextAsync(
+    public async Task<IMessageTextContext<TContext>?> PrepareMessageTextContextAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {

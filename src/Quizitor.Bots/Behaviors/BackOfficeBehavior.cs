@@ -7,9 +7,9 @@ internal abstract class BackOfficeBehavior<TContext> :
     Behavior<TContext>
     where TContext : IBackOfficeContext
 {
-    public override BotType Type => BotType.BackOffice;
+    public sealed override BotType Type => BotType.BackOffice;
 
-    protected override Task<TContext?> PrepareInternalAsync(
+    protected sealed override Task<TContext?> PrepareInternalAsync(
         IBehaviorContext baseContext,
         CancellationToken cancellationToken)
     {
@@ -25,7 +25,7 @@ internal abstract class BackOfficeBehavior<TContext> :
 internal abstract class BackOfficeBehavior :
     BackOfficeBehavior<IBackOfficeContext>
 {
-    protected override Task<IBackOfficeContext?> PrepareContextAsync(
+    protected sealed override Task<IBackOfficeContext?> PrepareContextAsync(
         IBackOfficeContext backOfficeContext,
         CancellationToken cancellationToken)
     {
