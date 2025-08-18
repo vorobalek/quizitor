@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sentry.Protocol.Envelopes;
@@ -199,5 +200,8 @@ public static class WebHostBuilderExtensions
 
         // ReSharper disable once UnassignedGetOnlyAutoProperty
         public SentryId LastEventId { get; }
+
+        [Experimental("SENTRY0001")]
+        public SentryStructuredLogger Logger => throw new NotImplementedException();
     }
 }
