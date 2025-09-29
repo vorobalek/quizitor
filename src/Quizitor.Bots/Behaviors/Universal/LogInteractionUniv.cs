@@ -29,7 +29,8 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
     {
         logger
             .LogWarning(
-                "CLB {FromId} {Data}",
+                "CLB {BotUsername} {FromId} {Data}",
+                context.Base.EntryBot?.Username,
                 context.CallbackQueryFromId,
                 context.CallbackQueryDataPostfix);
         return Task.CompletedTask;
@@ -41,7 +42,8 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
     {
         logger
             .LogWarning(
-                "MSG {FromId} {Text}",
+                "MSG {BotUsername} {FromId} {Text}",
+                context.Base.EntryBot?.Username,
                 context.MessageFromId,
                 context.MessageText);
         return Task.CompletedTask;
@@ -55,7 +57,8 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
     {
         logger
             .LogWarning(
-                "QRC {FromId} {Text}",
+                "QRC {BotUsername} {FromId} {Text}",
+                context.Base.EntryBot?.Username,
                 context.MessageFromId,
                 context.QrCodeDataPostfix);
         return Task.CompletedTask;
