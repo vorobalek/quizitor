@@ -1,0 +1,13 @@
+{
+  "Localization": {
+    "en": {
+      "_LOAD_BALANCER_NO_GAME_SERVER_AVAILABLE_TXT": "\uD83D\uDE1E <b>All operators are currently busy...</b>\n\nThere are currently no suitable game bots. Please try again later or contact the organizers for help.",
+      "_LOAD_BALANCER_NO_GAME_ADMIN_AVAILABLE_TXT": "\uD83D\uDE1E <b>All operators are currently busy...</b>\n\nThere are currently no suitable admin bots. Please try again later or contact the organizers for help.",
+      "_LOAD_BALANCER_GAME_SERVER_REDIRECT_TXT": "\uD83D\uDC4B\uD83C\uDFFB <b>Hello! Your game bot is <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nClick the \"Switch to bot\" button below \uD83D\uDC47\uD83C\uDFFB and <b>be sure to send /start to the bot</b>.\n\nSee you there!",
+      "_LOAD_BALANCER_GAME_SERVER_REDIRECT_BTN": "\uD83C\uDFC4 Switch to bot!",
+      "_LOAD_BALANCER_GAME_ADMIN_REDIRECT_TXT": "\uD83D\uDC4B\uD83C\uDFFB <b>Hello! Your admin bot is <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nClick the \"Switch to bot\" button below \uD83D\uDC47\uD83C\uDFFB and <b>be sure to send /start to the bot</b>.\n\nSee you there!",
+      "_LOAD_BALANCER_GAME_ADMIN_REDIRECT_BTN": "\uD83C\uDFC4 Switch to bot!"
+    }
+  }
+}
+

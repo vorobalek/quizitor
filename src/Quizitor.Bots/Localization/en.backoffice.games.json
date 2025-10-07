@@ -1,0 +1,19 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_GAMES_BTN": "\uD83C\uDFB2 Games ({0})",
+      "_BACKOFFICE_GAMES_TXT": "<b>\uD83C\uDFB2 Games ({0})</b>",
+      "_BACKOFFICE_CREATE_GAME_BTN": "➕ Add game",
+      "_BACKOFFICE_GAME_CREATED_TXT": "✅ <b>Game added!</b>\n\nNew game with title <b>\"{0}\"</b> has been added!",
+      "_BACKOFFICE_EDIT_GAME_BTN": "✏\uFE0F Edit",
+      "_BACKOFFICE_DELETE_GAME_BTN": "\uD83D\uDDD1\uFE0F Delete",
+      "_BACKOFFICE_DELETE_GAME_CONFIRMATION_TXT": "⚠\uFE0F <b>Do you want to delete the game \"{0}\"?</b>\n\nThe following will be deleted along with the game:\n• Rounds: <b>{1}</b>\n• Questions: <b>{2}</b>\n• Answer options: <b>{3}</b>\n• Bonus points: <b>{4}</b>\n• Sessions: <b>{5}</b>\n• User answers: <b>{6}</b>\n• Question start history: <b>{7}</b>\n• Active question time reminder tasks: <b>{8}</b>\n• Active question stop tasks: <b>{9}</b>\n\nAlso:\n• Users will be disconnected from active sessions: <b>{10}</b>\n\n‼️ <b>Deleted data cannot be recovered.</b>",
+      "_BACKOFFICE_DELETE_GAME_CONFIRMATION_BTN": "Yes, delete game",
+      "_BACKOFFICE_GAME_NOT_CREATED_ERROR_TXT": "❌ <b>Failed to add new game</b>\n\nAn internal error occurred that prevented creating the new game. Please try again.",
+      "_BACKOFFICE_GAME_DELETED_CLB": "✅ Game with title \"{0}\" has been deleted!",
+      "_BACKOFFICE_GAME_VIEW_BTN": "✏\uFE0F {0}",
+      "_BACKOFFICE_GAME_VIEW_TXT": "<b>\uD83C\uDFB2 {0}</b>"
+    }
+  }
+}
+

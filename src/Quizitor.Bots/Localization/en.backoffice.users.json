@@ -1,0 +1,24 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_USERS_BTN": "\uD83D\uDC65 Users ({0})",
+      "_BACKOFFICE_USERS_TXT": "<b>\uD83D\uDC65 Users ({0})</b>",
+      "_BACKOFFICE_USER_VIEW_BTN": "✏\uFE0F [{0}] {1} {2}",
+      "_BACKOFFICE_USER_VIEW_TXT": "<b>\uD83D\uDC65 [{0}] {1} {2}</b>\n\nId: <b>{0}</b>\nFirst name: <b>{1}</b>\nLast name: <b>{2}</b>\nUsername: <b>{3}</b>\n<a href=\"tg://user?id={0}\">Link</a>\n\nGame bot: {4}\nAdmin bot: {5}\n\nTotal answers: <b>{6}</b>\nSessions with answers: <b>{7}</b>\n\nBot interactions:\n{8}\n\nSuper-user: <b>{9}</b>\nPermissions:\n{10}",
+      "_BACKOFFICE_USER_VIEW_LINK_TXT": "<a href=\"https://t.me/{0}\">@{0}</a>",
+      "_BACKOFFICE_USER_VIEW_BOT_INFO_TXT": "<b>{0}</b>\n\tStatus: <b>{1}</b>\n\tLink: <b><a href=\"https://t.me/{2}\">@{2}</a></b>",
+      "_BACKOFFICE_USER_PERMISSION_VIEW_TXT": "• {0} <b>{1}</b>",
+      "_BACKOFFICE_USER_BOT_INTERACTION_VIEW_TXT": "• <a href=\"https://t.me/{0}\">@{0}</a> <i>{1}</i>",
+      "_BACKOFFICE_USER_PERMISSION_EXPLICIT_VIEW_TXT": "\uD83D\uDD10",
+      "_BACKOFFICE_USER_PERMISSION_SOURCE_VIEW_TXT": "\uD83C\uDFAD {0}",
+      "_BACKOFFICE_USER_PERMISSIONS_BTN": "\uD83D\uDD10 Permissions",
+      "_BACKOFFICE_USER_ROLES_BTN": "\uD83C\uDFAD Roles",
+      "_BACKOFFICE_USER_ROLES_TXT": "\uD83C\uDFAD <b>[{0}] {1} {2} :: Roles</b>",
+      "_BACKOFFICE_USER_ROLES_VIEW_ENABLED_BTN": "❌ Revoke {0}",
+      "_BACKOFFICE_USER_ROLES_VIEW_DISABLED_BTN": "✅ Grant {0}",
+      "_BACKOFFICE_USER_ROLES_GRANTED_TXT": "✅ User [{0}] {1} {2} has been assigned role {3}!",
+      "_BACKOFFICE_USER_ROLES_REVOKED_TXT": "❌ User [{0}] {1} {2} has been revoked role {3}!"
+    }
+  }
+}
+

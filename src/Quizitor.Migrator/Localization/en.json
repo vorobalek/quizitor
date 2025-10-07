@@ -1,0 +1,11 @@
+{
+  "Localization": {
+    "en": {
+      "_BOT_COMMAND_LOAD_BALANCER_START": "Get your game bot",
+      "_BOT_COMMAND_GAME_ADMIN_START": "Start working with the bot",
+      "_BOT_COMMAND_GAME_SERVER_START": "Start working with the bot",
+      "_BOT_COMMAND_BACKOFFICE_START": "Start working with the bot"
+    }
+  }
+}
+

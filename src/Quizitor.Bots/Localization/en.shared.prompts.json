@@ -1,0 +1,32 @@
+{
+  "Localization": {
+    "en": {
+      "_SHARED_PROMPT_WRONG_CLB": "❌ Already expecting from you: {0}",
+      "_SHARED_PROMPT_CANCEL_BTN": "❌ Cancel",
+      "_SHARED_NO_PROMPT_TO_CANCEL_CLB": "\uD83E\uDD37\uD83C\uDFFC Nothing to cancel!",
+      "_SHARED_UNABLE_PROMPT_TO_CANCEL_CLB": "❌ Cannot cancel: {0}",
+      "_SHARED_PROMPT_BackOfficeNewGameTitle_CLB": "New game title",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewGameTitle_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify a title for the new game</b>\n\nYour next text message will be used as the title for the new game.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewGameTitle_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New game creation cancelled</b>",
+      "_SHARED_PROMPT_BackOfficeNewRoundTitle_CLB": "New round title",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewRoundTitle_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify a title for the new round</b>\n\nYour next text message will be used as the title for the new round.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewRoundTitle_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New round creation cancelled</b>",
+      "_SHARED_PROMPT_BackOfficeNewSessionName_CLB": "New session name",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewSessionName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify a name for the new session</b>\n\nYour next text message will be used as the name for the new session.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewSessionName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New session creation cancelled</b>",
+      "_SHARED_PROMPT_BackOfficeNewMailingName_CLB": "New mailing name",
+      "_SHARED_PROMPT_BackOfficeNewMailingText_CLB": "New mailing text",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewMailingName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify a name for the new mailing</b>\n\nYour next text message will be used as the name for the new mailing.",
+      "_SHARED_PROMPT_MESSAGE_BackOfficeNewMailingText_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify text for the new mailing</b>\n\nYour next text message will be used as the text for the new mailing.",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewMailingName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New mailing creation cancelled</b>",
+      "_SHARED_PROMPT_CANCELLED_BackOfficeNewMailingText_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New mailing creation cancelled</b>",
+      "_SHARED_PROMPT_GameServerAnswer_CLB": "Answer to question",
+      "_SHARED_PROMPT_MESSAGE_GameServerAnswer_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>First answer the question</b>\n\nYour next text message will be accepted as an answer to the current question.",
+      "_SHARED_PROMPT_CANCELLED_GameServerAnswer_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>Question answer cancelled!</b>\n\nAnd this is not normal. The system should not have allowed you to do this.",
+      "_SHARED_PROMPT_GameServerNewTeamName_CLB": "Team name",
+      "_SHARED_PROMPT_MESSAGE_GameServerNewTeamName_TXT": "\uD83D\uDC81\uD83C\uDFFC\u200D♂\uFE0F <b>Specify a name for the new team</b>\n\nYour next text message will be used as the name for the new team.\n\n<i>A started question will automatically cancel the new team creation.</i>",
+      "_SHARED_PROMPT_CANCELLED_GameServerNewTeamName_TXT": "\uD83D\uDC4C\uD83C\uDFFB <b>New team creation cancelled</b>"
+    }
+  }
+}
+

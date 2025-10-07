@@ -1,0 +1,20 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_BOTS_BTN": "\uD83E\uDD16 Bots ({0})",
+      "_BACKOFFICE_BOTS_TXT": "<b>\uD83E\uDD16 Bots ({0})</b>",
+      "_BACKOFFICE_NEW_BOT_BTN": "➕ Add",
+      "_BACKOFFICE_BOT_VIEW_BTN": "✏\uFE0F {0} [{1}]",
+      "_BACKOFFICE_BOT_VIEW_TXT": "<b>\uD83E\uDD16 Bot :: {0}</b>\n\nStatus: <b>{1}</b>\nType: <b>{2}</b>\nLink: <b><a href=\"https://t.me/{3}\">@{3}</a></b>\nIgnore missed: <b>{4}</b>\nConnected players: <b>{5}</b>\nConnected hosts: <b>{6}</b>",
+      "_BACKOFFICE_BOT_ACTIVE_TXT": "✅ Started",
+      "_BACKOFFICE_BOT_ACTIVATE_TXT": "✅ Start",
+      "_BACKOFFICE_BOT_STARTED_TXT": "✅ Bot \"{0}\" started!",
+      "_BACKOFFICE_BOT_INACTIVE_TXT": "❌ Stopped",
+      "_BACKOFFICE_BOT_INACTIVATE_TXT": "❌ Stop",
+      "_BACKOFFICE_BOT_STOPPED_TXT": "❌ Bot \"{0}\" stopped!",
+      "_BACKOFFICE_BOT_SWITCH_TYPE_BTN": "Type: {0} ➡\uFE0F {1}",
+      "_BACKOFFICE_BOT_SWITCH_DROP_PENDING_BTN": "Ignore missed: {0} ➡\uFE0F {1}"
+    }
+  }
+}
+

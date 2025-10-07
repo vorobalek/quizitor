@@ -11,7 +11,7 @@
         "DB_CONNECTION_STRING": "Server=localhost;Port=5432;Database=quizitor;User Id=postgres;Password=postgres;Include Error Detail=true",
         "TELEGRAM_BOT_TOKEN": "",
         "TELEGRAM_WEBHOOK_SECRET": "",
-        "LOCALE": "ru",
+        "LOCALE": "en",
         "SENTRY_DSN": "",
         "KAFKA_BOOTSTRAP_SERVERS": "localhost:9092"
       }

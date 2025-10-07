@@ -36,6 +36,13 @@ public interface ITelegramBotClientWrapper
         CancellationToken cancellationToken = default
     );
 
+    /// <inheritdoc cref="Telegram.Bot.TelegramBotClientExtensions.DeleteMyCommands" />
+    Task DeleteMyCommands(
+        BotCommandScope? scope = null,
+        string? languageCode = null,
+        CancellationToken cancellationToken = default
+    );
+
     /// <inheritdoc cref="Telegram.Bot.TelegramBotClientExtensions.GetMe" />
     Task<TelegramUser> GetMe(CancellationToken cancellationToken = default);
 

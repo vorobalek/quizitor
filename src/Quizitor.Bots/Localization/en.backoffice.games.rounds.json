@@ -1,0 +1,16 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_ROUND_LIST_BTN": "\uD83D\uDDC2\uFE0F Rounds ({0})",
+      "_BACKOFFICE_ROUNDS_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: Rounds ({1})</b>",
+      "_BACKOFFICE_CREATE_ROUND_BTN": "➕ Add round",
+      "_BACKOFFICE_EDIT_ROUND_BTN": "✏\uFE0F Edit",
+      "_BACKOFFICE_DELETE_ROUND_BTN": "\uD83D\uDDD1\uFE0F Delete",
+      "_BACKOFFICE_ROUND_CREATED_TXT": "✅ <b>Round added!</b>\n\nNew round with title <b>\"{0}\"</b> has been added to game <b>\"{1}\"</b>!",
+      "_BACKOFFICE_ROUND_NOT_CREATED_ERROR_TXT": "❌ <b>Failed to add new round</b>\n\nAn internal error occurred that prevented creating the new round. Please try again.",
+      "_BACKOFFICE_ROUND_VIEW_BTN": "✏\uFE0F {0}. {1}",
+      "_BACKOFFICE_ROUND_VIEW_TXT": "\uD83D\uDDC2\uFE0F <b>{0} :: {1}</b>\n\n<b>Description:</b> {2}\n\n<b>Question topics:</b>\n{3}"
+    }
+  }
+}
+

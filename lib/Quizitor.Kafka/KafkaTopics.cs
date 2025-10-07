@@ -19,6 +19,4 @@ public static class KafkaTopics
     public const string DeleteMessageBotTopicName = $"{Prefix}DeleteMessage.{{0}}";
     public const string QuestionTimingNotifyTopicName = $"{Prefix}QuestionTimingNotify";
     public const string QuestionTimingStopTopicName = $"{Prefix}QuestionTimingStop";
-
-    public const string SlaTopicName = $"{Prefix}Sla";
 }
