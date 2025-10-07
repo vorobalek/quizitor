@@ -77,6 +77,18 @@ internal sealed class TelegramBotClientWrapper(
                 cancellationToken);
     }
 
+    public Task DeleteMyCommands(
+        BotCommandScope? scope = null,
+        string? languageCode = null,
+        CancellationToken cancellationToken = default)
+    {
+        return botClient
+            .DeleteMyCommands(
+                scope,
+                languageCode,
+                cancellationToken);
+    }
+
     public Task<TelegramUser> GetMe(CancellationToken cancellationToken = default)
     {
         return botClient

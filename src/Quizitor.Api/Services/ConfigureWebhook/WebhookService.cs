@@ -36,6 +36,9 @@ internal sealed class WebhookService(
                 ],
                 dropPendingUpdates: bot.DropPendingUpdates,
                 cancellationToken: cancellationToken);
+        await client
+            .DeleteMyCommands(
+                cancellationToken: cancellationToken);
         var botCommands = await dbContextProvider
             .BotCommands
             .GetByTypeAsync(

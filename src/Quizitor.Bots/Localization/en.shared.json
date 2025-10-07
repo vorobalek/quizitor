@@ -1,0 +1,16 @@
+{
+  "Localization": {
+    "en": {
+      "_SHARED_NOT_IMPLEMENTED_TXT": "❌ Not working yet!",
+      "_SHARED_YES_TXT": "Yes",
+      "_SHARED_NO_TXT": "No",
+      "_SHARED_BACK_BTN": "↩\uFE0F Back",
+      "_SHARED_PAGE_BACK_BTN": "◀\uFE0F Page {0}",
+      "_SHARED_PAGE_NEXT_BTN": "Page {0} ▶\uFE0F",
+      "_SHARED_UNAUTHORIZED_TXT": "❌ <b>Access denied!</b>\n\nYou may be missing one or more permissions\n\n<b>{0}</b>.\n\nPlease contact your system administrator.",
+      "_SHARED_UNAUTHORIZED_CLB": "❌ Access denied!\n\nYou may be missing one or more permissions:\n\n{0}.\n\nPlease contact your system administrator.",
+      "_SHARED_QR_CODE_IS_EXPIRED_TXT": "❌ <b>This QR code has expired!</b>"
+    }
+  }
+}
+

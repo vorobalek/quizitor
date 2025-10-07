@@ -1,0 +1,17 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_MAIN_BTN": "↩\uFE0F To main",
+      "_BACKOFFICE_MAIN_TXT": "<b>Administrator :: {0} {1}</b>",
+      "_BACKOFFICE_SERVICE_BTN": "⚙\uFE0F Service",
+      "_BACKOFFICE_SERVICE_TXT": "<b>⚙\uFE0F Service</b>",
+      "_BACKOFFICE_SESSION_QR_TEXT_TXT": "{0} :: {1}",
+      "_BACKOFFICE_FAKE_CONFIRMATION_1_BTN": "No",
+      "_BACKOFFICE_FAKE_CONFIRMATION_2_BTN": "I changed my mind",
+      "_BACKOFFICE_FAKE_CONFIRMATION_3_BTN": "Not now",
+      "_BACKOFFICE_FAKE_CONFIRMATION_4_BTN": "I'll think about it",
+      "_BACKOFFICE_FAKE_CONFIRMATION_5_BTN": "No way"
+    }
+  }
+}
+

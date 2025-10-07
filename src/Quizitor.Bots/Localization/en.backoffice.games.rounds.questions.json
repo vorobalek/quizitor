@@ -1,0 +1,26 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_QUESTION_LIST_ITEM_TXT": "• {0}. {1} (<b>{2} sec.</b>)",
+      "_BACKOFFICE_CREATE_QUESTION_BTN": "➕ Add question",
+      "_BACKOFFICE_EDIT_QUESTION_BTN": "✏\uFE0F Edit",
+      "_BACKOFFICE_DELETE_QUESTION_BTN": "\uD83D\uDDD1\uFE0F Delete",
+      "_BACKOFFICE_QUESTION_VIEW_BTN": "❔ {0}. {1}",
+      "_BACKOFFICE_QUESTION_VIEW_TXT": "❔ <b>{0} :: {1} :: {2}</b>\n\n<b>Question:</b> {3}\n\n<b>Number of attempts:</b> {4}\n<b>Time:</b> {5} sec.\n<b>Time reminder before end:</b> {6}\n<b>Auto-close:</b> {7}\n\n<b>Host notifications:</b> {8}\n<b>Comment for host:</b> {9}\n\n<b>Answer options:</b> {10}\n\n<b>Bonus points:</b> {11}",
+      "_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_All": "All",
+      "_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_AnyScored": "With points",
+      "_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_FullScored": "With max points",
+      "_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_WrongOnly": "Wrong only",
+      "_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_None": "None",
+      "_BACKOFFICE_QUESTION_SWITCH_SUBMISSION_NOTIFICATION_TYPE_BTN": "Notifications: {0} ➡\uFE0F {1}",
+      "_BACKOFFICE_QUESTION_NOTIFICATION_TIME_TXT": "in {0} sec.",
+      "_BACKOFFICE_QUESTION_OPTION_LIST_ITEM_TXT": "\n<span class=\"tg-spoiler\">• {0} {1}. {2} (<b>{3} pts.</b>)</span>",
+      "_BACKOFFICE_QUESTION_OPTION_CORRECT_SIGN": "✅",
+      "_BACKOFFICE_QUESTION_OPTION_WRONG_SIGN": "❌",
+      "_BACKOFFICE_QUESTION_RULE_LIST_ITEM_TXT": "\n• {0} – <b>{1} pts.</b>",
+      "_BACKOFFICE_QUESTION_RULE_AnyAnswerQuestionRule": "For <b>any</b> answer",
+      "_BACKOFFICE_QUESTION_RULE_FirstAcceptedAnswerQuestionRule": "For accepted answer among first <b>{0}</b>."
+    }
+  }
+}
+

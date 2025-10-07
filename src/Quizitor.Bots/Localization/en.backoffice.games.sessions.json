@@ -1,0 +1,18 @@
+{
+  "Localization": {
+    "en": {
+      "_BACKOFFICE_SESSION_LIST_BTN": "\uD83C\uDFAE Sessions ({0})",
+      "_BACKOFFICE_SESSIONS_TXT": "\uD83C\uDFAE <b>{0} :: Sessions ({1})</b>",
+      "_BACKOFFICE_CREATE_SESSION_BTN": "➕ Add session",
+      "_BACKOFFICE_EDIT_SESSION_BTN": "✏\uFE0F Edit",
+      "_BACKOFFICE_DELETE_SESSION_BTN": "\uD83D\uDDD1\uFE0F Delete",
+      "_BACKOFFICE_SESSION_CREATED_TXT": "✅ <b>Session created!</b>\n\nNew session with name <b>\"{0}\"</b> has been added to game <b>\"{1}\"</b>!",
+      "_BACKOFFICE_SESSION_NOT_CREATED_ERROR_TXT": "❌ <b>Failed to add new session</b>\n\nAn internal error occurred that prevented creating the new session. Please try again.",
+      "_BACKOFFICE_SESSION_VIEW_BTN": "✏\uFE0F {0}",
+      "_BACKOFFICE_SESSION_VIEW_TXT": "\uD83C\uDFAE <b>{0} :: {1}</b>\n\nActive users: <b>{2}</b>\nUser answers: <b>{3}</b>",
+      "_BACKOFFICE_SESSION_GET_QR_ERROR_TXT": "❌ Failed to create QR code for session. An internal error occurred. Please try again.",
+      "_BACKOFFICE_SESSION_GET_QR_BTN": "\uD83D\uDD33 QR code for connection"
+    }
+  }
+}
+
