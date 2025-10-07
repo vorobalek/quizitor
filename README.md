@@ -156,7 +156,7 @@ All configuration is via environment variables. Below are commonly used settings
 - `KAFKA_DEFAULT_NUM_PARTITIONS`: default `1` (applied by all consumers when autocreating topics)
 - `KAFKA_DEFAULT_REPLICATION_FACTOR`: default `1` (applied by all consumers when autocreating topics)
 - `SENTRY_DSN`: Optional Sentry DSN
-- `LOCALE`: Default `en` (supports `ru` resources)
+- `LOCALE`: Default `en` (supports `en`/`ru` resources)
 
 ### Api (`src/Quizitor.Api`)
 - `PORT`: default `8080`
