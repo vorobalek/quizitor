@@ -51,8 +51,6 @@ internal sealed class SendPhotoKafkaConsumerTask(
             ]
         });
 
-    private readonly ILogger<SendMessageKafkaConsumerTask> _logger = logger;
-
     protected override string Method => "sendPhoto";
     protected override string TopicMain => KafkaTopics.SendPhotoTopicName;
     protected override string TopicBot => KafkaTopics.SendPhotoBotTopicName;
@@ -90,7 +88,7 @@ internal sealed class SendPhotoKafkaConsumerTask(
         {
             // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
 #pragma warning disable CA2254
-            _logger.LogWarning(exception.ToString());
+            logger.LogWarning(exception.ToString());
 #pragma warning restore CA2254
             if (exception.ErrorCode == 429)
                 throw new RetryLaterExtension(1000, "429 status code has been found");
