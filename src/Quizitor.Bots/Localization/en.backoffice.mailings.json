@@ -13,7 +13,7 @@
       "_BACKOFFICE_MAILING_VIEW_TXT": "\uD83D\uDCE8 <b>{0}</b>\n\n{1}",
       "_BACKOFFICE_EDIT_MAILING_BTN": "✏\uFE0F Edit",
       "_BACKOFFICE_DELETE_MAILING_BTN": "\uD83D\uDDD1\uFE0F Delete",
-      "_BACKOFFICE_DELETE_MAILING_CONFIRMATION_TXT": "⚠\uFE0F <b>Do you want to delete mailing \"{0}\"?</b>\n\n‼️ <b>Deleted data cannot be recovered.</b>",
+      "_BACKOFFICE_DELETE_MAILING_CONFIRMATION_TXT": "⚠\uFE0F <b>Do you want to delete mailing \"{0}\"?</b>\n\n‼\uFE0F <b>Deleted data cannot be recovered.</b>",
       "_BACKOFFICE_DELETE_MAILING_CONFIRMATION_BTN": "Yes, delete mailing",
       "_BACKOFFICE_MAILING_DELETED_CLB": "✅ Mailing with name \"{0}\" has been deleted!",
       "_BACKOFFICE_PREVIEW_MAILING_BTN": "\uD83D\uDC40 Preview",

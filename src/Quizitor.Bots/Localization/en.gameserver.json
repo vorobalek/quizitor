@@ -1,7 +1,7 @@
 {
   "Localization": {
     "en": {
-      "_GAME_SERVER_REDIRECT_TXT": "‼\uFE0F <b>This bot will not respond to you! Your game bot is <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nClick the \"Switch to bot\" button below 👇🏻 and <b>be sure to send /start to the bot</b>.",
+      "_GAME_SERVER_REDIRECT_TXT": "‼\uFE0F <b>This bot will not respond to you! Your game bot is <a href=\"https://t.me/{0}\">@{0}</a></b>\n\nClick the \"Switch to bot\" button below \uD83D\uDC47\uD83C\uDFFB and <b>be sure to send /start to the bot</b>.",
       "_GAME_SERVER_REQUEST_QR_CODE_TXT": "\uD83D\uDDFF <b>Send a photo of the QR code to connect to the game</b>",
       "_GAME_SERVER_SESSION_JOIN_TXT": "✅ You have joined the game <b>\"{0} :: {1}\"</b>!",
       "_GAME_SERVER_TEAM_JOIN_TXT": "✅ You have joined the game <b>\"{0} :: {1}\"</b> as part of team <b>\"{2}\"</b>!",
