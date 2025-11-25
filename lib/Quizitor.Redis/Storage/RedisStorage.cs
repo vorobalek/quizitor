@@ -29,7 +29,11 @@ internal class RedisStorage<TValue> : IRedisStorage<TValue>
         CancellationToken cancellationToken,
         TimeSpan? expiry = null)
     {
-        return await UpsertInternalAsync(key, value, cancellationToken, expiry);
+        return await UpsertInternalAsync(
+            key,
+            value,
+            cancellationToken,
+            expiry);
     }
 
     public async Task<TValue?> ReadAsync(
@@ -55,7 +59,7 @@ internal class RedisStorage<TValue> : IRedisStorage<TValue>
         return await _database.StringSetAsync(
             GetKey(key),
             _serializer.Serialize(value),
-            expiry);
+            expiry ?? Expiration.Default);
     }
 
     protected virtual async Task<TValue?> ReadInternalAsync(
