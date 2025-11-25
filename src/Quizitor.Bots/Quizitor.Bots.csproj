@@ -32,31 +32,31 @@
             <DependentUpon>ru.backoffice.games.rounds.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.bots.json">
-          <DependentUpon>en.backoffice.json</DependentUpon>
+            <DependentUpon>en.backoffice.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.games.rounds.questions.json">
-          <DependentUpon>en.backoffice.games.rounds.json</DependentUpon>
+            <DependentUpon>en.backoffice.games.rounds.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.games.rounds.json">
-          <DependentUpon>en.backoffice.games.json</DependentUpon>
+            <DependentUpon>en.backoffice.games.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.games.sessions.json">
-          <DependentUpon>en.backoffice.games.json</DependentUpon>
+            <DependentUpon>en.backoffice.games.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.games.json">
-          <DependentUpon>en.backoffice.json</DependentUpon>
+            <DependentUpon>en.backoffice.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.mailings.json">
-          <DependentUpon>en.backoffice.json</DependentUpon>
+            <DependentUpon>en.backoffice.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.backoffice.users.json">
-          <DependentUpon>en.backoffice.json</DependentUpon>
+            <DependentUpon>en.backoffice.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.shared.permissions.json">
-          <DependentUpon>en.shared.json</DependentUpon>
+            <DependentUpon>en.shared.json</DependentUpon>
         </Content>
         <Content Update="Localization\en.shared.prompts.json">
-          <DependentUpon>en.shared.json</DependentUpon>
+            <DependentUpon>en.shared.json</DependentUpon>
         </Content>
     </ItemGroup>
 
