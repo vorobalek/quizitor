@@ -114,7 +114,7 @@ services:
       dockerfile: Dockerfile
       target: migrator
       tags:
-        - vorobalek/quizitor-migrator:local
+        - quizitor/migrator:local
     env_file:
       - path: ./env/migrator/.env.local
         required: true
