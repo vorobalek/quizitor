@@ -197,14 +197,21 @@ All configuration is via environment variables. Below are commonly used settings
 
 ### Prerequisites
 - Docker (and Docker Compose)
-- .NET SDK 9.0
+- .NET SDK 10.0
 
-### Quick start with Docker
-1) Start Kafka only (optional, if not using the full stack):
-```bash
-docker compose -f docker-compose.kafka.yaml up -d
-```
-2) Prepare env files in `env/*/.env.local` for each service (see Configuration section for required variables). Example vars:
+### Docker Compose files
+
+The project provides several docker-compose files for different scenarios:
+
+- **`docker-compose.yaml`**: Full stack with all services (PostgreSQL, Redis, Kafka, and all application services: Api, Bots, Sender, Events, Migrator, Nginx)
+- **`docker-compose.kafka.yaml`**: Isolated Kafka stack (Kafka broker + Kafka UI)
+- **`docker-compose.postgres.yaml`**: Isolated PostgreSQL database
+- **`docker-compose.redis.yaml`**: Isolated Redis stack (Redis + Redis Insight UI)
+
+### Quick start options
+
+#### Option 1: Full stack (recommended for first-time setup)
+1) Prepare env files in `env/*/.env.local` for each service (see Configuration section for required variables). Example vars:
 ```
 # env/api/.env.local
 PORT=80
@@ -213,21 +220,75 @@ DB_CONNECTION_STRING=Host=postgres;Port=5432;Database=quizitor;Username=postgres
 TELEGRAM_BOT_TOKEN=<bot-token>
 TELEGRAM_WEBHOOK_SECRET=<random-secret>
 KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+REDIS_CONNECTION_STRING=redis:6379
 ```
-3) Bring up the full stack:
-```bash
-docker compose -f docker-compose.local.yaml up --build
-```
-4) Access Kafka UI at `http://localhost:9090`.
 
-Tip: For local webhook testing, expose `Quizitor.Api` publicly (e.g., ngrok) and set `DOMAIN` accordingly.
+2) Bring up the full stack:
+```bash
+docker compose up --build
+```
+
+3) Access services:
+   - Kafka UI: `http://localhost:9090`
+   - Redis Insight: `http://localhost:5540`
+   - API (via Nginx): `http://localhost:8080`
+
+#### Option 2: Isolated external services
+Start individual infrastructure services as needed:
+
+**PostgreSQL only:**
+```bash
+docker compose -f docker-compose.postgres.yaml up -d
+```
+
+**Redis only:**
+```bash
+docker compose -f docker-compose.redis.yaml up -d
+```
+
+**Kafka only:**
+```bash
+docker compose -f docker-compose.kafka.yaml up -d
+```
+
+**All external services together:**
+```bash
+docker compose -f docker-compose.postgres.yaml -f docker-compose.redis.yaml -f docker-compose.kafka.yaml up -d
+```
+
+When using isolated services, ensure your application services' connection strings point to the correct hostnames:
+- PostgreSQL: `Host=localhost;Port=5432;...` (or `Host=postgres` if services are on the same Docker network)
+- Redis: `localhost:6379` (or `redis:6379` if on the same network)
+- Kafka: `localhost:9092` (or `kafka:19092` if on the same network)
+
+#### Option 3: Hybrid approach
+Run external services via Docker Compose, and run application services locally with `dotnet run`:
+
+1) Start external services:
+```bash
+docker compose -f docker-compose.postgres.yaml -f docker-compose.redis.yaml -f docker-compose.kafka.yaml up -d
+```
+
+2) Configure application services to connect to `localhost` (see connection strings above)
+
+3) Run application services from their project directories:
+```bash
+cd src/Quizitor.Api && dotnet run
+cd src/Quizitor.Bots && dotnet run
+# etc.
+```
 
 ### Running services without Docker
 From each project directory, set env vars and run:
 ```bash
 dotnet run
 ```
-Ensure Kafka, PostgreSQL, and Redis are reachable.
+Ensure Kafka, PostgreSQL, and Redis are reachable (either via Docker Compose or external instances).
+
+### Tips
+- For local webhook testing, expose `Quizitor.Api` publicly (e.g., ngrok) and set `DOMAIN` accordingly
+- Use isolated docker-compose files when you need to restart only specific infrastructure components
+- The full stack includes health checks and proper service dependencies, ensuring services start in the correct order
 
 ## Core workflows
 
