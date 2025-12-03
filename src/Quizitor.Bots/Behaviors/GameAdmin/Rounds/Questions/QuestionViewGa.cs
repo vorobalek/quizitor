@@ -111,8 +111,8 @@ internal sealed class QuestionViewGa(
                 messageId,
                 string.Format(
                     TR.L + "_GAME_ADMIN_QUESTION_VIEW_TXT",
-                    context.Round.Title.EscapeHtml(),
-                    context.Question.Title.EscapeHtml(),
+                    context.Round.Title.Html,
+                    context.Question.Title.Html,
                     context.Question.Text,
                     context.Question.Attempts,
                     context.Question.Time,
@@ -126,7 +126,7 @@ internal sealed class QuestionViewGa(
                         : TR.L + "_SHARED_NO_TXT",
                     TR.L + $"_GAME_ADMIN_QUESTION_SUBMISSION_NOTIFICATION_TYPE_{context.Question.SubmissionNotificationType}",
                     context.Question.Comment is { } comment
-                        ? comment.EscapeHtml()
+                        ? comment.Html
                         : TR.L + "_SHARED_NO_TXT",
                     context.Options.Length > 0
                         ? string.Join(
@@ -138,7 +138,7 @@ internal sealed class QuestionViewGa(
                                         ? TR.L + "_GAME_ADMIN_QUESTION_OPTION_CORRECT_SIGN"
                                         : TR.L + "_GAME_ADMIN_QUESTION_OPTION_WRONG_SIGN",
                                     option.Number,
-                                    option.Text.EscapeHtml(),
+                                    option.Text.Html,
                                     option.Cost)))
                         : TR.L + "_SHARED_NO_TXT",
                     context.Rules.Length > 0

@@ -14,7 +14,7 @@ public sealed class EnumsTests
 
         foreach (var value in values)
         {
-            var result = value.GetDisplayName();
+            var result = value.DisplayName;
 
 
             Assert.IsNotNull(result, $"[Display(Name = \"...\") for {nameof(BotType)}.{value} should not be null");

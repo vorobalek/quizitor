@@ -82,8 +82,8 @@ internal abstract class UserRoleListBo<TContext>(
                 string.Format(
                     TR.L + "_BACKOFFICE_USER_ROLES_TXT",
                     context.Base.User.Id,
-                    context.Base.User.FirstName.EscapeHtml(),
-                    context.Base.User.LastName?.EscapeHtml()),
+                    context.Base.User.FirstName.Html,
+                    context.Base.User.LastName?.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.UserRoles(
                     context.Base.Roles,

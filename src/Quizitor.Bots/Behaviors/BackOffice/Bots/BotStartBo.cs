@@ -62,7 +62,7 @@ internal sealed class BotStartBo(
 
         await botClientWrapper
             .SetMyCommands(
-                botCommands.Select(BotCommandExtensions.ToTelegramBotCommand),
+                botCommands.Select(x => x.TelegramBotCommand),
                 cancellationToken: cancellationToken);
 
         var botUser = await botClientWrapper.GetMe(cancellationToken);

@@ -34,8 +34,8 @@ internal sealed class ServicePageBo :
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_SERVICE_TXT",
-                    context.Base.TelegramUser.FirstName.EscapeHtml(),
-                    context.Base.TelegramUser.LastName?.EscapeHtml()),
+                    context.Base.TelegramUser.FirstName.Html,
+                    context.Base.TelegramUser.LastName?.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.ServicePage, cancellationToken: cancellationToken);
     }

@@ -50,20 +50,20 @@ await Host
                 .AddOptions<AppOptions>()
                 .Configure(x =>
                 {
-                    x.Url = $"https://{"DOMAIN".GetEnvironmentVariableOrThrowIfNullOrWhiteSpace()}";
+                    x.Url = $"https://{"DOMAIN".RequiredEnvironmentValue}";
                 });
             services
                 .AddOptions<TelegramBotOptions>()
                 .Configure(x =>
                 {
-                    x.Token = "TELEGRAM_BOT_TOKEN".GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+                    x.Token = "TELEGRAM_BOT_TOKEN".RequiredEnvironmentValue;
                 });
             services
                 .AddOptions<TelegramBotSecrets>()
                 .Configure(x =>
                 {
                     x.HeaderName = "X-Telegram-Bot-Api-Secret-Token";
-                    x.Token = "TELEGRAM_WEBHOOK_SECRET".GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+                    x.Token = "TELEGRAM_WEBHOOK_SECRET".RequiredEnvironmentValue;
                 });
 
             services.AddControllers();

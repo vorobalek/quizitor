@@ -44,8 +44,8 @@ internal sealed class MainPageBo(IDbContextProvider dbContextProvider) :
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAIN_TXT",
-                    context.Base.TelegramUser.FirstName.EscapeHtml(),
-                    context.Base.TelegramUser.LastName?.EscapeHtml()),
+                    context.Base.TelegramUser.FirstName.Html,
+                    context.Base.TelegramUser.LastName?.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.MainPage(
                     context.Base.BotsCount,
@@ -69,8 +69,8 @@ internal sealed class MainPageBo(IDbContextProvider dbContextProvider) :
                 context.Base.TelegramUser.Id,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAIN_TXT",
-                    context.Base.TelegramUser.FirstName.EscapeHtml(),
-                    context.Base.TelegramUser.LastName?.EscapeHtml()),
+                    context.Base.TelegramUser.FirstName.Html,
+                    context.Base.TelegramUser.LastName?.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.MainPage(
                     context.Base.BotsCount,

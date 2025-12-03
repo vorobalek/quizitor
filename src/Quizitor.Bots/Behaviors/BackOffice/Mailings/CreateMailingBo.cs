@@ -181,8 +181,8 @@ internal sealed class CreateMailingBo(IDbContextProvider dbContextProvider) :
                             string
                                 .Format(
                                     TR.L + "_BACKOFFICE_MAILING_CREATED_TXT",
-                                    mailing.Name.EscapeHtml(),
-                                    mailing.Text.EscapeHtml()),
+                                    mailing.Name.Html,
+                                    mailing.Text.Html),
                             ParseMode.Html,
                             cancellationToken: cancellationToken);
 

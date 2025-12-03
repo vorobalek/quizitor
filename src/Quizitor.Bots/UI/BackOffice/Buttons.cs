@@ -696,7 +696,7 @@ internal static class Buttons
             string.Format(
                 TR.L + $"_BACKOFFICE_MAILING_CHANNEL_BOT_TYPE_{flag}_BTN",
                 botType,
-                botType.GetDisplayName()),
+                botType.DisplayName),
             $"{MailingChannelBotTypeBo.Button}.{mailingId}.{mailingPageNumber}.{botType}.{botTypePageNumber}");
     }
 
@@ -711,7 +711,7 @@ internal static class Buttons
             string.Format(
                 TR.L + $"_BACKOFFICE_MAILING_CHANNEL_BOT_{flag}_BTN",
                 bot.Username ?? bot.Name,
-                bot.Type.GetDisplayName()),
+                bot.Type.DisplayName),
             $"{MailingChannelBotBo.Button}.{mailingId}.{mailingPageNumber}.{bot.Id}.{botPageNumber}");
     }
 

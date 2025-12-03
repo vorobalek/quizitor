@@ -4,14 +4,17 @@ namespace Quizitor.Migrator.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddMigrator(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        return services.AddScoped<IMigrator, Migrator>();
-    }
+        public IServiceCollection AddMigrator()
+        {
+            return services.AddScoped<IMigrator, Migrator>();
+        }
 
-    public static IServiceCollection AddSeed<TSeed>(this IServiceCollection services)
-        where TSeed : class, ISeed
-    {
-        return services.AddScoped<ISeed, TSeed>();
+        public IServiceCollection AddSeed<TSeed>()
+            where TSeed : class, ISeed
+        {
+            return services.AddScoped<ISeed, TSeed>();
+        }
     }
 }

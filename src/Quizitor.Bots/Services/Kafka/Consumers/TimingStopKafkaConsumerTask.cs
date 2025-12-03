@@ -75,8 +75,8 @@ internal sealed class TimingStopKafkaConsumerTask(
 
                     var text = string.Format(
                         TR.L + "_GAME_ADMIN_QUESTION_READY_TO_STOP_TXT",
-                        round.Title.EscapeHtml(),
-                        question.Title.EscapeHtml());
+                        round.Title.Html,
+                        question.Title.Html);
 
                     var keyboard = Keyboards.ActiveQuestionCallbacks(
                         round.Title,

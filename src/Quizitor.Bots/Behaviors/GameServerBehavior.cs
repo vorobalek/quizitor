@@ -103,8 +103,8 @@ internal abstract class GameServerBehavior<TContext>(IDbContextProvider dbContex
             ? ISessionTeamInfo.Create(
                 team,
                 leader,
-                members.Where(x => x.SessionId == sessionId).ToArray(),
-                members.Where(x => x.SessionId != sessionId).ToArray())
+                [.. members.Where(x => x.SessionId == sessionId)],
+                [.. members.Where(x => x.SessionId != sessionId)])
             : null;
 
         return teamInfo;

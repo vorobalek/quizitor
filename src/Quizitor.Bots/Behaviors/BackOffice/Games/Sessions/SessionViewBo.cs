@@ -97,8 +97,8 @@ internal class SessionViewBo(
 
         var text = string.Format(
             TR.L + "_BACKOFFICE_SESSION_VIEW_TXT",
-            context.Base.Game.Title.EscapeHtml(),
-            context.Base.Session.Name.EscapeHtml(),
+            context.Base.Game.Title.Html,
+            context.Base.Session.Name.Html,
             context.Base.UsersCount,
             context.Base.SubmissionsCount);
         var keyboard = Keyboards.Session(

@@ -16,18 +16,6 @@ internal class RedisDefaultSerializer<T> : IJsonSerializer<T>
         return DeserializeInternal(json);
     }
 
-    public T? TryDeserialize(string json)
-    {
-        try
-        {
-            return Deserialize(json);
-        }
-        catch
-        {
-            return default;
-        }
-    }
-
     private static string SerializeInternal(T @object)
     {
         return JsonSerializer.Serialize(@object);

@@ -40,7 +40,7 @@ internal sealed class GameViewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_GAME_VIEW_TXT",
-                    context.Base.Game.Title.EscapeHtml()),
+                    context.Base.Game.Title.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.GameView(
                     context.Base.Game.Id,

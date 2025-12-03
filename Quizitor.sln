@@ -4,11 +4,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_common", "_common", "{972B
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.kafka.yaml = docker-compose.kafka.yaml
 		nuget.config = nuget.config
-		docker-compose.local.yaml = docker-compose.local.yaml
+		docker-compose.yaml = docker-compose.yaml
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
 		Directory.Packages.props = Directory.Packages.props
 		Directory.Build.props = Directory.Build.props
+		docker-compose.redis.yaml = docker-compose.redis.yaml
+		docker-compose.postgres.yaml = docker-compose.postgres.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FA2B36CF-0DAF-4721-AD4B-751CD7059802}"

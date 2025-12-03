@@ -9,11 +9,11 @@ internal static class KafkaConfiguration
     private const short DefaultReplicationFactorInt16 = 1;
 
     public static readonly string BootstrapServers = "KAFKA_BOOTSTRAP_SERVERS"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly int DefaultNumPartitions = "KAFKA_DEFAULT_NUM_PARTITIONS"
-        .GetEnvironmentVariableWithFallbackValue(DefaultNumPartitionsInt32);
+        .GetEnvironmentValueWithFallback(DefaultNumPartitionsInt32);
 
     public static readonly short DefaultReplicationFactor = "KAFKA_DEFAULT_REPLICATION_FACTOR"
-        .GetEnvironmentVariableWithFallbackValue(DefaultReplicationFactorInt16);
+        .GetEnvironmentValueWithFallback(DefaultReplicationFactorInt16);
 }

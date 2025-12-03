@@ -8,27 +8,28 @@ namespace Quizitor.Logging;
 
 public static class WebHostBuilderExtensions
 {
-    public static IWebHostBuilder AddLogging(
-        this IWebHostBuilder builder,
-        LogLevel logLevel = LogLevel.Error,
-        string? dsn = null)
+    extension(IWebHostBuilder builder)
     {
-        builder.ConfigureLogging(logging => logging
-            .AddConsole());
-        return
-            !string.IsNullOrWhiteSpace(dsn)
-                ? builder.ConfigureLogging(logging =>
-                {
-                    logging.AddSentry(configuration =>
+        public IWebHostBuilder AddLogging(LogLevel logLevel = LogLevel.Error,
+            string? dsn = null)
+        {
+            builder.ConfigureLogging(logging => logging
+                .AddConsole());
+            return
+                !string.IsNullOrWhiteSpace(dsn)
+                    ? builder.ConfigureLogging(logging =>
                     {
-                        configuration.Dsn = dsn;
-                        configuration.MinimumEventLevel = logLevel;
-                        configuration.DisableDuplicateEventDetection();
-                    });
-                })
-                : builder
-                    .ConfigureServices(services => services
-                        .AddSingleton<IHub, HubStub>());
+                        logging.AddSentry(configuration =>
+                        {
+                            configuration.Dsn = dsn;
+                            configuration.MinimumEventLevel = logLevel;
+                            configuration.DisableDuplicateEventDetection();
+                        });
+                    })
+                    : builder
+                        .ConfigureServices(services => services
+                            .AddSingleton<IHub, HubStub>());
+        }
     }
 
     internal sealed class HubStub(ILogger<HubStub> logger) : IHub

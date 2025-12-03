@@ -36,7 +36,7 @@ internal class MailingSendBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAILING_SEND_CONFIRMATION_TXT",
-                    context.Base.Mailing.Name.EscapeHtml(),
+                    context.Base.Mailing.Name.Html,
                     context.Base.Mailing.Text,
                     context.Base.PredictedMessagesCount,
                     context.Base.PredictedUsersCount,

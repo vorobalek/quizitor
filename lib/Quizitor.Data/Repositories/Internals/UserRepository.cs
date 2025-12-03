@@ -201,7 +201,7 @@ internal sealed class UserRepository(
             .SelectMany(x => x.Roles.SelectMany(e => e.Permissions.Select(p => p.SystemName)))
             .ToArrayAsync(cancellationToken);
 
-        return userPermissions.Concat(rolePermissions).Distinct().ToArray();
+        return [.. userPermissions.Concat(rolePermissions).Distinct()];
     }
 
     public Task<UserPermission[]> GetPermissionsByUserIdAsync(long userId, CancellationToken cancellationToken)

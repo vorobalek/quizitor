@@ -293,8 +293,8 @@ internal sealed class QuestionStopGa(
 
             var adminText = string.Format(
                 TR.L + "_GAME_ADMIN_QUESTION_STOPPED_TXT",
-                round.Title.EscapeHtml(),
-                question.Title.EscapeHtml());
+                round.Title.Html,
+                question.Title.Html);
 
             var nextQuestionText = nextQuestion is not null
                 ? string.Format(
@@ -303,8 +303,8 @@ internal sealed class QuestionStopGa(
                         .Rounds
                         .GetByIdAsync(
                             nextQuestion.RoundId,
-                            cancellationToken)).Title.EscapeHtml(),
-                    nextQuestion.Title.EscapeHtml())
+                            cancellationToken)).Title.Html,
+                    nextQuestion.Title.Html)
                 : TR.L + "_GAME_ADMIN_NO_NEXT_QUESTION_TXT";
 
             var nextQuestionKeyboard = UI.GameAdmin.Keyboards.QuestionStopNotification(

@@ -152,7 +152,7 @@ internal sealed class CreateTeamGs(
                             string
                                 .Format(
                                     TR.L + "_GAME_SERVER_TEAM_CREATED_TXT",
-                                    team.Name.EscapeHtml()),
+                                    team.Name.Html),
                             ParseMode.Html,
                             cancellationToken: cancellationToken);
 
@@ -239,7 +239,7 @@ internal sealed class CreateTeamGs(
                     ICreateTeamGameServerContext.IDataError.Create(
                         string.Format(
                             TR.L + "_GAME_SERVER_TEAM_NAME_OCCUPIED_TXT",
-                            teamName.EscapeHtml())),
+                            teamName.Html)),
                     null,
                     gameServerContext);
             }

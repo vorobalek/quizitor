@@ -32,7 +32,7 @@ internal sealed class MailingPreviewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAILING_PREVIEW_TXT",
-                    context.Base.Mailing.Name.EscapeHtml(),
+                    context.Base.Mailing.Name.Html,
                     context.Base.Mailing.Text),
                 ParseMode.Html,
                 replyMarkup: Keyboards.MailingPreview(

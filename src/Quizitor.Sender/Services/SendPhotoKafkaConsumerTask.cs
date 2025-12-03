@@ -11,7 +11,7 @@ using Telegram.Bot.Types;
 namespace Quizitor.Sender.Services;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-internal sealed class SendPhotoKafkaConsumerTask(
+internal sealed partial class SendPhotoKafkaConsumerTask(
     IServiceScopeFactory serviceScopeFactory,
     IOptions<KafkaOptions> options,
     ILogger<SendMessageKafkaConsumerTask> logger)
@@ -86,12 +86,12 @@ internal sealed class SendPhotoKafkaConsumerTask(
         }
         catch (ApiRequestException exception)
         {
-            // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
-#pragma warning disable CA2254
-            logger.LogWarning(exception.ToString());
-#pragma warning restore CA2254
+            LogAnExceptionOccurredWhileSendingAPhoto(logger, exception);
             if (exception.ErrorCode == 429)
                 throw new RetryLaterExtension(1000, "429 status code has been found");
         }
     }
+
+    [LoggerMessage(LogLevel.Error, "An exception occurred while sending a photo")]
+    static partial void LogAnExceptionOccurredWhileSendingAPhoto(ILogger<SendMessageKafkaConsumerTask> logger, Exception exception);
 }

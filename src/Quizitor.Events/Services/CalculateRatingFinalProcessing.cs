@@ -6,7 +6,7 @@ using Quizitor.Redis.Storage.Rating;
 
 namespace Quizitor.Events.Services;
 
-internal sealed class CalculateRatingFinalProcessing(
+internal sealed partial class CalculateRatingFinalProcessing(
     IServiceScopeFactory serviceScopeFactory,
     ILogger<CalculateRatingFinalProcessing> logger) : BackgroundService
 {
@@ -31,7 +31,7 @@ internal sealed class CalculateRatingFinalProcessing(
             }
             catch (Exception exception)
             {
-                logger.LogError(exception, "An exception occurred while calculating final rating");
+                LogAnExceptionOccurredWhileCalculatingFinalRating(logger, exception);
             }
 
             await Task.Delay(5000, stoppingToken);
@@ -113,4 +113,7 @@ internal sealed class CalculateRatingFinalProcessing(
             timer.ObserveDuration();
         }
     }
+
+    [LoggerMessage(LogLevel.Error, "An exception occurred while calculating final rating")]
+    static partial void LogAnExceptionOccurredWhileCalculatingFinalRating(ILogger<CalculateRatingFinalProcessing> logger, Exception exception);
 }

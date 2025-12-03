@@ -52,20 +52,20 @@ internal class MailingSchemaBo(IDbContextProvider dbContextProvider) :
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAILING_SCHEMA_TXT",
-                    context.Base.Mailing.Name.EscapeHtml(),
+                    context.Base.Mailing.Name.Html,
                     string.Join(
                         Environment.NewLine,
                         page.Select(x =>
                             string.Format(
                                 TR.L + "_BACKOFFICE_MAILING_SCHEMA_USER_TXT",
                                 x.Key.Id,
-                                x.Key.GetFullName().EscapeHtml(),
+                                x.Key.GetFullName().Html,
                                 string.Join(
                                     TR.L + "_BACKOFFICE_MAILING_SCHEMA_SEPARATOR_TXT",
                                     x.Select(e =>
                                         string.Format(
                                             TR.L + "_BACKOFFICE_MAILING_SCHEMA_USER_BOT_TXT",
-                                            (e.Username ?? e.Name).EscapeHtml()))))))),
+                                            (e.Username ?? e.Name).Html))))))),
                 ParseMode.Html,
                 replyMarkup: Keyboards.MailingSchema(
                     context.Base.Mailing.Id,

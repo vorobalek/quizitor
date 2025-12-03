@@ -2,20 +2,20 @@ namespace Quizitor.Common;
 
 public static class StringExtensions
 {
-    public static string EscapeHtml(this string input)
+    extension(string input)
     {
-        return input
+        public string Html =>
+            input
                 .Replace("&", "&amp;")
                 .Replace("<", "&lt;")
                 .Replace(">", "&gt;")
-                .Replace("\"", "&quot;")
-            ;
-    }
+                .Replace("\"", "&quot;");
 
-    public static string Truncate(this string value, int maxLength, string truncationSuffix = "…")
-    {
-        return value.Length > maxLength
-            ? value[..(maxLength - truncationSuffix.Length)] + truncationSuffix
-            : value;
+        public string Truncate(int maxLength, string truncationSuffix = "…")
+        {
+            return input.Length > maxLength
+                ? input[..(maxLength - truncationSuffix.Length)] + truncationSuffix
+                : input;
+        }
     }
 }

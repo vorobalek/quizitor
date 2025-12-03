@@ -13,7 +13,7 @@ public sealed class EnvironmentExtensionsTests
         Environment.SetEnvironmentVariable(variableName, variableValue);
 
 
-        var result = variableName.GetEnvironmentVariable();
+        var result = variableName.EnvironmentValue;
 
 
         Assert.AreEqual(variableValue, result);
@@ -25,7 +25,7 @@ public sealed class EnvironmentExtensionsTests
         var variableName = Unique.String();
 
 
-        var result = variableName.GetEnvironmentVariable();
+        var result = variableName.EnvironmentValue;
 
 
         Assert.IsNull(result);
@@ -39,7 +39,7 @@ public sealed class EnvironmentExtensionsTests
         Environment.SetEnvironmentVariable(variableName, variableValue);
 
 
-        var result = variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        var result = variableName.RequiredEnvironmentValue;
 
 
         Assert.AreEqual(variableValue, result);
@@ -54,7 +54,7 @@ public sealed class EnvironmentExtensionsTests
 
 
         Assert.ThrowsExactly<ArgumentNullException>(
-            () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
+            () => variableName.RequiredEnvironmentValue,
             $"Environment variable '{variableName}' is not defined.");
     }
 
@@ -67,7 +67,7 @@ public sealed class EnvironmentExtensionsTests
 
 
         Assert.ThrowsExactly<ArgumentNullException>(
-            () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
+            () => variableName.RequiredEnvironmentValue,
             $"Environment variable '{variableName}' is not defined.");
     }
 
@@ -78,7 +78,7 @@ public sealed class EnvironmentExtensionsTests
 
 
         Assert.ThrowsExactly<ArgumentNullException>(
-            () => variableName.GetEnvironmentVariableOrThrowIfNullOrWhiteSpace(),
+            () => variableName.RequiredEnvironmentValue,
             $"Environment variable '{variableName}' is not defined.");
     }
 
@@ -91,7 +91,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.String();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(variableValue, result);
@@ -106,7 +106,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.String();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);
@@ -121,7 +121,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.String();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);
@@ -134,7 +134,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.String();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);
@@ -149,7 +149,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.Int32();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(variableValue, result);
@@ -164,7 +164,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.Int32();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);
@@ -179,7 +179,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.Int32();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);
@@ -192,7 +192,7 @@ public sealed class EnvironmentExtensionsTests
         var fallbackValue = Unique.Int32();
 
 
-        var result = variableName.GetEnvironmentVariableWithFallbackValue(fallbackValue);
+        var result = variableName.GetEnvironmentValueWithFallback(fallbackValue);
 
 
         Assert.AreEqual(fallbackValue, result);

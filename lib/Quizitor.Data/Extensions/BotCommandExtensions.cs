@@ -1,15 +1,17 @@
-using Telegram.Bot.Types;
+using Quizitor.Data.Entities;
+using TelegramBotCommand = Telegram.Bot.Types.BotCommand;
 
 namespace Quizitor.Data.Extensions;
 
 public static class BotCommandExtensions
 {
-    public static BotCommand ToTelegramBotCommand(this Entities.BotCommand botCommand)
+    extension(BotCommand botCommand)
     {
-        return new BotCommand
-        {
-            Command = botCommand.Command,
-            Description = botCommand.Description
-        };
+        public TelegramBotCommand TelegramBotCommand =>
+            new()
+            {
+                Command = botCommand.Command,
+                Description = botCommand.Description
+            };
     }
 }

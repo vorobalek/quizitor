@@ -151,7 +151,7 @@ internal sealed class CreateGameBo(
                             string
                                 .Format(
                                     TR.L + "_BACKOFFICE_GAME_CREATED_TXT",
-                                    game.Title.EscapeHtml()),
+                                    game.Title.Html),
                             ParseMode.Html,
                             cancellationToken: cancellationToken);
 

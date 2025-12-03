@@ -49,8 +49,8 @@ internal sealed class UserRoleListGrantBo(
                         string.Format(
                             TR.L + "_BACKOFFICE_USER_ROLES_GRANTED_TXT",
                             context.Base.User.Id,
-                            context.Base.User.FirstName.EscapeHtml(),
-                            context.Base.User.LastName?.EscapeHtml(),
+                            context.Base.User.FirstName.Html,
+                            context.Base.User.LastName?.Html,
                             context.Base.Role.SystemName),
                         true,
                         cancellationToken: cancellationToken));

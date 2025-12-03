@@ -49,7 +49,7 @@ internal sealed class TeamLeaveGs(
                         context.MessageId,
                         string.Format(
                             TR.L + "_GAME_SERVER_TEAM_LEAVE_SUCCESS_TXT",
-                            teamInfo.Team.Name.EscapeHtml()),
+                            teamInfo.Team.Name.Html),
                         ParseMode.Html,
                         cancellationToken: cancellationToken);
                 await MainPageGs.ResponseAsync(

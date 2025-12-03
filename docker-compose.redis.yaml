@@ -1,0 +1,30 @@
+﻿name:
+  redis
+
+networks:
+  redis-lan:
+    driver: bridge
+
+services:
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-lan
+
+  redis-ui:
+    image: redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - redis-lan

@@ -160,7 +160,7 @@ internal sealed class BalanceGameAdminLb(IDbContextProvider dbContextProvider) :
     {
         return string.Format(
             TR.L + "_LOAD_BALANCER_GAME_ADMIN_REDIRECT_TXT",
-            targetBotUsername.EscapeHtml());
+            targetBotUsername.Html);
     }
 
     protected override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)

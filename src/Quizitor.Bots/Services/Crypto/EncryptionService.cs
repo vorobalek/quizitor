@@ -95,8 +95,7 @@ internal sealed class EncryptionService : IEncryptionService
 
     private static void GenerateKeyAndIv(string password, byte[] salt, out byte[] key, out byte[] iv)
     {
-        using var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA256);
-        key = pbkdf2.GetBytes(32);
-        iv = pbkdf2.GetBytes(16);
+        key = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithmName.SHA256, 32);
+        iv = Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithmName.SHA256, 16);
     }
 }

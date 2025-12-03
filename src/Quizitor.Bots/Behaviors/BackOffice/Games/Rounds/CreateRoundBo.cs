@@ -160,8 +160,8 @@ internal sealed class CreateRoundBo(
                             string
                                 .Format(
                                     TR.L + "_BACKOFFICE_ROUND_CREATED_TXT",
-                                    round.Title.EscapeHtml(),
-                                    newRound.Game.Title.EscapeHtml()),
+                                    round.Title.Html,
+                                    newRound.Game.Title.Html),
                             ParseMode.Html,
                             cancellationToken: cancellationToken);
                     await RoundListBo.ResponseAsync(roundListContext, cancellationToken);

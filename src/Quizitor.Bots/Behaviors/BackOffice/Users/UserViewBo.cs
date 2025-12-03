@@ -43,35 +43,35 @@ internal sealed class UserViewBo(
                     .Format(
                         TR.L + "_BACKOFFICE_USER_VIEW_TXT",
                         context.Base.User.Id,
-                        context.Base.User.FirstName.EscapeHtml(),
+                        context.Base.User.FirstName.Html,
                         context.Base.User.LastName is null
                             ? TR.L + "_SHARED_NO_TXT"
-                            : context.Base.User.LastName.EscapeHtml(),
+                            : context.Base.User.LastName.Html,
                         context.Base.User.Username is null
                             ? TR.L + "_SHARED_NO_TXT"
                             : string.Format(
                                 TR.L + "_BACKOFFICE_USER_VIEW_LINK_TXT",
-                                context.Base.User.Username.EscapeHtml()
+                                context.Base.User.Username.Html
                             ),
                         context.Base.GameServer is null
                             ? TR.L + "_SHARED_NO_TXT"
                             : string.Format(
                                 TR.L + "_BACKOFFICE_USER_VIEW_BOT_INFO_TXT",
-                                context.Base.GameServer.Name.EscapeHtml(),
+                                context.Base.GameServer.Name.Html,
                                 context.Base.GameServer.IsActive
                                     ? TR.L + "_BACKOFFICE_BOT_ACTIVE_TXT"
                                     : TR.L + "_BACKOFFICE_BOT_INACTIVE_TXT",
-                                context.Base.GameServer.Username?.EscapeHtml()
+                                context.Base.GameServer.Username?.Html
                             ),
                         context.Base.GameAdmin is null
                             ? TR.L + "_SHARED_NO_TXT"
                             : string.Format(
                                 TR.L + "_BACKOFFICE_USER_VIEW_BOT_INFO_TXT",
-                                context.Base.GameAdmin.Name.EscapeHtml(),
+                                context.Base.GameAdmin.Name.Html,
                                 context.Base.GameAdmin.IsActive
                                     ? TR.L + "_BACKOFFICE_BOT_ACTIVE_TXT"
                                     : TR.L + "_BACKOFFICE_BOT_INACTIVE_TXT",
-                                context.Base.GameAdmin.Username?.EscapeHtml()
+                                context.Base.GameAdmin.Username?.Html
                             ),
                         context.Base.SubmissionsCount,
                         context.Base.SessionsCount,

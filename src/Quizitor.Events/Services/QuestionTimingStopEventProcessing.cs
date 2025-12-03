@@ -9,7 +9,7 @@ using Quizitor.Kafka.Contracts;
 
 namespace Quizitor.Events.Services;
 
-internal sealed class QuestionTimingStopEventProcessing(
+internal sealed partial class QuestionTimingStopEventProcessing(
     IServiceScopeFactory serviceScopeFactory,
     ILogger<QuestionTimingStopEventProcessing> logger) : BackgroundService
 {
@@ -34,7 +34,7 @@ internal sealed class QuestionTimingStopEventProcessing(
             }
             catch (Exception exception)
             {
-                logger.LogError(exception, "An exception occurred while executing the question stop queue");
+                LogAnExceptionOccurredWhileExecutingTheQuestionStopQueue(logger, exception);
             }
 
             await Task.Delay(1000, stoppingToken);
@@ -125,7 +125,7 @@ internal sealed class QuestionTimingStopEventProcessing(
 
             return true;
         }
-        catch (Exception exception) when (DbContextProviderExtensions.IsDbUpdateConcurrencyException(exception))
+        catch (Exception exception) when (exception.IsDbUpdateConcurrencyException)
         {
             return false;
         }
@@ -154,4 +154,7 @@ internal sealed class QuestionTimingStopEventProcessing(
             // ignored
         }
     }
+
+    [LoggerMessage(LogLevel.Error, "An exception occurred while executing the question stop queue")]
+    static partial void LogAnExceptionOccurredWhileExecutingTheQuestionStopQueue(ILogger<QuestionTimingStopEventProcessing> logger, Exception exception);
 }

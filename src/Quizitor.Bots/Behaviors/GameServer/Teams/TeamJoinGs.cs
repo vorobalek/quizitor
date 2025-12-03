@@ -71,9 +71,9 @@ internal sealed class TeamJoinGs(
                     context.MessageId,
                     string.Format(
                         TR.L + "_GAME_SERVER_TEAM_JOIN_TXT",
-                        context.Base.Game.Title.EscapeHtml(),
-                        context.Base.Session.Name.EscapeHtml(),
-                        context.Base.Team.Name.EscapeHtml()),
+                        context.Base.Game.Title.Html,
+                        context.Base.Session.Name.Html,
+                        context.Base.Team.Name.Html),
                     ParseMode.Html,
                     cancellationToken: cancellationToken);
             await MainPageGs.ResponseAsync(newContext, null, cancellationToken);

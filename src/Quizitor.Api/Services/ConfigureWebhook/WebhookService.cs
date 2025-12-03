@@ -10,7 +10,7 @@ using BotCommand = Telegram.Bot.Types.BotCommand;
 
 namespace Quizitor.Api.Services.ConfigureWebhook;
 
-internal sealed class WebhookService(
+internal sealed partial class WebhookService(
     ITelegramBotClientFactory clientFactory,
     IOptions<AppOptions> options,
     IOptions<TelegramBotSecrets> secrets,
@@ -20,10 +20,7 @@ internal sealed class WebhookService(
     public async Task<TelegramUser> SetForBotAsync(Bot bot, CancellationToken cancellationToken)
     {
         var webhookAddress = $"{options.Value.Url}/bot/{bot.Id}";
-        logger.LogWarning(
-            "[{Id}] Setting webhook: {WebhookAddress}",
-            bot.Id,
-            webhookAddress);
+        LogSettingWebhook(logger, bot.Id, webhookAddress);
         var client = clientFactory.CreateForBot(bot);
         await client
             .SetWebhook(
@@ -46,7 +43,7 @@ internal sealed class WebhookService(
                 cancellationToken);
         await client
             .SetMyCommands(
-                botCommands.Select(BotCommandExtensions.ToTelegramBotCommand),
+                botCommands.Select(x => x.TelegramBotCommand),
                 cancellationToken: cancellationToken);
         var botUser = await client.GetMe(cancellationToken);
         if (bot.Username is null)
@@ -59,11 +56,7 @@ internal sealed class WebhookService(
                     cancellationToken);
         }
 
-        logger.LogWarning(
-            "[{Id}:{Username}] Webhook set: {WebhookAddress}",
-            bot.Id,
-            botUser.Username,
-            webhookAddress);
+        LogWebhookSet(logger, bot.Id, botUser.Username, webhookAddress);
 
         return botUser;
     }
@@ -71,7 +64,7 @@ internal sealed class WebhookService(
     public async Task<TelegramUser> SetDefaultAsync(CancellationToken cancellationToken)
     {
         var webhookAddress = $"{options.Value.Url}/bot";
-        logger.LogWarning("[BO] Setting webhook: {WebhookAddress}", webhookAddress);
+        LogBoSettingWebhook(logger, webhookAddress);
         var client = clientFactory.CreateDefault();
         await client
             .SetWebhook(
@@ -95,36 +88,60 @@ internal sealed class WebhookService(
                 ],
                 cancellationToken: cancellationToken);
         var botUser = await client.GetMe(cancellationToken);
-        logger.LogWarning("[BO:{Username}] Webhook set: {WebhookAddress}", botUser.Username, webhookAddress);
+        LogBoWebhookSet(logger, botUser.Username, webhookAddress);
 
         return botUser;
     }
 
     public async Task<TelegramUser> DeleteForBotAsync(Bot bot, CancellationToken cancellationToken)
     {
-        logger.LogWarning("[{Id}] Removing webhook", bot.Id);
+        LogRemovingWebhook(logger, bot.Id);
         var client = clientFactory.CreateForBot(bot);
         var botUser = await client.GetMe(cancellationToken);
         await client
             .DeleteWebhook(
                 bot.DropPendingUpdates,
                 cancellationToken);
-        logger.LogWarning("[{Id}:{Username}] Webhook removed", bot.Id, botUser.Username);
+        LogWebhookRemoved(logger, bot.Id, botUser.Username);
 
         return botUser;
     }
 
     public async Task<TelegramUser> DeleteDefaultAsync(CancellationToken cancellationToken)
     {
-        logger.LogWarning("[BO] Removing webhook");
+        LogBoRemovingWebhook(logger);
         var client = clientFactory.CreateDefault();
         var botUser = await client.GetMe(cancellationToken);
         await client
             .DeleteWebhook(
                 true,
                 cancellationToken);
-        logger.LogWarning("[BO:{Username}] Webhook removed", botUser.Username);
+        LogBoWebhookRemoved(logger, botUser.Username);
 
         return botUser;
     }
+
+    [LoggerMessage(LogLevel.Warning, "[{id}] Setting webhook: {webhookAddress}")]
+    static partial void LogSettingWebhook(ILogger<WebhookService> logger, int id, string webhookAddress);
+
+    [LoggerMessage(LogLevel.Warning, "[{id}:{username}] Webhook set: {webhookAddress}")]
+    static partial void LogWebhookSet(ILogger<WebhookService> logger, int id, string? username, string webhookAddress);
+
+    [LoggerMessage(LogLevel.Warning, "[BO] Setting webhook: {webhookAddress}")]
+    static partial void LogBoSettingWebhook(ILogger<WebhookService> logger, string webhookAddress);
+
+    [LoggerMessage(LogLevel.Warning, "[BO:{username}] Webhook set: {webhookAddress}")]
+    static partial void LogBoWebhookSet(ILogger<WebhookService> logger, string? username, string webhookAddress);
+
+    [LoggerMessage(LogLevel.Warning, "[{id}] Removing webhook")]
+    static partial void LogRemovingWebhook(ILogger<WebhookService> logger, int id);
+
+    [LoggerMessage(LogLevel.Warning, "[{id}:{username}] Webhook removed")]
+    static partial void LogWebhookRemoved(ILogger<WebhookService> logger, int id, string? username);
+
+    [LoggerMessage(LogLevel.Warning, "[BO] Removing webhook")]
+    static partial void LogBoRemovingWebhook(ILogger<WebhookService> logger);
+
+    [LoggerMessage(LogLevel.Warning, "[BO:{username}] Webhook removed")]
+    static partial void LogBoWebhookRemoved(ILogger<WebhookService> logger, string? username);
 }

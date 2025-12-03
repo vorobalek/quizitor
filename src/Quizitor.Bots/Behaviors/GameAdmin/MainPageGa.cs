@@ -54,12 +54,12 @@ internal sealed class MainPageGa(
 
         var text = string.Format(
             TR.L + "_GAME_ADMIN_MAIN_TXT",
-            context.Base.Identity.User.FirstName.EscapeHtml(),
-            context.Base.Identity.User.LastName?.EscapeHtml(),
+            context.Base.Identity.User.FirstName.Html,
+            context.Base.Identity.User.LastName?.Html,
             string.Format(
                 TR.L + "_GAME_ADMIN_MAIN_GAME_INFO_TXT",
-                context.Base.Game.Title.EscapeHtml(),
-                context.Base.Session.Name.EscapeHtml()));
+                context.Base.Game.Title.Html,
+                context.Base.Session.Name.Html));
         var keyboard = Keyboards.MainInline;
         return context switch
         {

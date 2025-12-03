@@ -7,7 +7,7 @@ using Quizitor.Redis.Storage.Rating;
 
 namespace Quizitor.Events.Services;
 
-internal sealed class CalculateRatingStageProcessing(
+internal sealed partial class CalculateRatingStageProcessing(
     IServiceScopeFactory serviceScopeFactory,
     ILogger<CalculateRatingStageProcessing> logger) : BackgroundService
 {
@@ -32,7 +32,7 @@ internal sealed class CalculateRatingStageProcessing(
             }
             catch (Exception exception)
             {
-                logger.LogError(exception, "An exception occurred while calculating stage rating");
+                LogAnExceptionOccurredWhileCalculatingStageRating(logger, exception);
             }
 
             await Task.Delay(5000, stoppingToken);
@@ -202,4 +202,7 @@ internal sealed class CalculateRatingStageProcessing(
             totalScore,
             totalTime);
     }
+
+    [LoggerMessage(LogLevel.Error, "An exception occurred while calculating stage rating")]
+    static partial void LogAnExceptionOccurredWhileCalculatingStageRating(ILogger<CalculateRatingStageProcessing> logger, Exception exception);
 }

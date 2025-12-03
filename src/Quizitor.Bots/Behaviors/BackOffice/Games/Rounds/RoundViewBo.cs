@@ -110,10 +110,10 @@ internal sealed class RoundViewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_ROUND_VIEW_TXT",
-                    context.Base.Game.Title.EscapeHtml(),
-                    context.Base.Round.Title.EscapeHtml(),
+                    context.Base.Game.Title.Html,
+                    context.Base.Round.Title.Html,
                     context.Base.Round.Description is { } description
-                        ? description.EscapeHtml()
+                        ? description.Html
                         : TR.L + "_SHARED_NO_TXT",
                     string.Join(
                         Environment.NewLine,
@@ -122,7 +122,7 @@ internal sealed class RoundViewBo(
                                 string.Format(
                                     TR.L + "_BACKOFFICE_QUESTION_LIST_ITEM_TXT",
                                     question.Number,
-                                    question.Title.EscapeHtml(),
+                                    question.Title.Html,
                                     question.Time)))),
                 ParseMode.Html,
                 replyMarkup: Keyboards.RoundView(

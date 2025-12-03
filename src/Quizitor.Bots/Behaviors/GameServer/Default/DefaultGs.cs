@@ -81,7 +81,7 @@ internal sealed class DefaultGs(
                     string.Format(
                         TR.L + "_GAME_SERVER_ANSWER_IS_ALLOWED_ONLY_FOR_LEADER_TXT",
                         leader.Id,
-                        leader.GetFullName().EscapeHtml(),
+                        leader.GetFullName().Html,
                         TR.L + "_GAME_SERVER_TEAM_BTN",
                         TR.L + "_GAME_SERVER_TEAM_SET_LEADER_BTN"),
                     ParseMode.Html,
@@ -117,7 +117,7 @@ internal sealed class DefaultGs(
                             Environment.NewLine,
                             answerContext.Options.Select(option => string.Format(
                                 TR.L + "_GAME_SERVER_OPTION_LIST_ITEM_TXT",
-                                option.Text.EscapeHtml())))),
+                                option.Text.Html)))),
                     ParseMode.Html,
                     replyMarkup: Keyboards.Options(answerContext.Options),
                     cancellationToken: cancellationToken);
@@ -171,7 +171,7 @@ internal sealed class DefaultGs(
                         answerContext.AttemptsCountRemaining <= 0
                             ? TR.L + "_GAME_SERVER_LAST_SENDING_RECEIVED_TXT"
                             : TR.L + "_GAME_SERVER_SENDING_RECEIVED_TXT",
-                        submission.Text.EscapeHtml(),
+                        submission.Text.Html,
                         answerContext.AttemptsCountRemaining),
                     Keyboards.Options(answerContext.Options),
                     cancellationToken);
@@ -237,14 +237,14 @@ internal sealed class DefaultGs(
             submission.Team is { } team
                 ? string.Format(
                     TR.L + "_GAME_ADMIN_SUBMISSION_RECEIVED_FROM_TEAM_TXT",
-                    team.Name.EscapeHtml())
+                    team.Name.Html)
                 : string.Format(
                     TR.L + "_GAME_ADMIN_SUBMISSION_RECEIVED_FROM_USER_TXT",
                     submission.User.Id,
-                    submission.User.GetFullName().EscapeHtml()),
-            round.Title.EscapeHtml(),
-            question.Title.EscapeHtml(),
-            submission.Text.EscapeHtml(),
+                    submission.User.GetFullName().Html),
+            round.Title.Html,
+            question.Title.Html,
+            submission.Text.Html,
             baseCost,
             ruleCostMap.Count > 0
                 ? string.Join(

@@ -24,7 +24,7 @@ internal abstract class GameAdminBehaviorBase<TContext>(IDbContextProvider dbCon
     {
         return string.Format(
             TR.L + "_GAME_ADMIN_REDIRECT_TXT",
-            targetBotUsername.EscapeHtml());
+            targetBotUsername.Html);
     }
 
     protected sealed override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)

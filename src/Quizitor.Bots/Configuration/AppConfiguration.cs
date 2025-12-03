@@ -5,20 +5,20 @@ namespace Quizitor.Bots.Configuration;
 public static class AppConfiguration
 {
     public static readonly string Locale = "LOCALE"
-        .GetEnvironmentVariableWithFallbackValue("en");
+        .GetEnvironmentValueWithFallback("en");
 
     public static readonly string Port = "PORT"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly string DbConnectionString = "DB_CONNECTION_STRING"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly string WorkingDirectory = "WORKING_DIRECTORY"
-        .GetEnvironmentVariableWithFallbackValue("/var/quizitor");
+        .GetEnvironmentValueWithFallback("/var/quizitor");
 
     public static readonly string CryptoPassword = "CRYPTO_PASSWORD"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly string QrCodeExpirationSeconds = "QR_CODE_EXPIRATION_SECONDS"
-        .GetEnvironmentVariableWithFallbackValue("0");
+        .GetEnvironmentValueWithFallback("0");
 }
