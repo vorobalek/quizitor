@@ -23,7 +23,7 @@ jobs:
           IMAGE_TAG: latest
         run: |
           for service in migrator api bots sender events; do
-            IMAGE_NAME=vorobalek/quizitor-$service
+            IMAGE_NAME=quizitor/$service
             docker build -t "$IMAGE_NAME:$IMAGE_TAG" . --pull --target "$service"
           done
 
@@ -32,6 +32,6 @@ jobs:
           IMAGE_TAG: latest
         run: |
           for service in migrator api bots sender events; do
-            IMAGE_NAME=vorobalek/quizitor-$service
+            IMAGE_NAME=quizitor/$service
             docker push "$IMAGE_NAME:$IMAGE_TAG"
           done
