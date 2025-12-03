@@ -108,7 +108,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    image: vorobalek/quizitor-migrator:local
+    image: quizitor/migrator:local
     build:
       context: .
       dockerfile: Dockerfile
@@ -129,13 +129,13 @@ services:
         condition: service_healthy
       migrator:
         condition: service_completed_successfully
-    image: vorobalek/quizitor-api:local
+    image: quizitor/api:local
     build:
       context: .
       dockerfile: Dockerfile
       target: api
       tags:
-        - vorobalek/quizitor-api:local
+        - quizitor/api:local
     deploy:
       mode: replicated
       replicas: 2
@@ -168,13 +168,13 @@ services:
         condition: service_healthy
       migrator:
         condition: service_completed_successfully
-    image: vorobalek/quizitor-bots:local
+    image: quizitor/bots:local
     build:
       context: .
       dockerfile: Dockerfile
       target: bots
       tags:
-        - vorobalek/quizitor-bots:local
+        - quizitor/bots:local
     deploy:
       mode: replicated
       replicas: 2
@@ -206,13 +206,13 @@ services:
         condition: service_healthy
       migrator:
         condition: service_completed_successfully
-    image: vorobalek/quizitor-sender:local
+    image: quizitor/sender:local
     build:
       context: .
       dockerfile: Dockerfile
       target: sender
       tags:
-        - vorobalek/quizitor-sender:local
+        - quizitor/sender:local
     deploy:
       mode: replicated
       replicas: 2
@@ -245,13 +245,13 @@ services:
         condition: service_healthy
       migrator:
         condition: service_completed_successfully
-    image: vorobalek/quizitor-events:local
+    image: quizitor/events:local
     build:
       context: .
       dockerfile: Dockerfile
       target: events
       tags:
-        - vorobalek/quizitor-events:local
+        - quizitor/events:local
     deploy:
       mode: replicated
       replicas: 2
