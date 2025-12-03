@@ -40,7 +40,7 @@ internal sealed class DeleteMailingBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_DELETE_MAILING_CONFIRMATION_TXT",
-                    context.Base.Mailing.Name.EscapeHtml()),
+                    context.Base.Mailing.Name.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.DeleteMailing(
                     context.Base.Mailing.Id,

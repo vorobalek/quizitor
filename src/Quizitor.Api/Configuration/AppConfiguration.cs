@@ -5,14 +5,14 @@ namespace Quizitor.Api.Configuration;
 public static class AppConfiguration
 {
     public static readonly string Locale = "LOCALE"
-        .GetEnvironmentVariableWithFallbackValue("en");
+        .GetEnvironmentValueWithFallback("en");
 
     public static readonly string Port = "PORT"
-        .GetEnvironmentVariableWithFallbackValue("8080");
+        .GetEnvironmentValueWithFallback("8080");
 
     public static readonly string? PathBase = "PATH_BASE"
-        .GetEnvironmentVariable();
+        .EnvironmentValue;
 
     public static readonly string DbConnectionString = "DB_CONNECTION_STRING"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 }

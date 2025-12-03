@@ -13,7 +13,7 @@ using QrCodeBehavior = IQrCodeDataPrefixBehaviorTrait<IBehaviorContext>;
 using QrCodeContext = IQrCodeDataPrefixContext<IBehaviorContext>;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
+internal sealed partial class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
     UniversalBehavior,
     MessageBehavior,
     CallbackQueryBehavior,
@@ -27,12 +27,11 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
         CallbackQueryContext context,
         CancellationToken cancellationToken)
     {
-        logger
-            .LogWarning(
-                "CLB {BotUsername} {FromId} {Data}",
-                context.Base.EntryBot?.Username,
-                context.CallbackQueryFromId,
-                context.CallbackQueryDataPostfix);
+        LogCallback(
+            logger,
+            context.Base.EntryBot?.Username,
+            context.CallbackQueryFromId,
+            context.CallbackQueryDataPostfix);
         return Task.CompletedTask;
     }
 
@@ -40,12 +39,11 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
         MessageContext context,
         CancellationToken cancellationToken)
     {
-        logger
-            .LogWarning(
-                "MSG {BotUsername} {FromId} {Text}",
-                context.Base.EntryBot?.Username,
-                context.MessageFromId,
-                context.MessageText);
+        LogMessage(
+            logger,
+            context.Base.EntryBot?.Username,
+            context.MessageFromId,
+            context.MessageText);
         return Task.CompletedTask;
     }
 
@@ -55,12 +53,20 @@ internal sealed class LogInteractionUniv(ILogger<LogInteractionUniv> logger) :
         QrCodeContext context,
         CancellationToken cancellationToken)
     {
-        logger
-            .LogWarning(
-                "QRC {BotUsername} {FromId} {Text}",
-                context.Base.EntryBot?.Username,
-                context.MessageFromId,
-                context.QrCodeDataPostfix);
+        LogQrCode(
+            logger,
+            context.Base.EntryBot?.Username,
+            context.MessageFromId,
+            context.QrCodeDataPostfix);
         return Task.CompletedTask;
     }
+
+    [LoggerMessage(LogLevel.Warning, "CLB {username} {fromId} {data}")]
+    static partial void LogCallback(ILogger<LogInteractionUniv> logger, string? username, long fromId, string data);
+
+    [LoggerMessage(LogLevel.Warning, "MSG {username} {fromId} {text}")]
+    static partial void LogMessage(ILogger<LogInteractionUniv> logger, string? username, long fromId, string text);
+
+    [LoggerMessage(LogLevel.Warning, "QRC {username} {fromId} {data}")]
+    static partial void LogQrCode(ILogger<LogInteractionUniv> logger, string? username, long fromId, string data);
 }

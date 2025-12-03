@@ -35,139 +35,142 @@ namespace Quizitor.Bots.Extensions;
 
 internal static class TelegramExtensions
 {
-    internal static IServiceCollection AddBehaviors(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        return services
-            .AddUniversalBehaviors()
-            .AddLoadBalancerBehaviors()
-            .AddGameAdminBehaviors()
-            .AddGameServerBehaviors()
-            .AddBackOffBehaviors();
-    }
+        internal IServiceCollection AddBehaviors()
+        {
+            return services
+                .AddUniversalBehaviors()
+                .AddLoadBalancerBehaviors()
+                .AddGameAdminBehaviors()
+                .AddGameServerBehaviors()
+                .AddBackOffBehaviors();
+        }
 
-    private static IServiceCollection AddUniversalBehaviors(this IServiceCollection services)
-    {
-        return services
-            .AddBehavior<NotImplementedUniv>()
-            .AddBehavior<LogInteractionUniv>()
-            .AddBehavior<CancelPromptUniv>();
-    }
+        private IServiceCollection AddUniversalBehaviors()
+        {
+            return services
+                .AddBehavior<NotImplementedUniv>()
+                .AddBehavior<LogInteractionUniv>()
+                .AddBehavior<CancelPromptUniv>();
+        }
 
-    private static IServiceCollection AddLoadBalancerBehaviors(this IServiceCollection services)
-    {
-        return services
-            .AddBehavior<BalanceGameAdminLb>()
-            .AddBehavior<BalanceGameServerLb>();
-    }
+        private IServiceCollection AddLoadBalancerBehaviors()
+        {
+            return services
+                .AddBehavior<BalanceGameAdminLb>()
+                .AddBehavior<BalanceGameServerLb>();
+        }
 
-    private static IServiceCollection AddGameAdminBehaviors(this IServiceCollection services)
-    {
-        return services
-            .AddBehavior<MainPageGa>()
-            .AddBehavior<SessionJoinGa>()
-            .AddBehavior<RoundListGa>()
-            .AddBehavior<RoundViewGa>()
-            .AddBehavior<QuestionViewGa>()
-            .AddBehavior<QuestionStartGa>()
-            .AddBehavior<QuestionStopGa>()
-            .AddBehavior<QuestionTimeGa>()
-            .AddBehavior<RatingStageShortGa>()
-            .AddBehavior<RatingStageFullGa>()
-            .AddBehavior<GameGa>()
-            .AddBehavior<SyncRatingEnableGameGa>()
-            .AddBehavior<SyncRatingDisableGameGa>()
-            .AddBehavior<SessionLeaveGa>();
-    }
+        private IServiceCollection AddGameAdminBehaviors()
+        {
+            return services
+                .AddBehavior<MainPageGa>()
+                .AddBehavior<SessionJoinGa>()
+                .AddBehavior<RoundListGa>()
+                .AddBehavior<RoundViewGa>()
+                .AddBehavior<QuestionViewGa>()
+                .AddBehavior<QuestionStartGa>()
+                .AddBehavior<QuestionStopGa>()
+                .AddBehavior<QuestionTimeGa>()
+                .AddBehavior<RatingStageShortGa>()
+                .AddBehavior<RatingStageFullGa>()
+                .AddBehavior<GameGa>()
+                .AddBehavior<SyncRatingEnableGameGa>()
+                .AddBehavior<SyncRatingDisableGameGa>()
+                .AddBehavior<SessionLeaveGa>();
+        }
 
-    private static IServiceCollection AddGameServerBehaviors(this IServiceCollection services)
-    {
-        return services
-            .AddBehavior<MainPageGs>()
-            .AddBehavior<TeamGs>()
-            .AddBehavior<TeamSetLeaderGs>()
-            .AddBehavior<TeamUnsetLeaderGs>()
-            .AddBehavior<TeamQrGs>()
-            .AddBehavior<TeamSessionJoinGs>()
-            .AddBehavior<TeamLeaveGs>()
-            .AddBehavior<TeamListGs>()
-            .AddBehavior<CreateTeamGs>()
-            .AddBehavior<TeamJoinGs>()
-            .AddBehavior<GameGs>()
-            .AddBehavior<SessionJoinGs>()
-            .AddBehavior<SessionLeaveGs>()
-            .AddBehavior<RatingFinalShortGs>()
-            .AddBehavior<RatingFinalFullGs>()
-            .AddBehavior<DefaultGs>();
-    }
+        private IServiceCollection AddGameServerBehaviors()
+        {
+            return services
+                .AddBehavior<MainPageGs>()
+                .AddBehavior<TeamGs>()
+                .AddBehavior<TeamSetLeaderGs>()
+                .AddBehavior<TeamUnsetLeaderGs>()
+                .AddBehavior<TeamQrGs>()
+                .AddBehavior<TeamSessionJoinGs>()
+                .AddBehavior<TeamLeaveGs>()
+                .AddBehavior<TeamListGs>()
+                .AddBehavior<CreateTeamGs>()
+                .AddBehavior<TeamJoinGs>()
+                .AddBehavior<GameGs>()
+                .AddBehavior<SessionJoinGs>()
+                .AddBehavior<SessionLeaveGs>()
+                .AddBehavior<RatingFinalShortGs>()
+                .AddBehavior<RatingFinalFullGs>()
+                .AddBehavior<DefaultGs>();
+        }
 
-    private static IServiceCollection AddBackOffBehaviors(this IServiceCollection services)
-    {
-        return services
-            .AddBehavior<MainPageBo>()
-            .AddBehavior<BotListBo>()
-            .AddBehavior<BotListStartBo>()
-            .AddBehavior<BotListStopBo>()
-            .AddBehavior<BotViewBo>()
-            .AddBehavior<BotStartBo>()
-            .AddBehavior<BotStopBo>()
-            .AddBehavior<BotTypeBo>()
-            .AddBehavior<BotPendingBo>()
-            .AddBehavior<UserListBo>()
-            .AddBehavior<UserViewBo>()
-            .AddBehavior<UserRoleListBo>()
-            .AddBehavior<UserRoleListGrantBo>()
-            .AddBehavior<UserRoleListRevokeBo>()
-            .AddBehavior<MailingListBo>()
-            .AddBehavior<CreateMailingBo>()
-            .AddBehavior<DeleteMailingBo>()
-            .AddBehavior<DeleteMailingConfirmBo>()
-            .AddBehavior<MailingViewBo>()
-            .AddBehavior<MailingPreviewBo>()
-            .AddBehavior<MailingProfileBo>()
-            .AddBehavior<MailingAudienceBo>()
-            .AddBehavior<MailingAudienceGameListBo>()
-            .AddBehavior<MailingAudienceGameBo>()
-            .AddBehavior<MailingAudienceSessionListBo>()
-            .AddBehavior<MailingAudienceSessionBo>()
-            .AddBehavior<MailingAudienceTeamListBo>()
-            .AddBehavior<MailingAudienceTeamBo>()
-            .AddBehavior<MailingAudienceUserListBo>()
-            .AddBehavior<MailingAudienceUserBo>()
-            .AddBehavior<MailingChannelBo>()
-            .AddBehavior<MailingChannelContactTypeBo>()
-            .AddBehavior<MailingChannelBotTypeListBo>()
-            .AddBehavior<MailingChannelBotTypeBo>()
-            .AddBehavior<MailingChannelBotListBo>()
-            .AddBehavior<MailingChannelBotBo>()
-            .AddBehavior<MailingSchemaBo>()
-            .AddBehavior<MailingSendBo>()
-            .AddBehavior<MailingSendConfirmBo>()
-            .AddBehavior<GameListBo>()
-            .AddBehavior<CreateGameBo>()
-            .AddBehavior<GameViewBo>()
-            .AddBehavior<DeleteGameBo>()
-            .AddBehavior<DeleteGameConfirmBo>()
-            .AddBehavior<RoundListBo>()
-            .AddBehavior<CreateRoundBo>()
-            .AddBehavior<RoundViewBo>()
-            .AddBehavior<QuestionViewBo>()
-            .AddBehavior<QuestionSubmissionNotificationTypeBo>()
-            .AddBehavior<SessionListBo>()
-            .AddBehavior<CreateSessionBo>()
-            .AddBehavior<SessionViewBo>()
-            .AddBehavior<SessionGetQrBo>()
-            .AddBehavior<ServicePageBo>()
-            .AddBehavior<UnlinkUserSessionsBo>()
-            .AddBehavior<Load100Bo>();
-    }
+        private IServiceCollection AddBackOffBehaviors()
+        {
+            return services
+                .AddBehavior<MainPageBo>()
+                .AddBehavior<BotListBo>()
+                .AddBehavior<BotListStartBo>()
+                .AddBehavior<BotListStopBo>()
+                .AddBehavior<BotViewBo>()
+                .AddBehavior<BotStartBo>()
+                .AddBehavior<BotStopBo>()
+                .AddBehavior<BotTypeBo>()
+                .AddBehavior<BotPendingBo>()
+                .AddBehavior<UserListBo>()
+                .AddBehavior<UserViewBo>()
+                .AddBehavior<UserRoleListBo>()
+                .AddBehavior<UserRoleListGrantBo>()
+                .AddBehavior<UserRoleListRevokeBo>()
+                .AddBehavior<MailingListBo>()
+                .AddBehavior<CreateMailingBo>()
+                .AddBehavior<DeleteMailingBo>()
+                .AddBehavior<DeleteMailingConfirmBo>()
+                .AddBehavior<MailingViewBo>()
+                .AddBehavior<MailingPreviewBo>()
+                .AddBehavior<MailingProfileBo>()
+                .AddBehavior<MailingAudienceBo>()
+                .AddBehavior<MailingAudienceGameListBo>()
+                .AddBehavior<MailingAudienceGameBo>()
+                .AddBehavior<MailingAudienceSessionListBo>()
+                .AddBehavior<MailingAudienceSessionBo>()
+                .AddBehavior<MailingAudienceTeamListBo>()
+                .AddBehavior<MailingAudienceTeamBo>()
+                .AddBehavior<MailingAudienceUserListBo>()
+                .AddBehavior<MailingAudienceUserBo>()
+                .AddBehavior<MailingChannelBo>()
+                .AddBehavior<MailingChannelContactTypeBo>()
+                .AddBehavior<MailingChannelBotTypeListBo>()
+                .AddBehavior<MailingChannelBotTypeBo>()
+                .AddBehavior<MailingChannelBotListBo>()
+                .AddBehavior<MailingChannelBotBo>()
+                .AddBehavior<MailingSchemaBo>()
+                .AddBehavior<MailingSendBo>()
+                .AddBehavior<MailingSendConfirmBo>()
+                .AddBehavior<GameListBo>()
+                .AddBehavior<CreateGameBo>()
+                .AddBehavior<GameViewBo>()
+                .AddBehavior<DeleteGameBo>()
+                .AddBehavior<DeleteGameConfirmBo>()
+                .AddBehavior<RoundListBo>()
+                .AddBehavior<CreateRoundBo>()
+                .AddBehavior<RoundViewBo>()
+                .AddBehavior<QuestionViewBo>()
+                .AddBehavior<QuestionSubmissionNotificationTypeBo>()
+                .AddBehavior<SessionListBo>()
+                .AddBehavior<CreateSessionBo>()
+                .AddBehavior<SessionViewBo>()
+                .AddBehavior<SessionGetQrBo>()
+                .AddBehavior<ServicePageBo>()
+                .AddBehavior<UnlinkUserSessionsBo>()
+                .AddBehavior<Load100Bo>();
+        }
 
-    private static IServiceCollection AddBehavior<TBehavior>(this IServiceCollection services)
-        where TBehavior : class, IBehavior
-    {
-        services
-            .AddScoped<IBehavior, TBehavior>()
-            .AddScoped<TBehavior>();
+        private IServiceCollection AddBehavior<TBehavior>()
+            where TBehavior : class, IBehavior
+        {
+            services
+                .AddScoped<IBehavior, TBehavior>()
+                .AddScoped<TBehavior>();
 
-        return services;
+            return services;
+        }
     }
 }

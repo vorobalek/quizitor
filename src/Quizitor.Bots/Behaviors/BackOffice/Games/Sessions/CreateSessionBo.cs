@@ -156,8 +156,8 @@ internal sealed class CreateSessionBo(
                             string
                                 .Format(
                                     TR.L + "_BACKOFFICE_SESSION_CREATED_TXT",
-                                    session.Name.EscapeHtml(),
-                                    newSession.Game.Title.EscapeHtml()),
+                                    session.Name.Html,
+                                    newSession.Game.Title.Html),
                             ParseMode.Html,
                             cancellationToken: cancellationToken);
                     await SessionListBo.ResponseAsync(sessionListContext, cancellationToken);

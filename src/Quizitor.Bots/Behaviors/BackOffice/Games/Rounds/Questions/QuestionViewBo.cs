@@ -110,9 +110,9 @@ internal class QuestionViewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_QUESTION_VIEW_TXT",
-                    context.Base.Game.Title.EscapeHtml(),
-                    context.Base.Round.Title.EscapeHtml(),
-                    context.Base.Question.Title.EscapeHtml(),
+                    context.Base.Game.Title.Html,
+                    context.Base.Round.Title.Html,
+                    context.Base.Question.Title.Html,
                     context.Base.Question.Text,
                     context.Base.Question.Attempts,
                     context.Base.Question.Time,
@@ -126,7 +126,7 @@ internal class QuestionViewBo(
                         : TR.L + "_SHARED_NO_TXT",
                     TR.L + $"_BACKOFFICE_QUESTION_SUBMISSION_NOTIFICATION_TYPE_{context.Base.Question.SubmissionNotificationType}",
                     context.Base.Question.Comment is { } comment
-                        ? comment.EscapeHtml()
+                        ? comment.Html
                         : TR.L + "_SHARED_NO_TXT",
                     context.Base.Options.Length > 0
                         ? string.Join(
@@ -138,7 +138,7 @@ internal class QuestionViewBo(
                                         ? TR.L + "_BACKOFFICE_QUESTION_OPTION_CORRECT_SIGN"
                                         : TR.L + "_BACKOFFICE_QUESTION_OPTION_WRONG_SIGN",
                                     option.Number,
-                                    option.Text.EscapeHtml(),
+                                    option.Text.Html,
                                     option.Cost)))
                         : TR.L + "_SHARED_NO_TXT",
                     context.Base.Rules.Length > 0

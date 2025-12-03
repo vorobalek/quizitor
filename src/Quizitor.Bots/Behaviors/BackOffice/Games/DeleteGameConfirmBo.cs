@@ -51,7 +51,7 @@ internal sealed class DeleteGameConfirmBo(
                         string
                             .Format(
                                 TR.L + "_BACKOFFICE_GAME_DELETED_CLB",
-                                context.Base.Game.Title.EscapeHtml()),
+                                context.Base.Game.Title.Html),
                         true,
                         cancellationToken: cancellationToken);
 

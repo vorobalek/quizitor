@@ -5,11 +5,11 @@ namespace Quizitor.Sender.Configuration;
 public static class AppConfiguration
 {
     public static readonly string Port = "PORT"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly string DbConnectionString = "DB_CONNECTION_STRING"
-        .GetEnvironmentVariableOrThrowIfNullOrWhiteSpace();
+        .RequiredEnvironmentValue;
 
     public static readonly string WorkingDirectory = "WORKING_DIRECTORY"
-        .GetEnvironmentVariableWithFallbackValue("/var/quizitor");
+        .GetEnvironmentValueWithFallback("/var/quizitor");
 }

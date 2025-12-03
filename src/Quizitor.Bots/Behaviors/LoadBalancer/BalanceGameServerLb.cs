@@ -135,7 +135,7 @@ internal sealed class BalanceGameServerLb(
     {
         return string.Format(
             TR.L + "_LOAD_BALANCER_GAME_SERVER_REDIRECT_TXT",
-            targetBotUsername.EscapeHtml());
+            targetBotUsername.Html);
     }
 
     protected override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)

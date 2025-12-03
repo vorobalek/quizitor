@@ -9,7 +9,7 @@ using Quizitor.Kafka.Contracts;
 
 namespace Quizitor.Events.Services;
 
-internal sealed class QuestionTimingNotifyEventProcessing(
+internal sealed partial class QuestionTimingNotifyEventProcessing(
     IServiceScopeFactory serviceScopeFactory,
     ILogger<QuestionTimingNotifyEventProcessing> logger) : BackgroundService
 {
@@ -34,7 +34,7 @@ internal sealed class QuestionTimingNotifyEventProcessing(
             }
             catch (Exception exception)
             {
-                logger.LogError(exception, "An exception occurred while executing the question notify queue");
+                LogAnExceptionOccurredWhileExecutingTheQuestionNotifyQueue(logger, exception);
             }
 
             await Task.Delay(1000, stoppingToken);
@@ -122,7 +122,7 @@ internal sealed class QuestionTimingNotifyEventProcessing(
 
             return true;
         }
-        catch (Exception exception) when (DbContextProviderExtensions.IsDbUpdateConcurrencyException(exception))
+        catch (Exception exception) when (exception.IsDbUpdateConcurrencyException)
         {
             return false;
         }
@@ -151,4 +151,7 @@ internal sealed class QuestionTimingNotifyEventProcessing(
             // ignored
         }
     }
+
+    [LoggerMessage(LogLevel.Error, "An exception occurred while executing the question notify queue")]
+    static partial void LogAnExceptionOccurredWhileExecutingTheQuestionNotifyQueue(ILogger<QuestionTimingNotifyEventProcessing> logger, Exception exception);
 }

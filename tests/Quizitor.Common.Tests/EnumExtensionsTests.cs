@@ -11,7 +11,7 @@ public sealed class EnumExtensionsTests
         const TestEnum testEnum = TestEnum.ValueWithName;
 
 
-        var displayName = testEnum.GetDisplayName();
+        var displayName = testEnum.DisplayName;
 
 
         Assert.AreEqual("TestEnumValue", displayName);
@@ -23,7 +23,7 @@ public sealed class EnumExtensionsTests
         const TestEnum testEnum = TestEnum.ValueWithNullName;
 
 
-        var displayName = testEnum.GetDisplayName();
+        var displayName = testEnum.DisplayName;
 
 
         Assert.IsNull(displayName);
@@ -35,7 +35,7 @@ public sealed class EnumExtensionsTests
         const TestEnum testEnum = TestEnum.ValueWithoutName;
 
 
-        var displayName = testEnum.GetDisplayName();
+        var displayName = testEnum.DisplayName;
 
 
         Assert.AreEqual("ValueWithoutName", displayName);

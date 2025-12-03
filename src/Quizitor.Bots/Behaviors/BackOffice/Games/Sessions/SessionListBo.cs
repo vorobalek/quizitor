@@ -98,7 +98,7 @@ internal sealed class SessionListBo(
         var text = string
             .Format(
                 TR.L + "_BACKOFFICE_SESSIONS_TXT",
-                context.Base.Game.Title.EscapeHtml(),
+                context.Base.Game.Title.Html,
                 context.Base.SessionsCount);
         var keyboard = Keyboards.SessionList(
             context.Base.Sessions,

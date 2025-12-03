@@ -8,7 +8,7 @@ namespace Quizitor.Kafka;
 
 public delegate Task KafkaConsumerRunnerDelegate(CancellationToken cancellationToken);
 
-public abstract class KafkaConsumerTask(
+public abstract partial class KafkaConsumerTask(
     IOptions<KafkaOptions> options,
     ILogger logger) : BackgroundService
 {
@@ -23,7 +23,7 @@ public abstract class KafkaConsumerTask(
             }
             catch (Exception exception)
             {
-                logger.LogError(exception, "{Name} background loop failed", GetType().Name);
+                LogBackgroundLoopFailedException(logger, GetType().Name, exception);
             }
 
             restartsCount++;
@@ -33,7 +33,7 @@ public abstract class KafkaConsumerTask(
 
     private async Task ExecuteOnceAsync(int restartsCount, CancellationToken stoppingToken)
     {
-        logger.LogWarning("{Name} started. Restarts count: {RestartsCount}", GetType().Name, restartsCount);
+        LogTaskStartedWithRestartsCount(logger, GetType().Name, restartsCount);
         using var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
         var token = cancellationTokenSource.Token;
         var runners = await GetConsumerRunners(token);
@@ -83,14 +83,12 @@ public abstract class KafkaConsumerTask(
 
             await Task.Delay(TimeSpan.FromSeconds(1));
 
-            logger.LogWarning(
-                "Topic '{Topic}' has been created with {NumPartitions} partition(s) and replication factor {ReplicationFactor}",
-                topic, numPartitions, replicationFactor);
+            LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
         }
         catch (CreateTopicsException e)
         {
             if (e.Results.Any(r => r.Error.Code == ErrorCode.TopicAlreadyExists))
-                logger.LogWarning("Topic '{Topic}' is already created by another client", topic);
+                LogTopicIsAlreadyCreatedByAnotherClient(logger, topic);
             else
                 throw;
         }
@@ -113,7 +111,7 @@ public abstract class KafkaConsumerTask(
 
         using var consumer = new ConsumerBuilder<TKey, TMessage>(config).Build();
         consumer.Subscribe(topic);
-        logger.LogWarning("Subscribed to '{Topic}'", topic);
+        LogSubscribedToTopic(logger, topic);
         try
         {
             while (!cancellationToken.IsCancellationRequested)
@@ -147,13 +145,31 @@ public abstract class KafkaConsumerTask(
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
         }
-        catch (Exception e)
+        catch (Exception exception)
         {
-            logger.LogError(e, "{Name} consumer task failed", GetType().Name);
+            LogConsumerTaskFailed(logger, GetType().Name, exception);
         }
         finally
         {
             consumer.Close();
         }
     }
+
+    [LoggerMessage(LogLevel.Error, "{name} background loop failed.")]
+    static partial void LogBackgroundLoopFailedException(ILogger logger, string name, Exception exception);
+
+    [LoggerMessage(LogLevel.Warning, "{name} started. Restarts count: {restartsCount}")]
+    static partial void LogTaskStartedWithRestartsCount(ILogger logger, string name, int restartsCount);
+
+    [LoggerMessage(LogLevel.Warning, "Topic '{topic}' has been created with {numPartitions} partition(s) and replication factor {replicationFactor}")]
+    static partial void LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(ILogger logger, string topic, int numPartitions, short replicationFactor);
+
+    [LoggerMessage(LogLevel.Warning, "Topic '{topic}' is already created by another client")]
+    static partial void LogTopicIsAlreadyCreatedByAnotherClient(ILogger logger, string topic);
+
+    [LoggerMessage(LogLevel.Warning, "Subscribed to '{topic}'")]
+    static partial void LogSubscribedToTopic(ILogger logger, string topic);
+
+    [LoggerMessage(LogLevel.Error, "{name} consumer task failed")]
+    static partial void LogConsumerTaskFailed(ILogger logger, string name, Exception exception);
 }

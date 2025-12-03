@@ -95,7 +95,7 @@ internal sealed class ConfigureWebhookHostedService(
                     [
                         serviceBotUser.Username!
                     ])
-                    .Set(1);
+                    .Set(0);
             },
             cancellationToken);
     }

@@ -1,0 +1,25 @@
+﻿name:
+  postgres
+
+networks:
+  postgres-lan:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "db_prod" ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    environment:
+      PGUSER: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    networks:
+      - postgres-lan

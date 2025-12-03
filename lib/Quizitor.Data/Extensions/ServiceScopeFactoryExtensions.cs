@@ -6,36 +6,38 @@ namespace Quizitor.Data.Extensions;
 
 public static class ServiceScopeFactoryExtensions
 {
-    public static async Task ExecuteUnitOfWorkWithRetryAsync(
-        this IServiceScopeFactory serviceScopeFactory,
-        Func<AsyncServiceScope, Task> action,
-        CancellationToken cancellationToken,
-        int maxRetryCount = 10,
-        IsolationLevel isolationLevel = IsolationLevel.Snapshot)
+    extension(IServiceScopeFactory serviceScopeFactory)
     {
-        var retryCount = 0;
-        while (retryCount < maxRetryCount && !cancellationToken.IsCancellationRequested)
-            try
-            {
-                await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
-                await using var transaction = await asyncScope.ServiceProvider.GetRequiredService<ApplicationDbContext>()
-                    .Database
-                    .BeginTransactionAsync(isolationLevel, cancellationToken);
-                var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+        public async Task ExecuteUnitOfWorkWithRetryAsync(
+            Func<AsyncServiceScope, Task> action,
+            CancellationToken cancellationToken,
+            int maxRetryCount = 10,
+            IsolationLevel isolationLevel = IsolationLevel.Snapshot)
+        {
+            var retryCount = 0;
+            while (retryCount < maxRetryCount && !cancellationToken.IsCancellationRequested)
+                try
+                {
+                    await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
+                    await using var transaction = await asyncScope.ServiceProvider.GetRequiredService<ApplicationDbContext>()
+                        .Database
+                        .BeginTransactionAsync(isolationLevel, cancellationToken);
+                    var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
 
-                dbContextProvider.ClearPostCommitTasks();
+                    dbContextProvider.ClearPostCommitTasks();
 
-                await action(asyncScope);
-                await transaction.CommitAsync(cancellationToken);
+                    await action(asyncScope);
+                    await transaction.CommitAsync(cancellationToken);
 
-                await Task.WhenAll(dbContextProvider.PostCommitTasks.Select(x => x.Invoke()));
-                return;
-            }
-            catch (Exception exception) when (DbContextProviderExtensions.IsDbUpdateConcurrencyException(exception))
-            {
-                retryCount++;
-            }
+                    await Task.WhenAll(dbContextProvider.PostCommitTasks.Select(x => x.Invoke()));
+                    return;
+                }
+                catch (Exception exception) when (exception.IsDbUpdateConcurrencyException)
+                {
+                    retryCount++;
+                }
 
-        throw new InvalidOperationException($"Exceeded max retry attempts {maxRetryCount}.");
+            throw new InvalidOperationException($"Exceeded max retry attempts {maxRetryCount}.");
+        }
     }
 }

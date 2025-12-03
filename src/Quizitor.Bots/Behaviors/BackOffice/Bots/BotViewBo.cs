@@ -87,12 +87,12 @@ internal class BotViewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_BOT_VIEW_TXT",
-                    context.Base.Bot.Name.EscapeHtml(),
+                    context.Base.Bot.Name.Html,
                     context.Base.Bot.IsActive
                         ? TR.L + "_BACKOFFICE_BOT_ACTIVE_TXT"
                         : TR.L + "_BACKOFFICE_BOT_INACTIVE_TXT",
                     context.Base.Bot.Type,
-                    context.Base.Bot.Username?.EscapeHtml(),
+                    context.Base.Bot.Username?.Html,
                     context.Base.Bot.DropPendingUpdates
                         ? TR.L + "_SHARED_YES_TXT"
                         : TR.L + "_SHARED_NO_TXT",

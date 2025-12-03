@@ -12,23 +12,29 @@ namespace Quizitor.Redis;
 
 public static class WebHostBuilderExtensions
 {
-    public static IWebHostBuilder AddRedis(this IWebHostBuilder builder)
+    extension(IWebHostBuilder builder)
     {
-        return builder.ConfigureServices(services => services
-            .AddSingleton<IConnectionMultiplexer>(_ =>
-                ConnectionMultiplexer.Connect(RedisConfiguration.RedisConnectionString))
-            .AddJsonSerializer<RatingShortDto, RedisDefaultSerializer<RatingShortDto>>()
-            .AddRedisStorage<RatingShortDto>()
-            .AddScoped<IRatingShortStageRedisStorage, RatingShortStageRedisStorage>()
-            .AddScoped<IRatingShortFinalRedisStorage, RatingShortFinalRedisStorage>()
-            .AddJsonSerializer<RatingFullDto, RedisDefaultSerializer<RatingFullDto>>()
-            .AddRedisStorage<RatingFullDto>()
-            .AddScoped<IRatingFullStageRedisStorage, RatingFullStageRedisStorage>()
-            .AddScoped<IRatingFullFinalRedisStorage, RatingFullFinalRedisStorage>());
+        public IWebHostBuilder AddRedis()
+        {
+            return builder.ConfigureServices(services => services
+                .AddSingleton<IConnectionMultiplexer>(_ =>
+                    ConnectionMultiplexer.Connect(RedisConfiguration.RedisConnectionString))
+                .AddJsonSerializer<RatingShortDto, RedisDefaultSerializer<RatingShortDto>>()
+                .AddRedisStorage<RatingShortDto>()
+                .AddScoped<IRatingShortStageRedisStorage, RatingShortStageRedisStorage>()
+                .AddScoped<IRatingShortFinalRedisStorage, RatingShortFinalRedisStorage>()
+                .AddJsonSerializer<RatingFullDto, RedisDefaultSerializer<RatingFullDto>>()
+                .AddRedisStorage<RatingFullDto>()
+                .AddScoped<IRatingFullStageRedisStorage, RatingFullStageRedisStorage>()
+                .AddScoped<IRatingFullFinalRedisStorage, RatingFullFinalRedisStorage>());
+        }
     }
 
-    private static IServiceCollection AddRedisStorage<TValue>(this IServiceCollection services)
+    extension(IServiceCollection services)
     {
-        return services.AddScoped<IRedisStorage<TValue>, RedisStorage<TValue>>();
+        private IServiceCollection AddRedisStorage<TValue>()
+        {
+            return services.AddScoped<IRedisStorage<TValue>, RedisStorage<TValue>>();
+        }
     }
 }

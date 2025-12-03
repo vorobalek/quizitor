@@ -4,16 +4,19 @@ namespace Quizitor.Common;
 
 public static class TelegramExtensions
 {
-    private static User? TryGetUser(this Update update)
+    extension(Update update)
     {
-        return
-            update.Message?.From
-            ?? update.EditedMessage?.From
-            ?? update.CallbackQuery?.From;
-    }
+        private User? TryGetUser()
+        {
+            return
+                update.Message?.From
+                ?? update.EditedMessage?.From
+                ?? update.CallbackQuery?.From;
+        }
 
-    public static User GetUser(this Update update)
-    {
-        return TryGetUser(update) ?? throw new InvalidOperationException("Unable to determine update initiator");
+        public User GetUser()
+        {
+            return TryGetUser(update) ?? throw new InvalidOperationException("Unable to determine update initiator");
+        }
     }
 }

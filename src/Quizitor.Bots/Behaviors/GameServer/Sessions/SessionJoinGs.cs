@@ -74,8 +74,8 @@ internal sealed class SessionJoinGs(
                         context.Base.TelegramUser.Id,
                         string.Format(
                             TR.L + "_GAME_SERVER_SESSION_JOIN_TXT",
-                            context.Base.ChosenGame.Title.EscapeHtml(),
-                            context.Base.ChosenSession.Name.EscapeHtml()),
+                            context.Base.ChosenGame.Title.Html,
+                            context.Base.ChosenSession.Name.Html),
                         ParseMode.Html,
                         cancellationToken: cancellationToken);
                 if (qrContext is not null)

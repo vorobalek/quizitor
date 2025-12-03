@@ -4,13 +4,14 @@ namespace Quizitor.Data.Extensions;
 
 public static class DatabaseFacadeExtensions
 {
-    public static Task<DateTimeOffset> GetServerDateTimeOffsetAsync(
-        this DbContext dbContext,
-        CancellationToken cancellationToken)
+    extension(DbContext dbContext)
     {
-        return dbContext
-            .Database
-            .SqlQuery<DateTimeOffset>($"select now() as \"Value\"")
-            .SingleOrDefaultAsync(cancellationToken);
+        public Task<DateTimeOffset> GetServerDateTimeOffsetAsync(CancellationToken cancellationToken)
+        {
+            return dbContext
+                .Database
+                .SqlQuery<DateTimeOffset>($"select now() as \"Value\"")
+                .SingleOrDefaultAsync(cancellationToken);
+        }
     }
 }

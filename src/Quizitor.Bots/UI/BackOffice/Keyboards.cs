@@ -45,8 +45,8 @@ internal static class Keyboards
                 {
                     Buttons.Bot(
                         bot.Id,
-                        bot.Name.EscapeHtml(),
-                        bot.Type.GetDisplayName(),
+                        bot.Name.Html,
+                        bot.Type.DisplayName,
                         pageNumber),
                     bot.IsActive
                         ? Buttons.BotListStop(

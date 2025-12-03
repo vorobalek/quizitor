@@ -14,7 +14,7 @@ using Telegram.Bot.Exceptions;
 
 namespace Quizitor.Sender.Services.Infrastructure;
 
-internal abstract class DummySenderKafkaConsumerTask<TKey>(
+internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     IServiceScopeFactory serviceScopeFactory,
     IOptions<KafkaOptions> options,
     ILogger logger) :
@@ -142,9 +142,7 @@ internal abstract class DummySenderKafkaConsumerTask<TKey>(
                 responseContent.ErrorCode,
                 responseContent.Parameters);
             // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
-#pragma warning disable CA2254
-            _logger.LogWarning(exception.ToString());
-#pragma warning restore CA2254
+            LogTelegramApiRequestFailed(exception);
             if (responseContent.ErrorCode == 429)
                 throw new RetryLaterExtension(1000, "429 status code has been found");
         }
@@ -157,4 +155,7 @@ internal abstract class DummySenderKafkaConsumerTask<TKey>(
     {
         return Task.CompletedTask;
     }
+
+    [LoggerMessage(LogLevel.Error, "Telegram API request failed")]
+    partial void LogTelegramApiRequestFailed(Exception exception);
 }

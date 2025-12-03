@@ -25,7 +25,7 @@ internal abstract class GameServerBehaviorBase<TContext>(IDbContextProvider dbCo
     {
         return string.Format(
             TR.L + "_GAME_SERVER_REDIRECT_TXT",
-            targetBotUsername.EscapeHtml());
+            targetBotUsername.Html);
     }
 
     protected sealed override InlineKeyboardMarkup GetRedirectKeyboard(string targetBotUsername)

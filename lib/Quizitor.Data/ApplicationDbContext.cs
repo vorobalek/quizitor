@@ -37,8 +37,7 @@ public sealed partial class ApplicationDbContext(DbContextOptions<ApplicationDbC
             .Entity<User>()
             .HasMany(x => x.Roles)
             .WithMany(x => x.Users)
-            .UsingEntity<UserRole>()
-            .ToTable("user_role");
+            .UsingEntity<UserRole>();
 
         modelBuilder
             .Entity<Question>()

@@ -5,17 +5,18 @@ namespace Quizitor.Common;
 
 public static class EnumExtensions
 {
-    private static T? GetAttributeOfType<T>(this Enum enumValue) where T : Attribute
+    extension(Enum enumValue)
     {
-        var type = enumValue.GetType();
-        var memInfo = type.GetField(enumValue.ToString(), BindingFlags.Public | BindingFlags.Static);
-        var attributes = memInfo?.GetCustomAttributes<T>(false);
-        return attributes?.FirstOrDefault();
-    }
-
-    public static string? GetDisplayName(this Enum enumValue)
-    {
-        var attribute = enumValue.GetAttributeOfType<DisplayAttribute>();
-        return attribute == null ? enumValue.ToString() : attribute.Name;
+        public string? DisplayName
+        {
+            get
+            {
+                var type = enumValue.GetType();
+                var fieldInfo = type.GetField(enumValue.ToString(), BindingFlags.Public | BindingFlags.Static);
+                var attributes = fieldInfo?.GetCustomAttributes<DisplayAttribute>(false);
+                var attribute = attributes?.FirstOrDefault();
+                return attribute is not null ? attribute.Name : enumValue.ToString();
+            }
+        }
     }
 }

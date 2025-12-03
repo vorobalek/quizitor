@@ -42,8 +42,8 @@ internal class MailingViewBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAILING_VIEW_TXT",
-                    context.Base.Mailing.Name.EscapeHtml(),
-                    context.Base.Mailing.Text.EscapeHtml()),
+                    context.Base.Mailing.Name.Html,
+                    context.Base.Mailing.Text.Html),
                 ParseMode.Html,
                 replyMarkup: Keyboards.MailingView(
                     context.Base.Mailing.Id,

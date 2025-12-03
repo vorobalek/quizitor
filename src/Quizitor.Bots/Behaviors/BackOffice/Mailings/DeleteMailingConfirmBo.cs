@@ -51,7 +51,7 @@ internal sealed class DeleteMailingConfirmBo(
                         string
                             .Format(
                                 TR.L + "_BACKOFFICE_MAILING_DELETED_CLB",
-                                context.Base.Mailing.Name.EscapeHtml()),
+                                context.Base.Mailing.Name.Html),
                         true,
                         cancellationToken: cancellationToken);
 

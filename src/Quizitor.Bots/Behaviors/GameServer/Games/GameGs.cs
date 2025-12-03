@@ -30,8 +30,8 @@ internal sealed class GameGs(IDbContextProvider dbContextProvider) :
     {
         var text = string.Format(
             TR.L + "_GAME_SERVER_GAME_TXT",
-            context.Base.Game.Title.EscapeHtml(),
-            context.Base.Session.Name.EscapeHtml(),
+            context.Base.Game.Title.Html,
+            context.Base.Session.Name.Html,
             context.Base.RoundsCount,
             context.Base.QuestionsCount,
             context.Base.ConnectedUsersCount);

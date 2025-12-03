@@ -37,7 +37,7 @@ internal abstract class MailingProfileBo<TContext>(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_MAILING_PROFILE_TXT",
-                    context.Base.Mailing.Name.EscapeHtml(),
+                    context.Base.Mailing.Name.Html,
                     context.Base.PredictedMessagesCount,
                     context.Base.PredictedUsersCount,
                     context.Base.PredictedBotsCount,
@@ -161,14 +161,14 @@ internal abstract class MailingProfileBo<TContext>(
         var recipients = await dbContextProvider
             .Mailings
             .GetRecipientsAsync(
-                gamesIncluded.Select(x => x.Id).ToArray(),
-                gamesExcluded.Select(x => x.Id).ToArray(),
-                sessionsIncluded.Select(x => x.Id).ToArray(),
-                sessionsExcluded.Select(x => x.Id).ToArray(),
-                teamsIncluded.Select(x => x.Id).ToArray(),
-                teamsExcluded.Select(x => x.Id).ToArray(),
-                usersIncluded.Select(x => x.Id).ToArray(),
-                usersExcluded.Select(x => x.Id).ToArray(),
+                [.. gamesIncluded.Select(x => x.Id)],
+                [.. gamesExcluded.Select(x => x.Id)],
+                [.. sessionsIncluded.Select(x => x.Id)],
+                [.. sessionsExcluded.Select(x => x.Id)],
+                [.. teamsIncluded.Select(x => x.Id)],
+                [.. teamsExcluded.Select(x => x.Id)],
+                [.. usersIncluded.Select(x => x.Id)],
+                [.. usersExcluded.Select(x => x.Id)],
                 cancellationToken);
 
         var includedBotTypes = mailingProfile is not null
@@ -197,8 +197,8 @@ internal abstract class MailingProfileBo<TContext>(
                 contactType,
                 includedBotTypes,
                 excludedBotTypes,
-                botsIncluded.Select(x => x.Id).ToArray(),
-                botsExcluded.Select(x => x.Id).ToArray(),
+                [.. botsIncluded.Select(x => x.Id)],
+                [.. botsExcluded.Select(x => x.Id)],
                 userIds,
                 cancellationToken);
 
@@ -261,7 +261,7 @@ internal abstract class MailingProfileBo<TContext>(
             array,
             x =>
             [
-                x.Title.EscapeHtml()
+                x.Title.Html
             ],
             allText,
             TR.L + "_BACKOFFICE_MAILING_PROFILE_GAMES_LIST_MORE_TXT",
@@ -291,8 +291,8 @@ internal abstract class MailingProfileBo<TContext>(
             array,
             x =>
             [
-                x.Game.Title.EscapeHtml(),
-                x.Name.EscapeHtml()
+                x.Game.Title.Html,
+                x.Name.Html
             ],
             allText,
             TR.L + "_BACKOFFICE_MAILING_PROFILE_SESSIONS_LIST_MORE_TXT",
@@ -322,7 +322,7 @@ internal abstract class MailingProfileBo<TContext>(
             array,
             x =>
             [
-                x.Name.EscapeHtml()
+                x.Name.Html
             ],
             allText,
             TR.L + "_BACKOFFICE_MAILING_PROFILE_TEAMS_LIST_MORE_TXT",
@@ -353,7 +353,7 @@ internal abstract class MailingProfileBo<TContext>(
             x =>
             [
                 x.Id,
-                x.GetFullName().EscapeHtml()
+                x.GetFullName().Html
             ],
             allText,
             TR.L + "_BACKOFFICE_MAILING_PROFILE_USERS_LIST_MORE_TXT",
@@ -413,7 +413,7 @@ internal abstract class MailingProfileBo<TContext>(
             array,
             x =>
             [
-                (x.Username ?? x.Name).EscapeHtml()
+                (x.Username ?? x.Name).Html
             ],
             allText,
             TR.L + "_BACKOFFICE_MAILING_PROFILE_BOTS_LIST_MORE_TXT",

@@ -173,8 +173,8 @@ internal sealed class QuestionStartGa(
                 context.CallbackQueryId,
                 string.Format(
                     TR.L + "_GAME_ADMIN_STOP_QUESTION_BEFORE_STARTING_NEW_TXT",
-                    context.Base.ActiveRound.Title.EscapeHtml(),
-                    context.Base.ActiveQuestion.Title.EscapeHtml()),
+                    context.Base.ActiveRound.Title.Html,
+                    context.Base.ActiveQuestion.Title.Html),
                 true,
                 cancellationToken: cancellationToken);
         return true;
@@ -283,13 +283,13 @@ internal sealed class QuestionStartGa(
     {
         var text = string.Format(
             TR.L + "_GAME_ADMIN_QUESTION_STARTED_TXT",
-            context.Base.Round.Title.EscapeHtml(),
-            context.Base.Question.Title.EscapeHtml());
+            context.Base.Round.Title.Html,
+            context.Base.Question.Title.Html);
 
         var actionText = string.Format(
             TR.L + "_GAME_ADMIN_QUESTION_ACTION_TXT",
-            context.Base.Round.Title.EscapeHtml(),
-            context.Base.Question.Title.EscapeHtml());
+            context.Base.Round.Title.Html,
+            context.Base.Question.Title.Html);
 
         var actionKeyboard = UI.GameAdmin.Keyboards.ActiveQuestionCallbacks(
             context.Base.Round.Title,

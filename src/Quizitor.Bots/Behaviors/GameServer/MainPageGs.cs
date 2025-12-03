@@ -48,19 +48,19 @@ internal sealed class MainPageGs(IDbContextProvider dbContextProvider) :
     {
         var text = string.Format(
             TR.L + "_GAME_SERVER_MAIN_TXT",
-            context.Identity.User.FirstName.EscapeHtml(),
-            context.Identity.User.LastName?.EscapeHtml(),
+            context.Identity.User.FirstName.Html,
+            context.Identity.User.LastName?.Html,
             string.Format(
                 TR.L + "_GAME_SERVER_MAIN_GAME_INFO_TXT",
-                context.Game.Title.EscapeHtml(),
-                context.Session.Name.EscapeHtml()),
+                context.Game.Title.Html,
+                context.Session.Name.Html),
             context.SessionTeamInfo is not { } teamInfo
                 ? string.Format(
                     TR.L + "_GAME_SERVER_MAIN_WITHOUT_TEAM_INFO_TXT",
                     TR.L + "_GAME_SERVER_TEAMS_BTN")
                 : string.Format(
                     TR.L + "_GAME_SERVER_MAIN_TEAM_INFO_TXT",
-                    teamInfo.Team.Name.EscapeHtml()));
+                    teamInfo.Team.Name.Html));
 
         var keyboard = Keyboards.MainPage(context.SessionTeamInfo is not null);
 

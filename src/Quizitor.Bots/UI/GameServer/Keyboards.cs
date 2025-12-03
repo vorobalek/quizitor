@@ -16,7 +16,7 @@ internal static class Keyboards
 
     public static ReplyMarkup Options(IEnumerable<QuestionOption> options)
     {
-        var optionsArray = options as QuestionOption[] ?? options.ToArray();
+        var optionsArray = options as QuestionOption[] ?? [.. options];
         return optionsArray.Length != 0
             ? new ReplyKeyboardMarkup(
                 optionsArray.Select<QuestionOption, IEnumerable<KeyboardButton>>(x =>

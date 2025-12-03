@@ -98,7 +98,7 @@ internal sealed class RoundListBo(
         var text = string
             .Format(
                 TR.L + "_BACKOFFICE_ROUNDS_TXT",
-                context.Base.Game.Title.EscapeHtml(),
+                context.Base.Game.Title.Html,
                 context.Base.RoundsCount);
         var keyboard = Keyboards.RoundList(
             context.Base.Rounds,

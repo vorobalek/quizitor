@@ -22,7 +22,7 @@ public sealed class StringExtensionsTests
         string input,
         string expected)
     {
-        var result = input.EscapeHtml();
+        var result = input.Html;
 
 
         Assert.AreEqual(expected, result);

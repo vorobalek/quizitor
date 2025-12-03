@@ -54,8 +54,8 @@ internal sealed class SessionLeaveGs(IDbContextProvider dbContextProvider) :
                         context.MessageId,
                         string.Format(
                             TR.L + "_GAME_SERVER_LEAVE_SESSION_SUCCESS_TXT",
-                            context.Base.Game.Title.EscapeHtml(),
-                            context.Base.Session.Name.EscapeHtml()),
+                            context.Base.Game.Title.Html,
+                            context.Base.Session.Name.Html),
                         ParseMode.Html,
                         cancellationToken: cancellationToken);
                 await GetSessionOrRequestQrCodeAsync(context.Base, cancellationToken);

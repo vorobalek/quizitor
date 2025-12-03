@@ -42,7 +42,7 @@ internal class TeamGs(IDbContextProvider dbContextProvider) :
 
         var text = string.Format(
             TR.L + "_GAME_SERVER_TEAM_TXT",
-            teamInfo.Team.Name.EscapeHtml(),
+            teamInfo.Team.Name.Html,
             teamInfo.Leader is not { } leader
                 ? TR.L + "_GAME_SERVER_TEAM_LEADER_EMPTY_TXT"
                 : string.Format(
@@ -50,7 +50,7 @@ internal class TeamGs(IDbContextProvider dbContextProvider) :
                         ? TR.L + "_GAME_SERVER_TEAM_LEADER_YOU_TXT"
                         : TR.L + "_GAME_SERVER_TEAM_LEADER_TXT",
                     leader.Id,
-                    leader.GetFullName().EscapeHtml()),
+                    leader.GetFullName().Html),
             string.Format(
                 TR.L + "_GAME_SERVER_TEAM_MEMBERS_TXT",
                 string.Join(
@@ -61,7 +61,7 @@ internal class TeamGs(IDbContextProvider dbContextProvider) :
                                 ? TR.L + "_GAME_SERVER_TEAM_MEMBER_ITEM_YOU_TXT"
                                 : TR.L + "_GAME_SERVER_TEAM_MEMBER_ITEM_TXT",
                             x.Id,
-                            x.GetFullName().EscapeHtml())))),
+                            x.GetFullName().Html)))),
             string.Format(
                 TR.L + "_GAME_SERVER_TEAM_OFFLINE_MEMBERS_TXT",
                 teamInfo.OfflineMembers.Length > 0
@@ -71,7 +71,7 @@ internal class TeamGs(IDbContextProvider dbContextProvider) :
                             string.Format(
                                 TR.L + "_GAME_SERVER_TEAM_OFFLINE_MEMBER_ITEM_TXT",
                                 x.Id,
-                                x.GetFullName().EscapeHtml())))
+                                x.GetFullName().Html)))
                     : TR.L + "_SHARED_NO_TXT"));
         var keyboard = Keyboards.Team(teamInfo.Leader?.Id != context.Identity.User.Id);
 

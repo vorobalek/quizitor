@@ -40,7 +40,7 @@ internal sealed class DeleteGameBo(
                 context.MessageId,
                 string.Format(
                     TR.L + "_BACKOFFICE_DELETE_GAME_CONFIRMATION_TXT",
-                    context.Base.Game.Title.EscapeHtml(),
+                    context.Base.Game.Title.Html,
                     context.Base.RoundsCount,
                     context.Base.QuestionsCount,
                     context.Base.OptionsCount,
