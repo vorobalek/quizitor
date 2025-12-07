@@ -120,27 +120,27 @@ internal sealed class MailingRepository(
 
         if (includedBotTypes.Length != 0)
         {
-            botsQuery = botsQuery.Where(x => includedBotTypes.Contains(x.Type));
+            botsQuery = botsQuery.Where(x => includedBotTypes.AsEnumerable().Contains(x.Type));
         }
 
         if (excludedBotTypes.Length != 0)
         {
-            botsQuery = botsQuery.Where(x => !excludedBotTypes.Contains(x.Type));
+            botsQuery = botsQuery.Where(x => !excludedBotTypes.AsEnumerable().Contains(x.Type));
         }
 
         if (includedBotIds.Length != 0)
         {
-            botsQuery = botsQuery.Where(x => includedBotIds.Contains(x.Id));
+            botsQuery = botsQuery.Where(x => includedBotIds.AsEnumerable().Contains(x.Id));
         }
 
         if (excludedBotIds.Length != 0)
         {
-            botsQuery = botsQuery.Where(x => !excludedBotIds.Contains(x.Id));
+            botsQuery = botsQuery.Where(x => !excludedBotIds.AsEnumerable().Contains(x.Id));
         }
 
         var baseQuery = dbContext
             .BotInteractions
-            .Where(x => userIds.Contains(x.UserId))
+            .Where(x => userIds.AsEnumerable().Contains(x.UserId))
             .Join(
                 botsQuery,
                 interaction => interaction.BotUsername,
@@ -606,50 +606,50 @@ internal sealed class MailingRepository(
         {
             usersQuery = usersQuery.Where(x =>
                 x.Session != null &&
-                includeGameIds.Contains(x.Session.Game.Id));
+                includeGameIds.AsEnumerable().Contains(x.Session.Game.Id));
         }
 
         if (excludeGameIds.Length != 0)
         {
             usersQuery = usersQuery.Where(x =>
                 x.Session == null ||
-                !excludeGameIds.Contains(x.Session.Game.Id));
+                !excludeGameIds.AsEnumerable().Contains(x.Session.Game.Id));
         }
 
         if (includeSessionIds.Length != 0)
         {
             usersQuery = usersQuery.Where(x =>
                 x.Session != null &&
-                includeSessionIds.Contains(x.Session.Id));
+                includeSessionIds.AsEnumerable().Contains(x.Session.Id));
         }
 
         if (excludeSessionIds.Length != 0)
         {
             usersQuery = usersQuery.Where(x =>
                 x.Session == null ||
-                !excludeSessionIds.Contains(x.Session.Id));
+                !excludeSessionIds.AsEnumerable().Contains(x.Session.Id));
         }
 
         if (includeTeamIds.Length != 0)
         {
             usersQuery = usersQuery.Where(x =>
-                x.TeamMembership.Any(e => includeTeamIds.Contains(e.TeamId)));
+                x.TeamMembership.Any(e => includeTeamIds.AsEnumerable().Contains(e.TeamId)));
         }
 
         if (excludeTeamIds.Length != 0)
         {
             usersQuery = usersQuery.Where(x =>
-                x.TeamMembership.All(e => !excludeTeamIds.Contains(e.TeamId)));
+                x.TeamMembership.All(e => !excludeTeamIds.AsEnumerable().Contains(e.TeamId)));
         }
 
         if (includeUserIds.Length != 0)
         {
-            usersQuery = usersQuery.Where(x => includeUserIds.Contains(x.Id));
+            usersQuery = usersQuery.Where(x => includeUserIds.AsEnumerable().Contains(x.Id));
         }
 
         if (excludeUserIds.Length != 0)
         {
-            usersQuery = usersQuery.Where(x => !excludeUserIds.Contains(x.Id));
+            usersQuery = usersQuery.Where(x => !excludeUserIds.AsEnumerable().Contains(x.Id));
         }
 
         return usersQuery;
