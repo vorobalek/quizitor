@@ -125,7 +125,7 @@ internal sealed class UserRepository(
                 x.SessionId == sessionId &&
                 x.GameAdminId.HasValue &&
                 x.Roles.Any(r => r.SystemName == Role.GameAdmin) ||
-                authorizedUserIds.Contains(x.Id))
+                authorizedUserIds.AsEnumerable().Contains(x.Id))
             .ToArrayAsync(cancellationToken);
     }
 
