@@ -44,13 +44,7 @@ public static class WebHostBuilderExtensions
             throw new NotImplementedException();
         }
 
-        public void CaptureFeedback(SentryFeedback feedback, Scope? scope = null, SentryHint? hint = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        [Obsolete("Obsolete")]
-        public void CaptureUserFeedback(UserFeedback userFeedback)
+        public SentryId CaptureFeedback(SentryFeedback feedback, out CaptureFeedbackResult result, Scope? scope = null, SentryHint? hint = null)
         {
             throw new NotImplementedException();
         }
@@ -153,6 +147,11 @@ public static class WebHostBuilderExtensions
             throw new NotImplementedException();
         }
 
+        public W3CTraceparentHeader GetTraceparentHeader()
+        {
+            throw new NotImplementedException();
+        }
+
         public TransactionContext ContinueTrace(string? traceHeader, string? baggageHeader, string? name = null, string? operation = null)
         {
             throw new NotImplementedException();
@@ -194,7 +193,7 @@ public static class WebHostBuilderExtensions
             throw new NotImplementedException();
         }
 
-        public void CaptureFeedback(SentryFeedback feedback, Action<Scope> configureScope, SentryHint? hint = null)
+        public SentryId CaptureFeedback(SentryFeedback feedback, out CaptureFeedbackResult result, Action<Scope> configureScope, SentryHint? hint = null)
         {
             throw new NotImplementedException();
         }
@@ -204,5 +203,7 @@ public static class WebHostBuilderExtensions
 
         [Experimental("SENTRY0001")]
         public SentryStructuredLogger Logger => throw new NotImplementedException();
+
+        public bool IsSessionActive => false;
     }
 }
