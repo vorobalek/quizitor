@@ -5,7 +5,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageVersion Include="Confluent.Kafka" Version="2.13.0"/>
-        <PackageVersion Include="EFCore.NamingConventions" Version="10.0.0-rc.2"/>
+        <PackageVersion Include="EFCore.NamingConventions" Version="10.0.0"/>
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.1"/>
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1"/>
         <PackageVersion Include="Moq" Version="4.20.72"/>
