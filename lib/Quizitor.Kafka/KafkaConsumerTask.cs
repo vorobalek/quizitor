@@ -46,52 +46,113 @@ public abstract partial class KafkaConsumerTask(
     protected KafkaConsumerRunnerDelegate CreateConsumerRunner<TKey, TMessage>(
         string topic,
         string groupId,
-        Func<ConsumeResult<TKey, TMessage>, CancellationToken, Task> consumerTask)
+        Func<ConsumeResult<TKey, TMessage>, CancellationToken, Task> consumerTask,
+        bool ensureTopicExists = true)
     {
         var numPartitionsValue = options.Value.DefaultNumPartitions;
         var replicationFactorValue = options.Value.DefaultReplicationFactor;
         return cancellationToken => Task.Run(async () =>
         {
-            await EnsureTopicExists(topic, numPartitionsValue, replicationFactorValue);
+            if (ensureTopicExists)
+            {
+                await EnsureTopicExists(topic, numPartitionsValue, replicationFactorValue, cancellationToken);
+            }
+
             await ConsumerProcess(topic, groupId, consumerTask, cancellationToken);
         }, cancellationToken);
     }
 
-    private async Task EnsureTopicExists(
-        string topic,
+    protected async Task EnsureTopicsExist(
+        IEnumerable<string> topics,
         int numPartitions,
-        short replicationFactor)
+        short replicationFactor,
+        CancellationToken cancellationToken)
     {
+        var topicList = topics
+            .Where(topic => !string.IsNullOrWhiteSpace(topic))
+            .Distinct()
+            .ToArray();
+        if (topicList.Length == 0)
+        {
+            return;
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
         var adminConfig = new AdminClientConfig
         {
             BootstrapServers = options.Value.BootstrapServers
         };
         using var adminClient = new AdminClientBuilder(adminConfig).Build();
         var metadata = adminClient.GetMetadata(TimeSpan.FromSeconds(5));
-        var existingTopic = metadata.Topics.FirstOrDefault(t => t.Topic == topic);
-        if (existingTopic != null && existingTopic.Error.Code != ErrorCode.UnknownTopicOrPart) return;
-        try
-        {
-            await adminClient.CreateTopicsAsync([
-                new TopicSpecification
+        var existingTopics = metadata
+            .Topics
+            .Select(topic => topic.Topic)
+            .ToHashSet(StringComparer.Ordinal);
+        TopicSpecification[] topicsToCreate =
+        [
+            .. topicList
+                .Where(topic => !existingTopics.Contains(topic))
+                .Select(topic => new TopicSpecification
                 {
                     Name = topic,
                     NumPartitions = numPartitions,
                     ReplicationFactor = replicationFactor
-                }
-            ]);
+                })
+        ];
+        if (topicsToCreate.Length == 0)
+        {
+            return;
+        }
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+        try
+        {
+            await adminClient.CreateTopicsAsync(topicsToCreate);
 
-            LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
+            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            foreach (var topic in topicsToCreate.Select(result => result.Name))
+            {
+                LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
+            }
         }
         catch (CreateTopicsException e)
         {
-            if (e.Results.Any(r => r.Error.Code == ErrorCode.TopicAlreadyExists))
-                LogTopicIsAlreadyCreatedByAnotherClient(logger, topic);
-            else
+            if (e.Results.Any(result =>
+                    result.Error.Code != ErrorCode.TopicAlreadyExists &&
+                    result.Error.Code != ErrorCode.NoError))
+            {
                 throw;
+            }
+
+            foreach (var result in e.Results)
+            {
+                if (result.Error.Code == ErrorCode.TopicAlreadyExists)
+                {
+                    LogTopicIsAlreadyCreatedByAnotherClient(logger, result.Topic);
+                }
+            }
+
+            var createdTopics = e.Results
+                .Where(result => result.Error.Code == ErrorCode.NoError)
+                .Select(result => result.Topic)
+                .ToArray();
+            if (createdTopics.Length > 0)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                foreach (var topic in createdTopics)
+                {
+                    LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
+                }
+            }
         }
+    }
+
+    private async Task EnsureTopicExists(
+        string topic,
+        int numPartitions,
+        short replicationFactor,
+        CancellationToken cancellationToken)
+    {
+        await EnsureTopicsExist([topic], numPartitions, replicationFactor, cancellationToken);
     }
 
     private async Task ConsumerProcess<TKey, TMessage>(

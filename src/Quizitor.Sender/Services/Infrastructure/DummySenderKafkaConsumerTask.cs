@@ -38,25 +38,36 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     {
         var processes = new List<KafkaConsumerRunnerDelegate>();
         var bots = await _botListCache.GetBotsAsync(stoppingToken);
+        var topics = new HashSet<string>(StringComparer.Ordinal);
 
         foreach (var bot in bots)
         {
             var topic = string.Format(
                 TopicBot,
                 bot.Id);
+            topics.Add(topic);
             var groupId = $"{topic}.{_options.Value.ConsumerGroupId}";
             processes.Add(CreateConsumerRunner<TKey, string>(
                 topic,
                 groupId,
                 (result, token) =>
-                    ProcessAsync(bot.Id, result, token)));
+                    ProcessAsync(bot.Id, result, token),
+                ensureTopicExists: false));
         }
 
+        topics.Add(TopicMain);
         processes.Add(CreateConsumerRunner<TKey, string>(
             TopicMain,
             $"{TopicMain}.{_options.Value.ConsumerGroupId}",
             (result, token) =>
-                ProcessAsync(null, result, token)));
+                ProcessAsync(null, result, token),
+            ensureTopicExists: false));
+
+        await EnsureTopicsExist(
+            topics,
+            _options.Value.DefaultNumPartitions,
+            _options.Value.DefaultReplicationFactor,
+            stoppingToken);
 
         return [.. processes];
     }
