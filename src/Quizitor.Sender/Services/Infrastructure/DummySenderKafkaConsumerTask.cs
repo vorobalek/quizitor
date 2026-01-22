@@ -16,6 +16,7 @@ namespace Quizitor.Sender.Services.Infrastructure;
 
 internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     IServiceScopeFactory serviceScopeFactory,
+    IBotListCache botListCache,
     IOptions<KafkaOptions> options,
     ILogger logger) :
     KafkaConsumerTask(
@@ -24,6 +25,7 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
 {
     private readonly ILogger _logger = logger;
     private readonly IOptions<KafkaOptions> _options = options;
+    private readonly IBotListCache _botListCache = botListCache;
 
     protected abstract string Method { get; }
     protected abstract string TopicMain { get; }
@@ -35,11 +37,7 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     protected override async Task<KafkaConsumerRunnerDelegate[]> GetConsumerRunners(CancellationToken stoppingToken)
     {
         var processes = new List<KafkaConsumerRunnerDelegate>();
-        using var serviceScope = serviceScopeFactory.CreateScope();
-        var dbContext = serviceScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-        var bots = await dbContext
-            .Bots
-            .GetAllAsync(stoppingToken);
+        var bots = await _botListCache.GetBotsAsync(stoppingToken);
 
         foreach (var bot in bots)
         {
