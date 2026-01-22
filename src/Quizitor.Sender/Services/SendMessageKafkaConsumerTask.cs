@@ -9,10 +9,12 @@ namespace Quizitor.Sender.Services;
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed class SendMessageKafkaConsumerTask(
     IServiceScopeFactory serviceScopeFactory,
+    IBotListCache botListCache,
     IOptions<KafkaOptions> options,
     ILogger<SendMessageKafkaConsumerTask> logger)
     : SlaSenderKafkaConsumerTask<long>(
         serviceScopeFactory,
+        botListCache,
         options,
         logger)
 {

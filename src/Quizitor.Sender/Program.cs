@@ -5,6 +5,7 @@ using Quizitor.Kafka;
 using Quizitor.Logging;
 using Quizitor.Sender.Configuration;
 using Quizitor.Sender.Services;
+using Quizitor.Sender.Services.Infrastructure;
 
 Metrics.SuppressDefaultMetrics();
 await Host
@@ -15,6 +16,7 @@ await Host
         .AddLogging(SentryConfiguration.MinimumEventLevel, SentryConfiguration.Dsn)
         .AddKafka(options => options.ConsumerGroupId = KafkaConfiguration.ConsumerGroupId)
         .ConfigureServices(services => services
+            .AddSingleton<IBotListCache, BotListCache>()
             .AddKafkaConsumer<AnswerCallbackQueryKafkaConsumerTask>()
             .AddKafkaConsumer<DeleteMessageKafkaConsumerTask>()
             .AddKafkaConsumer<EditMessageKafkaConsumerTask>()
