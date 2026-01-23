@@ -10,7 +10,7 @@ namespace Quizitor.Sender.Services;
 internal sealed class SendChatActionKafkaConsumerTask(
     IServiceScopeFactory serviceScopeFactory,
     IOptions<KafkaOptions> options,
-    ILogger<SendMessageKafkaConsumerTask> logger)
+    ILogger<SendChatActionKafkaConsumerTask> logger)
     : DummySenderKafkaConsumerTask<long>(
         serviceScopeFactory,
         options,

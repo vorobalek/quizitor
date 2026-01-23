@@ -25,8 +25,6 @@ public abstract partial class KafkaConsumerTask(
             {
                 LogBackgroundLoopFailedException(logger, GetType().Name, exception);
             }
-
-            await Task.Delay(1000, stoppingToken);
         }
     }
 
@@ -61,7 +59,6 @@ public abstract partial class KafkaConsumerTask(
                 using var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
                 var cancellationToken = cancellationTokenSource.Token;
                 await ConsumerProcess(topic, groupId, consumerTask, cancellationToken);
-                await Task.Delay(1000, stoppingToken);
             }
         }, stoppingToken);
     }
@@ -89,9 +86,6 @@ public abstract partial class KafkaConsumerTask(
                     ReplicationFactor = replicationFactor
                 }
             ]);
-
-            await Task.Delay(1000);
-
             LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
         }
         catch (CreateTopicsException e)
@@ -107,7 +101,7 @@ public abstract partial class KafkaConsumerTask(
         string topic,
         string groupId,
         Func<ConsumeResult<TKey, TMessage>, CancellationToken, Task> consumerTask,
-        CancellationToken cancellationToken)
+        CancellationToken stoppingToken)
     {
         var config = new ConsumerConfig
         {
@@ -120,18 +114,20 @@ public abstract partial class KafkaConsumerTask(
 
         using var consumer = new ConsumerBuilder<TKey, TMessage>(config).Build();
         consumer.Subscribe(topic);
-        LogSubscribedToTopic(logger, topic);
+        LogTopicSubscribed(logger, topic);
         try
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                var consumeResult = consumer.Consume(cancellationToken);
+                var consumeResult = consumer.Consume(stoppingToken);
                 if (consumeResult is null)
                 {
-                    await Task.Delay(100, cancellationToken);
+                    await Task.Delay(100, stoppingToken);
                     continue;
                 }
-
+                
+                using var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+                var cancellationToken = cancellationTokenSource.Token;
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     try
@@ -148,12 +144,12 @@ public abstract partial class KafkaConsumerTask(
                 consumer.Commit(consumeResult);
             }
         }
-        catch (Exception exception) when (exception is TaskCanceledException or OperationCanceledException && cancellationToken.IsCancellationRequested)
+        catch (Exception exception) when (exception is TaskCanceledException or OperationCanceledException && stoppingToken.IsCancellationRequested)
         {
         }
         catch (Exception exception)
         {
-            LogConsumerTaskFailed(logger, GetType().Name, exception);
+            LogConsumerRunnerFailed(logger, topic, exception);
         }
         finally
         {
@@ -173,11 +169,11 @@ public abstract partial class KafkaConsumerTask(
     [LoggerMessage(LogLevel.Warning, "Topic '{topic}' is already created by another client")]
     static partial void LogTopicIsAlreadyCreatedByAnotherClient(ILogger logger, string topic);
 
-    [LoggerMessage(LogLevel.Warning, "Subscribed to '{topic}'")]
-    static partial void LogSubscribedToTopic(ILogger logger, string topic);
+    [LoggerMessage(LogLevel.Warning, "'{topic}' subscribed")]
+    static partial void LogTopicSubscribed(ILogger logger, string topic);
 
-    [LoggerMessage(LogLevel.Error, "{name} consumer task failed")]
-    static partial void LogConsumerTaskFailed(ILogger logger, string name, Exception exception);
+    [LoggerMessage(LogLevel.Error, "{topic} consumer runner failed")]
+    static partial void LogConsumerRunnerFailed(ILogger logger, string topic, Exception exception);
     
     [LoggerMessage(LogLevel.Warning, "{topic} consumer runner started. Restarts count: {restartsCount}")]
     static partial void LogConsumerRunnerStartedWithRestartsCount(ILogger logger, string topic, int restartsCount);

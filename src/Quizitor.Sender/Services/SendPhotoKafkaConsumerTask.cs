@@ -14,7 +14,7 @@ namespace Quizitor.Sender.Services;
 internal sealed partial class SendPhotoKafkaConsumerTask(
     IServiceScopeFactory serviceScopeFactory,
     IOptions<KafkaOptions> options,
-    ILogger<SendMessageKafkaConsumerTask> logger)
+    ILogger<SendPhotoKafkaConsumerTask> logger)
     : SlaSenderKafkaConsumerTask<long>(
         serviceScopeFactory,
         options,
@@ -93,5 +93,5 @@ internal sealed partial class SendPhotoKafkaConsumerTask(
     }
 
     [LoggerMessage(LogLevel.Error, "An exception occurred while sending a photo")]
-    static partial void LogAnExceptionOccurredWhileSendingAPhoto(ILogger<SendMessageKafkaConsumerTask> logger, Exception exception);
+    static partial void LogAnExceptionOccurredWhileSendingAPhoto(ILogger logger, Exception exception);
 }
