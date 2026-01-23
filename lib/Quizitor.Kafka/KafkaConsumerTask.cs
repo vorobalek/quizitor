@@ -19,15 +19,14 @@ public abstract partial class KafkaConsumerTask(
         {
             try
             {
-                await ExecuteOnceAsync(restartsCount, stoppingToken);
+                await ExecuteOnceAsync(restartsCount++, stoppingToken);
             }
             catch (Exception exception)
             {
                 LogBackgroundLoopFailedException(logger, GetType().Name, exception);
             }
 
-            restartsCount++;
-            await Task.Delay(5000, stoppingToken);
+            await Task.Delay(1000, stoppingToken);
         }
     }
 
@@ -35,9 +34,10 @@ public abstract partial class KafkaConsumerTask(
     {
         LogTaskStartedWithRestartsCount(logger, GetType().Name, restartsCount);
         using var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
-        var token = cancellationTokenSource.Token;
-        var runners = await GetConsumerRunners(token);
-        await Task.WhenAny(runners.Select(runner => runner.Invoke(token)));
+        var cancellationToken = cancellationTokenSource.Token;
+        var runnerDelegates = await GetConsumerRunners(cancellationToken);
+        var runners = runnerDelegates.Select(runner => runner.Invoke(cancellationToken)).ToArray();
+        await Task.WhenAny(runners);
         await cancellationTokenSource.CancelAsync();
     }
 
@@ -50,11 +50,20 @@ public abstract partial class KafkaConsumerTask(
     {
         var numPartitionsValue = options.Value.DefaultNumPartitions;
         var replicationFactorValue = options.Value.DefaultReplicationFactor;
-        return cancellationToken => Task.Run(async () =>
+        return stoppingToken => Task.Run(async () =>
         {
             await EnsureTopicExists(topic, numPartitionsValue, replicationFactorValue);
-            await ConsumerProcess(topic, groupId, consumerTask, cancellationToken);
-        }, cancellationToken);
+
+            var restartsCount = 0;
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                LogConsumerRunnerStartedWithRestartsCount(logger, topic, restartsCount++);
+                using var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
+                var cancellationToken = cancellationTokenSource.Token;
+                await ConsumerProcess(topic, groupId, consumerTask, cancellationToken);
+                await Task.Delay(1000, stoppingToken);
+            }
+        }, stoppingToken);
     }
 
     private async Task EnsureTopicExists(
@@ -81,7 +90,7 @@ public abstract partial class KafkaConsumerTask(
                 }
             ]);
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(1000);
 
             LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
         }
@@ -139,10 +148,7 @@ public abstract partial class KafkaConsumerTask(
                 consumer.Commit(consumeResult);
             }
         }
-        catch (TaskCanceledException) when (cancellationToken.IsCancellationRequested)
-        {
-        }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        catch (Exception exception) when (exception is TaskCanceledException or OperationCanceledException && cancellationToken.IsCancellationRequested)
         {
         }
         catch (Exception exception)
@@ -172,4 +178,7 @@ public abstract partial class KafkaConsumerTask(
 
     [LoggerMessage(LogLevel.Error, "{name} consumer task failed")]
     static partial void LogConsumerTaskFailed(ILogger logger, string name, Exception exception);
+    
+    [LoggerMessage(LogLevel.Warning, "{topic} consumer runner started. Restarts count: {restartsCount}")]
+    static partial void LogConsumerRunnerStartedWithRestartsCount(ILogger logger, string topic, int restartsCount);
 }
