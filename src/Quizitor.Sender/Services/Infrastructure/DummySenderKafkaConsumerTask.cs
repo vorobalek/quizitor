@@ -16,7 +16,6 @@ namespace Quizitor.Sender.Services.Infrastructure;
 
 internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     IServiceScopeFactory serviceScopeFactory,
-    IBotListCache botListCache,
     IOptions<KafkaOptions> options,
     ILogger logger) :
     KafkaConsumerTask(
@@ -25,7 +24,6 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
 {
     private readonly ILogger _logger = logger;
     private readonly IOptions<KafkaOptions> _options = options;
-    private readonly IBotListCache _botListCache = botListCache;
 
     protected abstract string Method { get; }
     protected abstract string TopicMain { get; }
@@ -37,37 +35,30 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     protected override async Task<KafkaConsumerRunnerDelegate[]> GetConsumerRunners(CancellationToken stoppingToken)
     {
         var processes = new List<KafkaConsumerRunnerDelegate>();
-        var bots = await _botListCache.GetBotsAsync(stoppingToken);
-        var topics = new HashSet<string>(StringComparer.Ordinal);
+        using var serviceScope = serviceScopeFactory.CreateScope();
+        var dbContext = serviceScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+        var bots = await dbContext
+            .Bots
+            .GetAllAsync(stoppingToken);
 
         foreach (var bot in bots)
         {
             var topic = string.Format(
                 TopicBot,
                 bot.Id);
-            topics.Add(topic);
             var groupId = $"{topic}.{_options.Value.ConsumerGroupId}";
             processes.Add(CreateConsumerRunner<TKey, string>(
                 topic,
                 groupId,
                 (result, token) =>
-                    ProcessAsync(bot.Id, result, token),
-                ensureTopicExists: false));
+                    ProcessAsync(bot.Id, result, token)));
         }
 
-        topics.Add(TopicMain);
         processes.Add(CreateConsumerRunner<TKey, string>(
             TopicMain,
             $"{TopicMain}.{_options.Value.ConsumerGroupId}",
             (result, token) =>
-                ProcessAsync(null, result, token),
-            ensureTopicExists: false));
-
-        await EnsureTopicsExist(
-            topics,
-            _options.Value.DefaultNumPartitions,
-            _options.Value.DefaultReplicationFactor,
-            stoppingToken);
+                ProcessAsync(null, result, token)));
 
         return [.. processes];
     }

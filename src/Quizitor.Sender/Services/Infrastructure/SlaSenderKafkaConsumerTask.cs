@@ -9,12 +9,10 @@ namespace Quizitor.Sender.Services.Infrastructure;
 
 internal abstract class SlaSenderKafkaConsumerTask<TKey>(
     IServiceScopeFactory serviceScopeFactory,
-    IBotListCache botListCache,
     IOptions<KafkaOptions> options,
     ILogger logger) :
     DummySenderKafkaConsumerTask<TKey>(
         serviceScopeFactory,
-        botListCache,
         options,
         logger)
 {

@@ -27,7 +27,7 @@ public abstract partial class KafkaConsumerTask(
             }
 
             restartsCount++;
-            await Task.Delay(5000, stoppingToken);
+            await Task.Delay(1000, stoppingToken);
         }
     }
 
@@ -46,113 +46,65 @@ public abstract partial class KafkaConsumerTask(
     protected KafkaConsumerRunnerDelegate CreateConsumerRunner<TKey, TMessage>(
         string topic,
         string groupId,
-        Func<ConsumeResult<TKey, TMessage>, CancellationToken, Task> consumerTask,
-        bool ensureTopicExists = true)
+        Func<ConsumeResult<TKey, TMessage>, CancellationToken, Task> consumerTask)
     {
         var numPartitionsValue = options.Value.DefaultNumPartitions;
         var replicationFactorValue = options.Value.DefaultReplicationFactor;
-        return cancellationToken => Task.Run(async () =>
-        {
-            if (ensureTopicExists)
-            {
-                await EnsureTopicExists(topic, numPartitionsValue, replicationFactorValue, cancellationToken);
-            }
 
+        return ConsumerRunner;
+
+        async Task ConsumerRunner(CancellationToken cancellationToken)
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                try
+                {
+                    await EnsureTopicExists(topic, numPartitionsValue, replicationFactorValue);
+                }
+                catch (Exception exception)
+                {
+                    LogEnsureTopicExistsFailedRetryingInSeconds(logger, topic, exception);
+                }
+
+                await Task.Delay(1000, cancellationToken);
+            }
             await ConsumerProcess(topic, groupId, consumerTask, cancellationToken);
-        }, cancellationToken);
-    }
-
-    protected async Task EnsureTopicsExist(
-        IEnumerable<string> topics,
-        int numPartitions,
-        short replicationFactor,
-        CancellationToken cancellationToken)
-    {
-        var topicList = topics
-            .Where(topic => !string.IsNullOrWhiteSpace(topic))
-            .Distinct()
-            .ToArray();
-        if (topicList.Length == 0)
-        {
-            return;
-        }
-
-        cancellationToken.ThrowIfCancellationRequested();
-        var adminConfig = new AdminClientConfig
-        {
-            BootstrapServers = options.Value.BootstrapServers
-        };
-        using var adminClient = new AdminClientBuilder(adminConfig).Build();
-        var metadata = adminClient.GetMetadata(TimeSpan.FromSeconds(5));
-        var existingTopics = metadata
-            .Topics
-            .Select(topic => topic.Topic)
-            .ToHashSet(StringComparer.Ordinal);
-        TopicSpecification[] topicsToCreate =
-        [
-            .. topicList
-                .Where(topic => !existingTopics.Contains(topic))
-                .Select(topic => new TopicSpecification
-                {
-                    Name = topic,
-                    NumPartitions = numPartitions,
-                    ReplicationFactor = replicationFactor
-                })
-        ];
-        if (topicsToCreate.Length == 0)
-        {
-            return;
-        }
-
-        try
-        {
-            await adminClient.CreateTopicsAsync(topicsToCreate);
-
-            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            foreach (var topic in topicsToCreate.Select(result => result.Name))
-            {
-                LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
-            }
-        }
-        catch (CreateTopicsException e)
-        {
-            if (e.Results.Any(result =>
-                    result.Error.Code != ErrorCode.TopicAlreadyExists &&
-                    result.Error.Code != ErrorCode.NoError))
-            {
-                throw;
-            }
-
-            foreach (var result in e.Results)
-            {
-                if (result.Error.Code == ErrorCode.TopicAlreadyExists)
-                {
-                    LogTopicIsAlreadyCreatedByAnotherClient(logger, result.Topic);
-                }
-            }
-
-            var createdTopics = e.Results
-                .Where(result => result.Error.Code == ErrorCode.NoError)
-                .Select(result => result.Topic)
-                .ToArray();
-            if (createdTopics.Length > 0)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-                foreach (var topic in createdTopics)
-                {
-                    LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
-                }
-            }
         }
     }
 
     private async Task EnsureTopicExists(
         string topic,
         int numPartitions,
-        short replicationFactor,
-        CancellationToken cancellationToken)
+        short replicationFactor)
     {
-        await EnsureTopicsExist([topic], numPartitions, replicationFactor, cancellationToken);
+        var adminConfig = new AdminClientConfig
+        {
+            BootstrapServers = options.Value.BootstrapServers
+        };
+        using var adminClient = new AdminClientBuilder(adminConfig).Build();
+        var metadata = adminClient.GetMetadata(TimeSpan.FromSeconds(5));
+        var existingTopic = metadata.Topics.FirstOrDefault(t => t.Topic == topic);
+        if (existingTopic != null && existingTopic.Error.Code != ErrorCode.UnknownTopicOrPart) return;
+        try
+        {
+            await adminClient.CreateTopicsAsync([
+                new TopicSpecification
+                {
+                    Name = topic,
+                    NumPartitions = numPartitions,
+                    ReplicationFactor = replicationFactor
+                }
+            ]);
+
+            LogTopicTopicHasBeenCreatedWithPartitionsAndReplicationFactor(logger, topic, numPartitions, replicationFactor);
+        }
+        catch (CreateTopicsException e)
+        {
+            if (e.Results.Any(r => r.Error.Code == ErrorCode.TopicAlreadyExists))
+                LogTopicIsAlreadyCreatedByAnotherClient(logger, topic);
+            else
+                throw;
+        }
     }
 
     private async Task ConsumerProcess<TKey, TMessage>(
@@ -216,7 +168,7 @@ public abstract partial class KafkaConsumerTask(
         }
     }
 
-    [LoggerMessage(LogLevel.Error, "{name} background loop failed.")]
+    [LoggerMessage(LogLevel.Error, "{name} background loop failed. Retrying in 5 seconds.")]
     static partial void LogBackgroundLoopFailedException(ILogger logger, string name, Exception exception);
 
     [LoggerMessage(LogLevel.Warning, "{name} started. Restarts count: {restartsCount}")]
@@ -233,4 +185,7 @@ public abstract partial class KafkaConsumerTask(
 
     [LoggerMessage(LogLevel.Error, "{name} consumer task failed")]
     static partial void LogConsumerTaskFailed(ILogger logger, string name, Exception exception);
+
+    [LoggerMessage(LogLevel.Warning, "{topic} Ensure topic exists failed. Retrying in 5 seconds.")]
+    static partial void LogEnsureTopicExistsFailedRetryingInSeconds(ILogger logger, string topic, Exception exception);
 }
