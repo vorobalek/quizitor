@@ -34,9 +34,9 @@ internal sealed class ConfigureWebhookHostedService(
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
             {
-                var webhookService = asyncScope.ServiceProvider.GetRequiredService<IWebhookService>();
+                var webhookService = services.GetRequiredService<IWebhookService>();
                 var serviceBotUser = await webhookService.SetDefaultAsync(cancellationToken);
 
                 BackOfficeInfoGauge
@@ -46,7 +46,7 @@ internal sealed class ConfigureWebhookHostedService(
                     ])
                     .Set(1);
 
-                var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+                var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
                 var bots = await dbContextProvider
                     .Bots
                     .GetAllAsync(cancellationToken);
@@ -68,10 +68,10 @@ internal sealed class ConfigureWebhookHostedService(
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
-        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
             {
-                var webhookService = asyncScope.ServiceProvider.GetRequiredService<IWebhookService>();
-                var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+                var webhookService = services.GetRequiredService<IWebhookService>();
+                var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
                 var bots = await dbContextProvider
                     .Bots
                     .GetAllAsync(cancellationToken);

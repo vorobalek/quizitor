@@ -43,9 +43,10 @@ internal sealed partial class CalculateRatingStageProcessing(
     {
         var timer = CalculateRatingStageHistogram.NewTimer();
         await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
+        var services = asyncScope.ServiceProvider;
         var shouldCollect = false;
 
-        var dbContext = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+        var dbContext = services.GetRequiredService<IDbContextProvider>();
 
         var sessions = await dbContext
             .Sessions
@@ -53,8 +54,8 @@ internal sealed partial class CalculateRatingStageProcessing(
 
         foreach (var session in sessions)
         {
-            var ratingShortStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingShortStageRedisStorage>();
-            var ratingFullStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingFullStageRedisStorage>();
+            var ratingShortStorage = services.GetRequiredService<IRatingShortStageRedisStorage>();
+            var ratingFullStorage = services.GetRequiredService<IRatingFullStageRedisStorage>();
 
             var oldRatingShort = await ratingShortStorage
                 .ReadAsync(

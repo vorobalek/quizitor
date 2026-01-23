@@ -9,7 +9,7 @@ public static class ServiceScopeFactoryExtensions
     extension(IServiceScopeFactory serviceScopeFactory)
     {
         public async Task ExecuteUnitOfWorkWithRetryAsync(
-            Func<AsyncServiceScope, Task> action,
+            Func<IServiceProvider, Task> action,
             CancellationToken cancellationToken,
             int maxRetryCount = 10,
             IsolationLevel isolationLevel = IsolationLevel.Snapshot)
@@ -19,14 +19,12 @@ public static class ServiceScopeFactoryExtensions
                 try
                 {
                     await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
-                    await using var transaction = await asyncScope.ServiceProvider.GetRequiredService<ApplicationDbContext>()
-                        .Database
-                        .BeginTransactionAsync(isolationLevel, cancellationToken);
-                    var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-
+                    var services = asyncScope.ServiceProvider;
+                    var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
                     dbContextProvider.ClearPostCommitTasks();
 
-                    await action(asyncScope);
+                    await using var transaction = await dbContextProvider.BeginTransactionAsync(isolationLevel, cancellationToken);
+                    await action(services);
                     await transaction.CommitAsync(cancellationToken);
 
                     await Task.WhenAll(dbContextProvider.PostCommitTasks.Select(x => x.Invoke()));

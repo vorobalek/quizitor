@@ -45,10 +45,11 @@ internal sealed partial class QuestionTimingStopEventProcessing(
     {
         var timer = QuestionTimingStopHistogram.NewTimer();
         await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
+        var services = asyncScope.ServiceProvider;
         var shouldCollect = false;
 
-        var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-        var timingStopKafkaProducer = asyncScope.ServiceProvider.GetRequiredService<IQuestionTimingStopKafkaProducer>();
+        var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
+        var timingStopKafkaProducer = services.GetRequiredService<IQuestionTimingStopKafkaProducer>();
         while (!cancellationToken.IsCancellationRequested)
         {
             var serverDateTime = await dbContextProvider.GetServerDateTimeOffsetAsync(cancellationToken);

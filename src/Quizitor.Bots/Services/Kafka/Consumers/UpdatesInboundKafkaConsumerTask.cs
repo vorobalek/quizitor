@@ -104,10 +104,10 @@ internal sealed class UpdatesInboundKafkaConsumerTask(
                    ]).NewTimer()
                    : BotsUpdateBackOfficeHistogram.WithLabels([updateContext.IsTest.ToString()]).NewTimer())
         {
-            await serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+            await serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
                 {
-                    var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-                    var updateService = asyncScope.ServiceProvider.GetRequiredService<IUpdateService>();
+                    var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
+                    var updateService = services.GetRequiredService<IUpdateService>();
 
                     if (botId.HasValue)
                     {
@@ -134,8 +134,9 @@ internal sealed class UpdatesInboundKafkaConsumerTask(
                 cancellationToken);
 
             await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
-            var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-            var telegramBotClientFactory = asyncScope.ServiceProvider.GetRequiredService<ITelegramBotClientFactory>();
+            var services = asyncScope.ServiceProvider;
+            var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
+            var telegramBotClientFactory = services.GetRequiredService<ITelegramBotClientFactory>();
             var telegramBotClient = botId.HasValue
                 ? await dbContextProvider.Bots.GetByIdOrDefaultAsync(botId.Value, cancellationToken) is { } bot
                     ? telegramBotClientFactory.CreateForBot(bot)

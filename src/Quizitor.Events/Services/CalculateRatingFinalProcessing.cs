@@ -42,9 +42,10 @@ internal sealed partial class CalculateRatingFinalProcessing(
     {
         var timer = CalculateRatingFinalHistogram.NewTimer();
         await using var asyncScope = serviceScopeFactory.CreateAsyncScope();
+        var services = asyncScope.ServiceProvider;
         var shouldCollect = false;
 
-        var dbContext = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+        var dbContext = services.GetRequiredService<IDbContextProvider>();
 
         var sessions = await dbContext
             .Sessions
@@ -54,10 +55,10 @@ internal sealed partial class CalculateRatingFinalProcessing(
         {
             if (!session.SyncRating) continue;
 
-            var ratingShortStageRedisStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingShortStageRedisStorage>();
-            var ratingFullStageRedisStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingFullStageRedisStorage>();
-            var ratingShortFinalRedisStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingShortFinalRedisStorage>();
-            var ratingFullFinalRedisStorage = asyncScope.ServiceProvider.GetRequiredService<IRatingFullFinalRedisStorage>();
+            var ratingShortStageRedisStorage = services.GetRequiredService<IRatingShortStageRedisStorage>();
+            var ratingFullStageRedisStorage = services.GetRequiredService<IRatingFullStageRedisStorage>();
+            var ratingShortFinalRedisStorage = services.GetRequiredService<IRatingShortFinalRedisStorage>();
+            var ratingFullFinalRedisStorage = services.GetRequiredService<IRatingFullFinalRedisStorage>();
 
             var stageRatingShort = await ratingShortStageRedisStorage
                 .ReadAsync(

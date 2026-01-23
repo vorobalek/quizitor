@@ -50,13 +50,13 @@ internal abstract class SlaSenderKafkaConsumerTask<TKey>(
         });
 
     protected override async Task PostProcessAsync(
-        AsyncServiceScope asyncScope,
+        IServiceProvider services,
         SenderContext senderContext,
         CancellationToken cancellationToken)
     {
         if (senderContext.UpdateContext.InitiatedAt.HasValue)
         {
-            var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+            var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
             var serverTime = await dbContextProvider.GetServerDateTimeOffsetAsync(cancellationToken);
             var totalSeconds = (serverTime - senderContext.UpdateContext.InitiatedAt.Value).TotalSeconds;
 

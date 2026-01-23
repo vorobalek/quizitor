@@ -79,12 +79,12 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
                    ]).NewTimer()
                    : BackOfficeHistogram.WithLabels([senderContext.UpdateContext.IsTest.ToString()]).NewTimer())
         {
-            await serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+            await serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
                 {
                     if (!senderContext.UpdateContext.IsTest)
                     {
-                        var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
-                        var httpClientFactory = asyncScope.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+                        var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
+                        var httpClientFactory = services.GetRequiredService<IHttpClientFactory>();
 
                         if (botId.HasValue)
                         {
@@ -112,7 +112,7 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
                     }
 
                     await PostProcessAsync(
-                        asyncScope,
+                        services,
                         senderContext,
                         cancellationToken);
                 },
@@ -149,7 +149,7 @@ internal abstract partial class DummySenderKafkaConsumerTask<TKey>(
     }
 
     protected virtual Task PostProcessAsync(
-        AsyncServiceScope asyncScope,
+        IServiceProvider serviceProvider,
         SenderContext senderContext,
         CancellationToken cancellationToken)
     {

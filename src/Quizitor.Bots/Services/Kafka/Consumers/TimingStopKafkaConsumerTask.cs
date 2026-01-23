@@ -44,9 +44,9 @@ internal sealed class TimingStopKafkaConsumerTask(
         var timingStopDto = JsonSerializer.Deserialize<QuestionTimingStopDto>(result.Message.Value);
         if (timingStopDto is null) return Task.CompletedTask;
 
-        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
             {
-                var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+                var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
                 if (await dbContextProvider
                         .QuestionTimings
                         .GetByIdOrDefaultAsync(
@@ -56,7 +56,7 @@ internal sealed class TimingStopKafkaConsumerTask(
                 var serverTime = await dbContextProvider.GetServerDateTimeOffsetAsync(cancellationToken);
                 if (timing.StopTime != null) return;
                 if (timing.StartTime >= serverTime) return;
-                var telegramBotClientFactory = asyncScope.ServiceProvider.GetRequiredService<ITelegramBotClientFactory>();
+                var telegramBotClientFactory = services.GetRequiredService<ITelegramBotClientFactory>();
                 var updateContext = new UpdateContext(null, new Update(), timingStopDto.InitiatedAt, false);
 
                 var question = await dbContextProvider

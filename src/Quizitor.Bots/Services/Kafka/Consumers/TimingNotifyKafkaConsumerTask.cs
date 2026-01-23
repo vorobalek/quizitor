@@ -41,9 +41,9 @@ internal sealed class TimingNotifyKafkaConsumerTask(
         var timingNotifyDto = JsonSerializer.Deserialize<QuestionTimingNotifyDto>(result.Message.Value);
         if (timingNotifyDto is null) return Task.CompletedTask;
 
-        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async asyncScope =>
+        return serviceScopeFactory.ExecuteUnitOfWorkWithRetryAsync(async services =>
             {
-                var dbContextProvider = asyncScope.ServiceProvider.GetRequiredService<IDbContextProvider>();
+                var dbContextProvider = services.GetRequiredService<IDbContextProvider>();
                 if (await dbContextProvider
                         .QuestionTimings
                         .GetByIdOrDefaultAsync(
@@ -63,7 +63,7 @@ internal sealed class TimingNotifyKafkaConsumerTask(
                 var delta = endTime - serverTime;
                 if (delta < TimeSpan.Zero) return;
 
-                var telegramBotClientFactory = asyncScope.ServiceProvider.GetRequiredService<ITelegramBotClientFactory>();
+                var telegramBotClientFactory = services.GetRequiredService<ITelegramBotClientFactory>();
                 var updateContext = new UpdateContext(null, new Update(), timingNotifyDto.InitiatedAt, false);
 
                 var participants = await dbContextProvider
