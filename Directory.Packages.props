@@ -14,7 +14,7 @@
         <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1"/>
         <PackageVersion Include="Sentry.AspNetCore" Version="6.0.0"/>
         <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1"/>
-        <PackageVersion Include="StackExchange.Redis" Version="2.10.14"/>
+        <PackageVersion Include="StackExchange.Redis" Version="2.11.0"/>
         <PackageVersion Include="Telegram.Bot" Version="22.9.0"/>
         <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0"/>
         <PackageVersion Include="TR.LPlus" Version="10.0.0-202511250658"/>
