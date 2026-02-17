@@ -204,6 +204,8 @@ public static class WebHostBuilderExtensions
         [Experimental("SENTRY0001")]
         public SentryStructuredLogger Logger => throw new NotImplementedException();
 
+        public SentryMetricEmitter Metrics => throw new NotImplementedException();
+
         public bool IsSessionActive => false;
     }
 }
