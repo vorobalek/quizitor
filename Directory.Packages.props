@@ -12,7 +12,7 @@
         <PackageVersion Include="MSTest" Version="4.3.2"/>
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3"/>
         <PackageVersion Include="prometheus-net.AspNetCore" Version="8.2.1"/>
-        <PackageVersion Include="Sentry.AspNetCore" Version="6.6.0"/>
+        <PackageVersion Include="Sentry.AspNetCore" Version="6.8.0"/>
         <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1"/>
         <PackageVersion Include="StackExchange.Redis" Version="3.0.17"/>
         <PackageVersion Include="Telegram.Bot" Version="22.10.1"/>
