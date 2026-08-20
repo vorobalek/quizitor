@@ -5,8 +5,10 @@ using Quizitor.Kafka;
 using Quizitor.Logging;
 using Quizitor.Sender.Configuration;
 using Quizitor.Sender.Services;
+using Telegram.Bot.Serialization;
 
 Metrics.SuppressDefaultMetrics();
+InputFileConverter.AllowLocalFilesUnder = AppConfiguration.WorkingDirectory;
 await Host
     .CreateDefaultBuilder(args)
     .ConfigureWebHostDefaults(builder => builder

@@ -64,31 +64,21 @@ internal sealed partial class SendPhotoKafkaConsumerTask(
         CancellationToken cancellationToken)
     {
         var request = JsonSerializerHelper.TryDeserialize<SendPhotoRequest>(content, JsonBotAPI.Options);
-        if (request is not
-            {
-                Photo: InputFileUrl
-                {
-                    Url:
-                    {
-                        IsFile: true
-                    } fileUrl
-                }
-            } ||
-            !File.Exists(fileUrl.AbsolutePath))
-            return;
+        if (request is not { Photo: InputFileStream { Content: { } photoStream } }) return;
 
-        await using var fileStream = File.OpenRead(fileUrl.AbsolutePath);
-        request.Photo = fileStream;
-        var client = new TelegramBotClient(botToken, httpClient, cancellationToken);
-        try
+        await using (photoStream)
         {
-            await client.SendRequest(request, cancellationToken);
-        }
-        catch (ApiRequestException exception)
-        {
-            LogAnExceptionOccurredWhileSendingAPhoto(logger, exception);
-            if (exception.ErrorCode == 429)
-                throw new RetryLaterExtension(1000, "429 status code has been found");
+            var client = new TelegramBotClient(botToken, httpClient, cancellationToken);
+            try
+            {
+                await client.SendRequest(request, cancellationToken);
+            }
+            catch (ApiRequestException exception)
+            {
+                LogAnExceptionOccurredWhileSendingAPhoto(logger, exception);
+                if (exception.ErrorCode == 429)
+                    throw new RetryLaterExtension(1000, "429 status code has been found");
+            }
         }
     }
 
