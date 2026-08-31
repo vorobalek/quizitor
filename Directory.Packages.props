@@ -19,6 +19,6 @@
         <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0"/>
         <PackageVersion Include="TR.LPlus" Version="10.0.0-202511250658"/>
         <PackageVersion Include="ZXing.Net" Version="0.16.11"/>
-        <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.22"/>
+        <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.24"/>
     </ItemGroup>
 </Project>

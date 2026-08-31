@@ -138,6 +138,7 @@ internal sealed class QrService : IQrService
                     textUp,
                     114f,
                     80f,
+                    SKTextAlign.Left,
                     font,
                     paint);
             }
@@ -148,6 +149,7 @@ internal sealed class QrService : IQrService
                     textDown,
                     114f,
                     980f,
+                    SKTextAlign.Left,
                     font,
                     paint);
             }
