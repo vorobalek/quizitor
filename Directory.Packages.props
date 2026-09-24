@@ -17,7 +17,7 @@
         <PackageVersion Include="Sentry.AspNetCore" Version="6.11.1"/>
         <PackageVersion Include="SkiaSharp" Version="$(SkiaSharpVersion)"/>
         <PackageVersion Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="$(SkiaSharpVersion)"/>
-        <PackageVersion Include="StackExchange.Redis" Version="3.2.1"/>
+        <PackageVersion Include="StackExchange.Redis" Version="3.3.1"/>
         <PackageVersion Include="Telegram.Bot" Version="22.10.3.1"/>
         <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0"/>
         <PackageVersion Include="TR.LPlus" Version="10.0.0-202511250658"/>
