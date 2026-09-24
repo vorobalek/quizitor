@@ -4,7 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      qr-code:
+        patterns:
+          - "SkiaSharp*"
+          - "ZXing.Net*"
   - package-ecosystem: "github-actions"
     directory: "/.github/workflows"
     schedule:
-      interval: "weekly" 
+      interval: "weekly"
