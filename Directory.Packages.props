@@ -3,7 +3,7 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
         <!-- Keep the managed library and native assets on the same SkiaSharp release. -->
-        <SkiaSharpVersion>4.151.1</SkiaSharpVersion>
+        <SkiaSharpVersion>4.153.1</SkiaSharpVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageVersion Include="Confluent.Kafka" Version="2.15.1"/>
