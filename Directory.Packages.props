@@ -3,7 +3,7 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
         <!-- Keep the managed library and native assets on the same SkiaSharp release. -->
-        <SkiaSharpVersion>4.151.1</SkiaSharpVersion>
+        <SkiaSharpVersion>4.154.0</SkiaSharpVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageVersion Include="Confluent.Kafka" Version="2.15.1"/>
@@ -22,6 +22,6 @@
         <PackageVersion Include="Telegram.Bot.AspNetCore" Version="22.5.0"/>
         <PackageVersion Include="TR.LPlus" Version="10.0.0-202511250658"/>
         <PackageVersion Include="ZXing.Net" Version="0.16.11"/>
-        <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.24"/>
+        <PackageVersion Include="ZXing.Net.Bindings.SkiaSharp" Version="0.16.25"/>
     </ItemGroup>
 </Project>
