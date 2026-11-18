@@ -13,6 +13,7 @@ internal sealed class SendPhotoKafkaProducer(IKafkaProducerFactory<long, string>
 
     protected override long GetKey(SendPhotoRequest request, UpdateContext updateContext)
     {
-        return request.ChatId.Identifier!.Value;
+        return request.ChatId?.Identifier
+               ?? throw new ArgumentException("A numeric chat ID is required for Kafka routing.", nameof(request));
     }
 }

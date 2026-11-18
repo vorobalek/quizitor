@@ -19,7 +19,7 @@ internal sealed class SendMessageKafkaProducer(IKafkaProducerFactory<long, strin
         CancellationToken cancellationToken,
         params int?[] botIds)
     {
-        var key = request.ChatId.Identifier!.Value;
+        var key = GetKey(request, updateContext);
         var content = JsonSerializer.Serialize(request, JsonBotAPI.Options);
         var message = JsonSerializer.Serialize(
             new SenderContext(
@@ -41,6 +41,7 @@ internal sealed class SendMessageKafkaProducer(IKafkaProducerFactory<long, strin
 
     protected override long GetKey(SendMessageRequest request, UpdateContext updateContext)
     {
-        return request.ChatId.Identifier!.Value;
+        return request.ChatId?.Identifier
+               ?? throw new ArgumentException("A numeric chat ID is required for Kafka routing.", nameof(request));
     }
 }
